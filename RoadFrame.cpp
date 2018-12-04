@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Run_time_Framework.h"
 
-#define MIN_ROAD 300
-#define MAX_ROAD 100
+#define MIN_ROAD 1200
+#define MAX_ROAD 1000
 
 GLvoid CRun_time_Framework::Create_Road() {
 	Road_Tree* temp;
@@ -57,6 +57,7 @@ GLvoid CRun_time_Framework::Draw_Road() {
 	glColor3f(0, 1, 0);
 
 	RoadFrame(120, main_road->road_length);
+	RoadFrame(120, -main_road->road_length);
 
 	if (main_road->Lroad != NULL) {
 		glPushMatrix();

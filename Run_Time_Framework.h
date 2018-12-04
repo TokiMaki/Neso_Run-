@@ -60,6 +60,10 @@ private:
 
 	Road_Tree* main_road;
 	Player player;
+	bool rotate_player;
+	int player_rotate_dir;
+	int rotate_camera;
+	int count;
 
 	int mod;
 
