@@ -5,12 +5,13 @@
 #define LEFT 3
 #define DOWN 2
 #define RIGHT 1
+#define RADIUS 5
 
 GLvoid CRun_time_Framework::Draw_Ball()
 {
 	glPushMatrix();
 
-	glTranslatef(player.x, player.y, player.z);
+	glTranslatef(player.x + (player.line * 30) , player.y, player.z);
 
 	GLUquadricObj *sphere = gluNewQuadric();
 
@@ -20,7 +21,7 @@ GLvoid CRun_time_Framework::Draw_Ball()
 	gluQuadricTexture(sphere, GL_TRUE);
 
 	// glBindTexture(GL_TEXTURE_2D, texture[1]);
-	gluSphere(sphere, 10, 20, 20);
+	gluSphere(sphere, RADIUS, 20, 20);
 	glEndList();
 	gluDeleteQuadric(sphere);
 
@@ -28,7 +29,7 @@ GLvoid CRun_time_Framework::Draw_Ball()
 }
 
 GLvoid CRun_time_Framework::Player_Update() {
-	if (!player.input_rotate || main_road->road_length + player.z > 60) {
+	if (!player.input_rotate || main_road->road_length + player.z > 0) {
 		player.z -= 5;
 	}
 	else {
@@ -45,6 +46,7 @@ GLvoid CRun_time_Framework::Player_Update() {
 				player.x = 0;
 				player.y = 0;
 				player.z = 0;
+				player.line = 0;
 			}
 		}
 
@@ -61,6 +63,7 @@ GLvoid CRun_time_Framework::Player_Update() {
 				player.x = 0;
 				player.y = 0;
 				player.z = 0;
+				player.line = 0;
 			}
 		}
 	}

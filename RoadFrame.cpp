@@ -3,7 +3,7 @@
 
 #define MIN_ROAD 1200
 #define MAX_ROAD 1000
-#define LOAD_WIDTH 120
+#define LOAD_WIDTH 60
 
 GLvoid CRun_time_Framework::Create_Road() {
 	Road_Tree* temp;

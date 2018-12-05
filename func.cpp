@@ -35,12 +35,13 @@ GLvoid CRun_time_Framework::shape_draw() {
 
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
+	/*
 	if (mod == 0) {
 		gluLookAt(camera.x, camera.y, camera_zoom, 0, 0, -100, sin(camera_z / 180 * pi), cos(camera_z / 180 * pi), 0.0);
 		glMultMatrixf(identity);
 	}
-	if (mod == 1)
-		gluLookAt(sin(pi / 180 * (player.camera_rotate)) * 100, player.y + 50, player.z + cos(pi / 180 * (player.camera_rotate)) * 100, 0, player.y, player.z, 0, 1, 0);
+	*/
+	gluLookAt((player.line * 30) + sin(pi / 180 * (player.camera_rotate)) * 20, 20, player.z + cos(pi / 180 * (player.camera_rotate)) * 20, (player.line * 30), player.y + 20, player.z, 0, 1, 0);
 
 
 	glPushMatrix();

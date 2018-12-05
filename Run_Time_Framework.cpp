@@ -38,7 +38,7 @@ GLvoid CRun_time_Framework::Reshape(int w, int h) {
 	glRotatef(vRotate.y, 0.f, 1.f, 0.f);
 	glRotatef(vRotate.z, 0.f, 0.f, 1.f);
 
-	glTranslatef(0, 0, -100);
+	//glTranslatef(0, 0, -100);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -188,12 +188,20 @@ GLvoid CRun_time_Framework::SpecialKeyboardDown(int key, int x, int y) {
 			player.input_rotate = true;
 			player.dir = 1;
 		}
+		else if (!player.input_rotate){
+			if (player.line > -1)
+				player.line -= 1;
+		}
 		break;
 
 	case GLUT_KEY_RIGHT:
 		if (NextRoadcheck(0)) {
 			player.input_rotate = true;
 			player.dir = 0;
+		}
+		else if (!player.input_rotate) {
+			if (player.line < 1)
+				player.line += 1;
 		}
 		break;
 
