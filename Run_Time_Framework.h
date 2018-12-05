@@ -1,7 +1,5 @@
 #pragma once
-#include <GL/freeglut.h>
-#include <math.h>
-#include <time.h>
+#include "Scene.h"
 
 #define pi 3.141592
 #define FPS_TIME 60
@@ -56,6 +54,10 @@ private:
 	C_Camera* m_pCamera{ nullptr };
 	int m_nWidth;
 	int m_nHeight;
+
+	CScene * arrScene[CScene::SceneTag::Scene_Count];
+	CScene * m_pCurrScene;
+
 	float camera_zoom = 0;
 	float camera_x = 0;
 	float camera_y = 0;
@@ -99,7 +101,9 @@ public:
 	using MouseMove = GLvoid(*)(int, int);
 	using Resize = GLvoid(*)(int, int);
 
-	// 콜백 함수
+	// Scene
+	void BuildScene();
+	void ChangeScene(CScene::SceneTag tag);
 
 	// 만든 함수
 	GLvoid vari_init();

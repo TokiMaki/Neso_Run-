@@ -7,6 +7,9 @@
 
 #include "targetver.h"
 
+#include <GL/freeglut.h>
+#include <math.h>
+#include <time.h>
 #include <stdio.h>
 #include <tchar.h>
 

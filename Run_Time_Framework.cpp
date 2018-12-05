@@ -1,11 +1,22 @@
 #include "stdafx.h"
 #include "Run_time_Framework.h"
 #include "C_Camera.h"
+#include "GamePlayScene.h"
 
 
 CRun_time_Framework* CRun_time_Framework::myself = nullptr;
 
 CRun_time_Framework::CRun_time_Framework() {
+}
+
+void CRun_time_Framework::BuildScene()
+{
+	arrScene[CScene::SceneTag::GamePlay] = new CGamePlayScene(CScene::SceneTag::GamePlay, this);
+}
+
+void CRun_time_Framework::ChangeScene(CScene::SceneTag tag)
+{
+	m_pCurrScene = arrScene[tag];
 }
 
 GLvoid CRun_time_Framework::draw() {
@@ -26,7 +37,8 @@ GLvoid CRun_time_Framework::Reshape(int w, int h) {
 	glLoadIdentity();
 	glViewport(0, 0, m_nWidth, m_nHeight);
 	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();	gluPerspective(60.0f, m_nWidth / m_nHeight, 1.0, 1000.0);
+	glLoadIdentity();
+	gluPerspective(60.0f, m_nWidth / m_nHeight, 1.0, 1000.0);
 
 	Vector3D vRotate = m_pCamera->GetCameraRotate();
 	Vector3D vEye = m_pCamera->GetCameraPos();
@@ -245,7 +257,6 @@ GLvoid CRun_time_Framework::Init() {
 
 }
 
-
 GLvoid CRun_time_Framework::Update() {
 	current_time = glutGet(GLUT_ELAPSED_TIME);
 	current_frame++;
@@ -263,7 +274,6 @@ GLvoid CRun_time_Framework::Update() {
 		glutPostRedisplay();
 	}
 }
-
 
 CRun_time_Framework::~CRun_time_Framework() {
 

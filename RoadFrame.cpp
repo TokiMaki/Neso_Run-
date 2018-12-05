@@ -122,27 +122,38 @@ GLvoid CRun_time_Framework::RoadFrame(float width, float length) {
 	glVertex3f(-width, 0, 0);
 	glVertex3f(width, 0, 0);
 	glVertex3f(width, 50, 0);
-	glEnd();	glBegin(GL_QUADS);
+	glEnd();
+
+	glBegin(GL_QUADS);
 	glVertex3f(width, 50, 0);
 	glVertex3f(width, 0, 0);
 	glVertex3f(width, 0, -length);
 	glVertex3f(width, 50, -length);
-	glEnd();	glBegin(GL_QUADS);
+	glEnd();
+
+	glBegin(GL_QUADS);
 	glVertex3f(width, 50, -length);
 	glVertex3f(width, 0, -length);
 	glVertex3f(-width, 0, -length);
 	glVertex3f(-width, 50, -length);
-	glEnd();	glBegin(GL_QUADS);
+	glEnd();
+
+
+	glBegin(GL_QUADS);
 	glVertex3f(-width, 50, -length);
 	glVertex3f(-width, 0, -length);
 	glVertex3f(-width, 0, 0);
 	glVertex3f(-width, 50, 0);
-	glEnd();	glBegin(GL_QUADS);
+	glEnd();
+
+	glBegin(GL_QUADS);
 	glVertex3f(-width, 50, -length);
 	glVertex3f(-width, 50, 0);
 	glVertex3f(width, 50, 0);
 	glVertex3f(width, 50, -length);
-	glEnd();	glBegin(GL_QUADS);
+	glEnd();
+
+	glBegin(GL_QUADS);
 	glVertex3f(-width, 0, 0);
 	glVertex3f(-width, 0, -length);
 	glVertex3f(width, 0, -length);
