@@ -2,7 +2,7 @@
 #include "Scene.h"
 
 #define pi 3.141592
-#define FPS_TIME 60
+#define FPS_TIME 60.0
 
 #define DIR_X 0x01	// 비트연산 동시키 입력
 #define DIR_Y 0x02	// 비트연산 동시키 입력
@@ -26,22 +26,6 @@
 #define FRAMETIME (current_time - Prevtime)
 
 class C_Camera;
-
-struct Road_Tree {
-	float road_length;
-	Road_Tree* Lroad;
-	Road_Tree* Rroad;
-	float temp;
-};
-
-struct Player {
-	float x, y, z;
-	int dir;		// 0 z--, 1 x--, 2 z++, 3 x++
-	int reserve_line;
-	int line;		// -1 왼쪽 0 가운데 1 오른쪽
-	bool input_rotate;
-	float camera_rotate;
-};
 
 struct Camera {
 	float x;
@@ -67,8 +51,6 @@ private:
 	GLfloat current_time;
 	GLint current_frame = 0;
 
-	Road_Tree* main_road;
-	Player player;
 	float count;
 
 	int mod;
@@ -106,12 +88,15 @@ public:
 	void ChangeScene(CScene::SceneTag tag);
 
 	// 만든 함수
-	GLvoid vari_init();
+	
 	GLvoid Key_Update();
+	GLvoid background(float r, float g, float b);
+
+	/*
 
 	GLvoid Draw_Ball();
 	GLvoid Create_Road();
-
+	GLvoid vari_init();
 
 	// RoadFrame.cpp
 	GLvoid RoadFrame(float width, float length);		// width는 수치가 2배로 들어감 ex) 60 넣으면 120의 넓이 함수안에 Push_PopMatrix() 가 붙어있지 않음
@@ -121,11 +106,12 @@ public:
 	GLvoid Player_Update();
 	GLvoid Player_Line_Updater();
 
-	GLvoid background(float r, float g, float b);
+	
 	GLvoid shape_draw();
 
 	bool Isin_Rect(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2);
 	bool NextRoadcheck(int dir);
+	*/
 
 private:
 	Idle m_fpidle{ nullptr };

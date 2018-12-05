@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Run_time_Framework.h"
+#include "GamePlayScene.h"
 
 #define UP 0
 #define LEFT 3
@@ -7,7 +7,7 @@
 #define RIGHT 1
 #define RADIUS 5
 
-GLvoid CRun_time_Framework::Draw_Ball()
+GLvoid CGamePlayScene::Draw_Ball()
 {
 	glPushMatrix();
 
@@ -28,7 +28,7 @@ GLvoid CRun_time_Framework::Draw_Ball()
 	glPopMatrix();
 }
 
-GLvoid CRun_time_Framework::Player_Line_Updater() {
+GLvoid CGamePlayScene::Player_Line_Updater() {
 	switch (player.reserve_line) {
 	case -1:
 		if (player.x > -30) {
@@ -60,7 +60,7 @@ GLvoid CRun_time_Framework::Player_Line_Updater() {
 	}
 }
 
-GLvoid CRun_time_Framework::Player_Update() {
+GLvoid CGamePlayScene::Player_Update(float frametime) {
 	if (!player.input_rotate) {
 		player.z -= 5;
 		Player_Line_Updater();
@@ -77,8 +77,8 @@ GLvoid CRun_time_Framework::Player_Update() {
 	else {
 		if (player.dir == 0) {
 			if (count > -90) {
-				count -= 90 / 200.f * FRAMETIME;
-				player.camera_rotate -= 90 / 200.f * FRAMETIME;
+				count -= 90 / 200.f * frametime;
+				player.camera_rotate -= 90 / 200.f * frametime;
 			}
 			else if (count <= -90) {
 				Create_Road();
@@ -92,8 +92,8 @@ GLvoid CRun_time_Framework::Player_Update() {
 
 		if (player.dir == 1) {
 			if (count < 90) {
-				count += 90 / 200.f * FRAMETIME;
-				player.camera_rotate += 90 / 200.f * FRAMETIME;
+				count += 90 / 200.f * frametime;
+				player.camera_rotate += 90 / 200.f * frametime;
 			}
 			else if (count >= 90) {
 				Create_Road();

@@ -1,15 +1,15 @@
 #include "stdafx.h"
-#include "Run_time_Framework.h"
+#include "GamePlayScene.h"
 
 #define MIN_ROAD 1200
-#define MAX_ROAD 1000
+#define MAX_ROAD 100
 #define LOAD_WIDTH 60
 
-GLvoid CRun_time_Framework::Create_Road() {
+GLvoid CGamePlayScene::Create_Road() {
 	Road_Tree* temp;
 	srand(time(NULL));
 	int road_random_temp = 0;
-	temp = main_road;
+
 	temp = (Road_Tree*)malloc(sizeof(Road_Tree));
 		
 	if (main_road != NULL) {
@@ -19,8 +19,8 @@ GLvoid CRun_time_Framework::Create_Road() {
 			temp->road_length = main_road->Rroad->road_length;
 	}
 
-	else if (main_road == NULL) {
-			temp->road_length = (rand() % MAX_ROAD) + MIN_ROAD;
+	else {
+		temp->road_length = (rand() % MAX_ROAD) + MIN_ROAD;
 	}
 		road_random_temp = rand() % 3;
 
@@ -67,10 +67,9 @@ GLvoid CRun_time_Framework::Create_Road() {
 		}
 
 		main_road = temp;
-
 }
 
-GLvoid CRun_time_Framework::Draw_Road() {
+GLvoid CGamePlayScene::Draw_Road() {
 	glPushMatrix();
 	glTranslatef(0, -75, 0);
 	glColor3f(0, 1, 0);
@@ -115,7 +114,7 @@ GLvoid CRun_time_Framework::Draw_Road() {
 	glPopMatrix();
 }
 
-GLvoid CRun_time_Framework::RoadFrame(float width, float length) {
+GLvoid CGamePlayScene::RoadFrame(float width, float length) {
 
 	glBegin(GL_QUADS);
 	glVertex3f(-width, 50, 0);

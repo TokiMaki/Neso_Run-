@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "Run_time_Framework.h"
+#include "GamePlayScene.h"
 
-bool CRun_time_Framework::NextRoadcheck(int dir) {
+bool CGamePlayScene::NextRoadcheck(int dir) {
 	if (main_road->road_length + player.z >= 240) {
 		return false;
 	}

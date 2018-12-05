@@ -1,76 +1,8 @@
 #include "stdafx.h"
 #include "Run_time_Framework.h"
+#include "GamePlayScene.h"
 
 #define pi 3.141592
-
-
-GLvoid CRun_time_Framework::background(float r, float g, float b) {
-	glClearColor(r, g, b, 1.0f); // 바탕색을 'blue' 로 지정
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // 설정된 색으로 전체를 칠하기
-}
-
-GLvoid CRun_time_Framework::vari_init() {
-
-	memset(identity, 0, sizeof(identity));
-	identity[0] = identity[5] = identity[10] = identity[15] = 1;		// 행렬 초기화
-
-	camera_zoom = 100;
-
-	camera.x = 0;
-	camera.y = 0;
-
-	camera_view = 0;
-	camera_move = 0;
-
-	main_road = NULL;
-
-	mod = 0;		// 카메라 모드를 바꾸는 것
-	player.dir = 0;
-	Create_Road();
-
-
-}
-
-GLvoid CRun_time_Framework::shape_draw() {
-
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	/*
-	if (mod == 0) {
-		gluLookAt(camera.x, camera.y, camera_zoom, 0, 0, -100, sin(camera_z / 180 * pi), cos(camera_z / 180 * pi), 0.0);
-		glMultMatrixf(identity);
-	}
-	*/
-	gluLookAt(player.x + sin(pi / 180 * (player.camera_rotate)) * 20, 20, player.z + cos(pi / 180 * (player.camera_rotate)) * 20, player.x, player.y + 20, player.z, 0, 1, 0);
-
-
-	glPushMatrix();
-	glColor3f(1, 0, 0);
-	Draw_Ball();
-	glPopMatrix();
-
-	glPushMatrix();
-
-	glColor3f(0.5, 0.5, 0.5);
-	Draw_Road();
-	glPopMatrix();
-
-
-	glPopMatrix();
-
-}
-
-
-
-bool CRun_time_Framework::Isin_Rect(int x1, int y1, int x2, int y2, int w1, int h1, int w2, int h2)
-{
-	if (x1 < w2 && y1 < h2 && x2 > w1 && y2 > h1)
-	{
-		return true;
-	}
-
-	return false;
-}
 
 GLvoid CRun_time_Framework::Key_Update() {
 
@@ -177,4 +109,59 @@ GLvoid CRun_time_Framework::Key_Update() {
 		camera.y -= 5;
 	}
 
+}
+
+GLvoid CRun_time_Framework::background(float r, float g, float b) {
+	glClearColor(r, g, b, 1.0f); // 바탕색을 'blue' 로 지정
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // 설정된 색으로 전체를 칠하기
+}
+
+GLvoid CGamePlayScene::vari_init() {
+
+	memset(identity, 0, sizeof(identity));
+	identity[0] = identity[5] = identity[10] = identity[15] = 1;		// 행렬 초기화
+
+	main_road = NULL;
+
+	player.dir = 0;
+	Create_Road();
+}
+
+GLvoid CGamePlayScene::shape_draw() {
+
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	/*
+	if (mod == 0) {
+		gluLookAt(camera.x, camera.y, camera_zoom, 0, 0, -100, sin(camera_z / 180 * pi), cos(camera_z / 180 * pi), 0.0);
+		glMultMatrixf(identity);
+	}
+	*/
+	gluLookAt(player.x + sin(pi / 180 * (player.camera_rotate)) * 20, 20, player.z + cos(pi / 180 * (player.camera_rotate)) * 20, player.x, player.y + 20, player.z, 0, 1, 0);
+
+
+	glPushMatrix();
+	glColor3f(1, 0, 0);
+	Draw_Ball();
+	glPopMatrix();
+
+	glPushMatrix();
+
+	glColor3f(0.5, 0.5, 0.5);
+	Draw_Road();
+	glPopMatrix();
+
+
+	glPopMatrix();
+
+}
+
+bool CGamePlayScene::Isin_Rect(int x1, int y1, int x2, int y2, int w1, int h1, int w2, int h2)
+{
+	if (x1 < w2 && y1 < h2 && x2 > w1 && y2 > h1)
+	{
+		return true;
+	}
+
+	return false;
 }

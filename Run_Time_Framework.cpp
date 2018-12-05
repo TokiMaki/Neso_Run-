@@ -7,6 +7,8 @@
 CRun_time_Framework* CRun_time_Framework::myself = nullptr;
 
 CRun_time_Framework::CRun_time_Framework() {
+	BuildScene();
+	ChangeScene(CScene::SceneTag::GamePlay);
 }
 
 void CRun_time_Framework::BuildScene()
@@ -20,10 +22,9 @@ void CRun_time_Framework::ChangeScene(CScene::SceneTag tag)
 }
 
 GLvoid CRun_time_Framework::draw() {
-	background(1.f, 1.f, 1.f);
-	glEnable(GL_DEPTH_TEST);
+	background(1, 1, 1);
 
-	shape_draw();
+	m_pCurrScene->Render();
 
 	glutSwapBuffers();
 	return GLvoid();
@@ -194,35 +195,7 @@ GLvoid CRun_time_Framework::KeyboardUp(unsigned char key, int x, int y) {
 }
 
 GLvoid CRun_time_Framework::SpecialKeyboardDown(int key, int x, int y) {
-	switch (key) {
-	case GLUT_KEY_LEFT:
-		if (NextRoadcheck(1)) {
-			player.input_rotate = true;
-			player.dir = 1;
-		}
-		else if (!player.input_rotate){
-			if (player.reserve_line > -1)
-				player.reserve_line -= 1;
-		}
-		break;
-
-	case GLUT_KEY_RIGHT:
-		if (NextRoadcheck(0)) {
-			player.input_rotate = true;
-			player.dir = 0;
-		}
-		else if (!player.input_rotate) {
-			if (player.reserve_line < 1)
-				player.reserve_line += 1;
-		}
-		break;
-
-	case GLUT_KEY_UP:
-		break;
-
-	case GLUT_KEY_DOWN:
-		break;
-	}
+	m_pCurrScene->SpecialKey_Events(key, x, y);
 }
 
 GLvoid CRun_time_Framework::Mouse(int button, int state, int x, int y) {
@@ -234,7 +207,7 @@ GLvoid CRun_time_Framework::Mouse(int button, int state, int x, int y) {
 
 GLvoid CRun_time_Framework::Init() {
 
-	vari_init();
+	//vari_init();
 
 	m_pCamera = new C_Camera();
 	m_pCamera->CameraReset();
@@ -254,24 +227,18 @@ GLvoid CRun_time_Framework::Init() {
 	glutSpecialFunc(m_fpSpecialKeyDown);
 	glutMouseFunc(m_fpMouse);
 	glutIdleFunc(m_fpidle);
-
 }
 
 GLvoid CRun_time_Framework::Update() {
 	current_time = glutGet(GLUT_ELAPSED_TIME);
 	current_frame++;
 
-	if (FRAMETIME > 1000 / FPS_TIME) {
-
-		Key_Update();
-		Player_Update();
-
-
+	if (FRAMETIME > 1000.0 / FPS_TIME) {
+		m_pCurrScene->Update(FRAMETIME);
 
 		Prevtime = current_time;
 		current_frame = 0;
 		Reshape(m_nWidth, m_nHeight);
-		glutPostRedisplay();
 	}
 }
 

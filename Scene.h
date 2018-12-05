@@ -15,9 +15,10 @@ public:
 	virtual ~CScene();
 
 	virtual void BuildObjects() = 0;
-	virtual void Update(GLint frame) = 0;
+	virtual void Update(float frametime) = 0;
 	virtual void Render() = 0;
 	virtual void Key_Events(unsigned key) = 0;
+	virtual void SpecialKey_Events(int key, int x, int y) = 0;
 
 protected:
 	SceneTag m_Tag;
