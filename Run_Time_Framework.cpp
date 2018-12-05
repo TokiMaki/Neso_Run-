@@ -189,8 +189,8 @@ GLvoid CRun_time_Framework::SpecialKeyboardDown(int key, int x, int y) {
 			player.dir = 1;
 		}
 		else if (!player.input_rotate){
-			if (player.line > -1)
-				player.line -= 1;
+			if (player.reserve_line > -1)
+				player.reserve_line -= 1;
 		}
 		break;
 
@@ -200,8 +200,8 @@ GLvoid CRun_time_Framework::SpecialKeyboardDown(int key, int x, int y) {
 			player.dir = 0;
 		}
 		else if (!player.input_rotate) {
-			if (player.line < 1)
-				player.line += 1;
+			if (player.reserve_line < 1)
+				player.reserve_line += 1;
 		}
 		break;
 
@@ -253,16 +253,13 @@ GLvoid CRun_time_Framework::Update() {
 	if (current_time - Prevtime > 1000 / FPS_TIME) {
 
 		Key_Update();
-
-		Prevtime = current_time;
-		current_frame = 0;
-		
-
 		Player_Update();
 
 
-		Reshape(m_nWidth, m_nHeight);
 
+		Prevtime = current_time;
+		current_frame = 0;
+		Reshape(m_nWidth, m_nHeight);
 		glutPostRedisplay();
 	}
 }

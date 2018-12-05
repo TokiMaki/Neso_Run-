@@ -11,7 +11,7 @@ GLvoid CRun_time_Framework::Draw_Ball()
 {
 	glPushMatrix();
 
-	glTranslatef(player.x + (player.line * 30) , player.y, player.z);
+	glTranslatef(player.x , player.y, player.z);
 
 	GLUquadricObj *sphere = gluNewQuadric();
 
@@ -28,42 +28,80 @@ GLvoid CRun_time_Framework::Draw_Ball()
 	glPopMatrix();
 }
 
-GLvoid CRun_time_Framework::Player_Update() {
-	if (!player.input_rotate || main_road->road_length + player.z > 0) {
-		player.z -= 5;
+GLvoid CRun_time_Framework::Player_Line_Updater() {
+	switch (player.reserve_line) {
+	case -1:
+		if (player.x > -30) {
+			player.x -= 5;
+		}
+		break;
+	case 0:
+		if (player.x > 0) {
+			player.x -= 5;
+		}
+		if (player.x < 0) {
+			player.x += 5;
+		}
+		break;
+	case 1:
+		if (player.x < 30) {
+			player.x += 5;
+		}
+		break;
 	}
+	if (player.x < -15) {
+		player.line = -1;
+	}
+	else if (player.x >= -15 && player.x <= 15) {
+		player.line = 0;
+	}
+	else if (player.x > 15) {
+		player.line = 1;
+	}
+}
+
+GLvoid CRun_time_Framework::Player_Update() {
+	if (!player.input_rotate) {
+		player.z -= 5;
+		Player_Line_Updater();
+	}
+	else if (main_road->road_length + player.z > (player.line * 30) && player.dir == 0) {
+		player.z -= 5;
+		Player_Line_Updater();
+	}
+	else if (main_road->road_length + player.z > -(player.line * 30) && player.dir == 1) {
+		player.z -= 5;
+		Player_Line_Updater();
+	}
+
 	else {
 		if (player.dir == 0) {
 			if (count > -90) {
-				count -= 5;
-				player.camera_rotate -= 5;
+				count -= 90 / 200.f * (current_time - Prevtime);
+				player.camera_rotate -= 90 / 200.f * (current_time - Prevtime);
 			}
 			else if (count <= -90) {
 				Create_Road();
 				player.camera_rotate = 0;
 				count = 0;
 				player.input_rotate = false;
-				player.x = 0;
 				player.y = 0;
 				player.z = 0;
-				player.line = 0;
 			}
 		}
 
 		if (player.dir == 1) {
 			if (count < 90) {
-				count += 5;
-				player.camera_rotate += 5;
+				count += 90 / 1000.f * (current_time - Prevtime);
+				player.camera_rotate += 90 / 1000.f * (current_time - Prevtime);
 			}
 			else if (count >= 90) {
 				Create_Road();
 				player.camera_rotate = 0;
 				count = 0;
 				player.input_rotate = false;
-				player.x = 0;
 				player.y = 0;
 				player.z = 0;
-				player.line = 0;
 			}
 		}
 	}

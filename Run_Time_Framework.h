@@ -37,6 +37,7 @@ struct Road_Tree {
 struct Player {
 	float x, y, z;
 	int dir;		// 0 z--, 1 x--, 2 z++, 3 x++
+	int reserve_line;
 	int line;		// -1 哭率 0 啊款单 1 坷弗率
 	bool input_rotate;
 	float camera_rotate;
@@ -64,7 +65,7 @@ private:
 
 	Road_Tree* main_road;
 	Player player;
-	int count;
+	float count;
 
 	int mod;
 
@@ -112,6 +113,7 @@ public:
 
 	// Player.cpp
 	GLvoid Player_Update();
+	GLvoid Player_Line_Updater();
 
 	GLvoid background(float r, float g, float b);
 	GLvoid shape_draw();

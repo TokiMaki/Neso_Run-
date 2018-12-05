@@ -2,7 +2,10 @@
 #include "Run_time_Framework.h"
 
 bool CRun_time_Framework::NextRoadcheck(int dir) {
-	if (main_road->road_length + player.z >= 120) {
+	if (main_road->road_length + player.z >= 240) {
+		return false;
+	}
+	else if (main_road->road_length + player.z <= 0) {
 		return false;
 	}
 	else {
