@@ -25,6 +25,8 @@
 #define Cameramv__X 0x04
 #define Cameramv__Y 0x08
 
+#define FRAMETIME (current_time - Prevtime)
+
 class C_Camera;
 
 struct Road_Tree {

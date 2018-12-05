@@ -77,8 +77,8 @@ GLvoid CRun_time_Framework::Player_Update() {
 	else {
 		if (player.dir == 0) {
 			if (count > -90) {
-				count -= 90 / 200.f * (current_time - Prevtime);
-				player.camera_rotate -= 90 / 200.f * (current_time - Prevtime);
+				count -= 90 / 200.f * FRAMETIME;
+				player.camera_rotate -= 90 / 200.f * FRAMETIME;
 			}
 			else if (count <= -90) {
 				Create_Road();
@@ -92,8 +92,8 @@ GLvoid CRun_time_Framework::Player_Update() {
 
 		if (player.dir == 1) {
 			if (count < 90) {
-				count += 90 / 1000.f * (current_time - Prevtime);
-				player.camera_rotate += 90 / 1000.f * (current_time - Prevtime);
+				count += 90 / 1000.f * FRAMETIME;
+				player.camera_rotate += 90 / 1000.f * FRAMETIME;
 			}
 			else if (count >= 90) {
 				Create_Road();

@@ -250,7 +250,7 @@ GLvoid CRun_time_Framework::Update() {
 	current_time = glutGet(GLUT_ELAPSED_TIME);
 	current_frame++;
 
-	if (current_time - Prevtime > 1000 / FPS_TIME) {
+	if (FRAMETIME > 1000 / FPS_TIME) {
 
 		Key_Update();
 		Player_Update();
