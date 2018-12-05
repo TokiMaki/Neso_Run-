@@ -184,13 +184,17 @@ GLvoid CRun_time_Framework::KeyboardUp(unsigned char key, int x, int y) {
 GLvoid CRun_time_Framework::SpecialKeyboardDown(int key, int x, int y) {
 	switch (key) {
 	case GLUT_KEY_LEFT:
-		player.input_rotate = true;
-		player.dir = 1;
+		if (NextRoadcheck(1)) {
+			player.input_rotate = true;
+			player.dir = 1;
+		}
 		break;
 
 	case GLUT_KEY_RIGHT:
-		player.input_rotate = true;
-		player.dir = 0;
+		if (NextRoadcheck(0)) {
+			player.input_rotate = true;
+			player.dir = 0;
+		}
 		break;
 
 	case GLUT_KEY_UP:
@@ -244,43 +248,10 @@ GLvoid CRun_time_Framework::Update() {
 
 		Prevtime = current_time;
 		current_frame = 0;
+		
 
-		if (!player.input_rotate) {
-			Player_Update();
-		}
-		else {
-			if (player.dir == 0) {
-				if (count > -90) {
-					count -= 5;
-					player.camera_rotate -= 5;
-				}
-				else if (count <= -90) {
-					Create_Road();
-					player.camera_rotate = 0;
-					count = 0;
-					player.input_rotate = false;
-					player.x = 0;
-					player.y = 0;
-					player.z = 0;
-				}
-			}
+		Player_Update();
 
-			if (player.dir == 1) {
-				if (count < 90) {
-					count += 5;
-					player.camera_rotate += 5;
-				}
-				else if (count >= 90) {
-					Create_Road();
-					player.camera_rotate = 0;
-					count = 0;
-					player.input_rotate = false;
-					player.x = 0;
-					player.y = 0;
-					player.z = 0;
-				}
-			}
-		}
 
 		Reshape(m_nWidth, m_nHeight);
 

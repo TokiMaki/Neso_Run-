@@ -3,6 +3,7 @@
 
 #define MIN_ROAD 1200
 #define MAX_ROAD 1000
+#define LOAD_WIDTH 120
 
 GLvoid CRun_time_Framework::Create_Road() {
 	Road_Tree* temp;
@@ -12,16 +13,16 @@ GLvoid CRun_time_Framework::Create_Road() {
 	temp = (Road_Tree*)malloc(sizeof(Road_Tree));
 		
 	if (main_road != NULL) {
-		if (player.dir == 1)
+		if (player.dir == 1 && main_road->Lroad != NULL)
 			temp->road_length = main_road->Lroad->road_length;
-		if (player.dir == 0)
+		if (player.dir == 0 && main_road->Rroad != NULL)
 			temp->road_length = main_road->Rroad->road_length;
 	}
 
-	if (main_road == NULL) {
+	else if (main_road == NULL) {
 			temp->road_length = (rand() % MAX_ROAD) + MIN_ROAD;
 	}
-		road_random_temp = rand() % 2;
+		road_random_temp = rand() % 3;
 
 		if (road_random_temp == 0) {
 
@@ -74,22 +75,22 @@ GLvoid CRun_time_Framework::Draw_Road() {
 	glTranslatef(0, -75, 0);
 	glColor3f(0, 1, 0);
 
-	RoadFrame(120, main_road->road_length);
-	RoadFrame(120, -main_road->road_length);
+	RoadFrame(LOAD_WIDTH, main_road->road_length);
+	RoadFrame(LOAD_WIDTH, -main_road->road_length);
 
 	if (main_road->Lroad != NULL) {
 		glPushMatrix();
 		glTranslatef(0, 0, -main_road->road_length);
-		glRotatef(-90, 0, 1, 0);
-		RoadFrame(120, main_road->Lroad->road_length);
+		glRotatef(90, 0, 1, 0);
+		RoadFrame(LOAD_WIDTH, main_road->Lroad->road_length);
 		//glutSolidCube(main_road->Lroad->road_length);
 		glPopMatrix();
 	}
 	else {
 		glPushMatrix();
 		glTranslatef(0, 0, -main_road->road_length);
-		glRotatef(-90, 0, 1, 0);
-		RoadFrame(120, 120);
+		glRotatef(90, 0, 1, 0);
+		RoadFrame(LOAD_WIDTH, LOAD_WIDTH);
 		//glutSolidCube(main_road->Lroad->road_length);
 		glPopMatrix();
 	}
@@ -97,16 +98,16 @@ GLvoid CRun_time_Framework::Draw_Road() {
 	if (main_road->Rroad != NULL) {
 		glPushMatrix();
 		glTranslatef(0, 0, -main_road->road_length);
-		glRotatef(90, 0, 1, 0);
-		RoadFrame(120, main_road->Rroad->road_length);
+		glRotatef(-90, 0, 1, 0);
+		RoadFrame(LOAD_WIDTH, main_road->Rroad->road_length);
 		//glutSolidCube(main_road->Rroad->road_length);
 		glPopMatrix();
 	}
 	else {
 		glPushMatrix();
 		glTranslatef(0, 0, -main_road->road_length);
-		glRotatef(90, 0, 1, 0);
-		RoadFrame(120, 120);
+		glRotatef(-90, 0, 1, 0);
+		RoadFrame(LOAD_WIDTH, LOAD_WIDTH);
 		//glutSolidCube(main_road->Lroad->road_length);
 		glPopMatrix();
 	}

@@ -40,7 +40,7 @@ GLvoid CRun_time_Framework::shape_draw() {
 		glMultMatrixf(identity);
 	}
 	if (mod == 1)
-		gluLookAt(player.x + sin(pi / 180 * (player.camera_rotate)) * 100, player.y + 50, player.z + cos(pi / 180 * (player.camera_rotate)) * 100, 0, player.y, player.z, 0, 1, 0);
+		gluLookAt(sin(pi / 180 * (player.camera_rotate)) * 100, player.y + 50, player.z + cos(pi / 180 * (player.camera_rotate)) * 100, 0, player.y, player.z, 0, 1, 0);
 
 
 	glPushMatrix();
@@ -59,26 +59,6 @@ GLvoid CRun_time_Framework::shape_draw() {
 
 }
 
-GLvoid CRun_time_Framework::Draw_Ball()
-{
-	glPushMatrix();
-
-	glTranslatef(player.x, player.y, player.z);
-
-	GLUquadricObj *sphere = gluNewQuadric();
-
-	//glRotatef(moon_degree, 0, 1, 0);
-
-	gluQuadricDrawStyle(sphere, GLU_FILL);
-	gluQuadricTexture(sphere, GL_TRUE);
-
-	// glBindTexture(GL_TEXTURE_2D, texture[1]);
-	gluSphere(sphere, 25, 20, 20);
-	glEndList();
-	gluDeleteQuadric(sphere);
-
-	glPopMatrix();
-}
 
 
 bool CRun_time_Framework::Isin_Rect(int x1, int y1, int x2, int y2, int w1, int h1, int w2, int h2)

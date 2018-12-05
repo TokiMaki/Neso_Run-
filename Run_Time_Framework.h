@@ -37,6 +37,7 @@ struct Road_Tree {
 struct Player {
 	float x, y, z;
 	int dir;		// 0 z--, 1 x--, 2 z++, 3 x++
+	int line;
 	bool input_rotate;
 	float camera_rotate;
 };
@@ -104,6 +105,7 @@ public:
 	GLvoid Draw_Ball();
 	GLvoid Create_Road();
 
+
 	// RoadFrame.cpp
 	GLvoid RoadFrame(float width, float length);		// width는 수치가 2배로 들어감 ex) 60 넣으면 120의 넓이 함수안에 Push_PopMatrix() 가 붙어있지 않음
 	GLvoid Draw_Road();
@@ -115,6 +117,7 @@ public:
 	GLvoid shape_draw();
 
 	bool Isin_Rect(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2);
+	bool NextRoadcheck(int dir);
 
 private:
 	Idle m_fpidle{ nullptr };
