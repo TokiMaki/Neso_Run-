@@ -10,21 +10,36 @@ GLvoid CRun_time_Framework::Create_Road() {
 	int road_random_temp = 0;
 	temp = main_road;
 	temp = (Road_Tree*)malloc(sizeof(Road_Tree));
+		
+	if (main_road != NULL) {
+		if (player.dir == 1)
+			temp->road_length = main_road->Lroad->road_length;
+		if (player.dir == 0)
+			temp->road_length = main_road->Rroad->road_length;
+	}
 
-		temp->road_length = (rand() % MAX_ROAD) + MIN_ROAD;
+	if (main_road == NULL) {
+			temp->road_length = (rand() % MAX_ROAD) + MIN_ROAD;
+	}
 		road_random_temp = rand() % 2;
-		road_random_temp = 1;
 
 		if (road_random_temp == 0) {
+
 			temp->Lroad = (Road_Tree*)malloc(sizeof(Road_Tree));
 			temp->Lroad->road_length = (rand() % MAX_ROAD) + MIN_ROAD;
+
 			temp->Rroad = NULL;
+
 		}
 
 		if (road_random_temp == 1) {
-			temp->Rroad = (Road_Tree*)malloc(sizeof(Road_Tree));
+
 			temp->Lroad = NULL;
+
+			temp->Rroad = (Road_Tree*)malloc(sizeof(Road_Tree));
 			temp->Rroad->road_length = (rand() % MAX_ROAD) + MIN_ROAD;
+
+
 		}
 
 		if (road_random_temp == 2) {
@@ -38,12 +53,15 @@ GLvoid CRun_time_Framework::Create_Road() {
 		}
 
 		if (main_road != NULL) {
+
 			if (main_road->Lroad != NULL) {
 				delete(main_road->Lroad);
 			}
+
 			if (main_road->Rroad != NULL) {
 				delete(main_road->Rroad);
 			}
+
 			delete(main_road);
 		}
 

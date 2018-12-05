@@ -31,11 +31,14 @@ struct Road_Tree {
 	float road_length;
 	Road_Tree* Lroad;
 	Road_Tree* Rroad;
+	float temp;
 };
 
 struct Player {
 	float x, y, z;
 	int dir;		// 0 z--, 1 x--, 2 z++, 3 x++
+	bool input_rotate;
+	float camera_rotate;
 };
 
 struct Camera {
@@ -60,9 +63,6 @@ private:
 
 	Road_Tree* main_road;
 	Player player;
-	bool rotate_player;
-	int player_rotate_dir;
-	int rotate_camera;
 	int count;
 
 	int mod;

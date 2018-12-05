@@ -26,8 +26,6 @@ GLvoid CRun_time_Framework::vari_init() {
 
 	mod = 0;		// 카메라 모드를 바꾸는 것
 	player.dir = 0;
-	rotate_player = false;
-	player_rotate_dir = 0;
 	Create_Road();
 
 
@@ -42,7 +40,7 @@ GLvoid CRun_time_Framework::shape_draw() {
 		glMultMatrixf(identity);
 	}
 	if (mod == 1)
-		gluLookAt(player.x + sin(pi / 180 * (rotate_camera)) * 100, player.y + 50, player.z + cos(pi / 180 * (rotate_camera)) * 100, player.x, player.y, player.z, 0, 1, 0);
+		gluLookAt(player.x + sin(pi / 180 * (player.camera_rotate)) * 100, player.y + 50, player.z + cos(pi / 180 * (player.camera_rotate)) * 100, 0, player.y, player.z, 0, 1, 0);
 
 
 	glPushMatrix();
