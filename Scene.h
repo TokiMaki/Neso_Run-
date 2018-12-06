@@ -6,6 +6,7 @@ class CScene
 {
 public:
 	enum SceneTag {
+		Title,
 		GamePlay,
 		Scene_Count
 	};
