@@ -25,6 +25,8 @@
 
 #define FRAMETIME (current_time - Prevtime)
 
+enum Message { dummy, Charsel, GamePlay, GameOver, Exit};
+
 class C_Camera;
 
 struct Camera {
@@ -54,6 +56,8 @@ private:
 	float count;
 
 	int mod;
+
+	GLboolean GameMessage{ dummy };
 
 	GLfloat identity[16];
 
@@ -92,26 +96,6 @@ public:
 	GLvoid Key_Update();
 	GLvoid background(float r, float g, float b);
 
-	/*
-
-	GLvoid Draw_Ball();
-	GLvoid Create_Road();
-	GLvoid vari_init();
-
-	// RoadFrame.cpp
-	GLvoid RoadFrame(float width, float length);		// width는 수치가 2배로 들어감 ex) 60 넣으면 120의 넓이 함수안에 Push_PopMatrix() 가 붙어있지 않음
-	GLvoid Draw_Road();
-
-	// Player.cpp
-	GLvoid Player_Update();
-	GLvoid Player_Line_Updater();
-
-	
-	GLvoid shape_draw();
-
-	bool Isin_Rect(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2);
-	bool NextRoadcheck(int dir);
-	*/
 
 private:
 	Idle m_fpidle{ nullptr };
@@ -133,4 +117,5 @@ public:
 	void RegisterMouseMove(MouseMove func) { m_fpMouseMove = func; }
 	void RegisterResize(Resize func) { m_fpReshape = func; }
 
+	void MessagePass(Message msg) { GameMessage = msg; };
 };

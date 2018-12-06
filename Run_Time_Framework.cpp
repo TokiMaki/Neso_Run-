@@ -2,6 +2,7 @@
 #include "Run_time_Framework.h"
 #include "C_Camera.h"
 #include "GamePlayScene.h"
+#include "TitleScene.h"
 
 
 CRun_time_Framework* CRun_time_Framework::myself = nullptr;
@@ -13,7 +14,7 @@ CRun_time_Framework::CRun_time_Framework() {
 
 void CRun_time_Framework::BuildScene()
 {
-	arrScene[CScene::SceneTag::Title] = new CGamePlayScene(CScene::SceneTag::Title, this);
+	arrScene[CScene::SceneTag::Title] = new TitleScene(CScene::SceneTag::Title, this);
 	arrScene[CScene::SceneTag::GamePlay] = new CGamePlayScene(CScene::SceneTag::GamePlay, this);
 }
 
@@ -233,6 +234,14 @@ GLvoid CRun_time_Framework::Init() {
 GLvoid CRun_time_Framework::Update() {
 	current_time = glutGet(GLUT_ELAPSED_TIME);
 	current_frame++;
+
+	switch (GameMessage)
+	{
+	case GamePlay:
+		GameMessage = dummy;
+		ChangeScene(CScene::GamePlay);
+		break;
+	}
 
 	if (FRAMETIME > 1000.0 / FPS_TIME) {
 		m_pCurrScene->Update(FRAMETIME);

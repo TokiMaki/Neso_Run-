@@ -21,6 +21,7 @@ void TitleScene::BuildObjects()
 void TitleScene::Render()
 {
 
+	glutWireCube(100);
 }
 
 GLvoid TitleScene::Update(float frametime) {
@@ -30,7 +31,7 @@ GLvoid TitleScene::Update(float frametime) {
 GLvoid TitleScene::SpecialKey_Events(int key, int x, int y) {
 	switch (key) {
 	case GLUT_KEY_LEFT:
-		
+		m_pFramework->MessagePass(Message::GamePlay);
 		break;
 
 	case GLUT_KEY_RIGHT:
