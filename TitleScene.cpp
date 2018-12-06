@@ -30,6 +30,7 @@ GLvoid TitleScene::Update(float frametime) {
 GLvoid TitleScene::SpecialKey_Events(int key, int x, int y) {
 	switch (key) {
 	case GLUT_KEY_LEFT:
+		
 		break;
 
 	case GLUT_KEY_RIGHT:

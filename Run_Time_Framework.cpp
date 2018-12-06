@@ -13,6 +13,7 @@ CRun_time_Framework::CRun_time_Framework() {
 
 void CRun_time_Framework::BuildScene()
 {
+	arrScene[CScene::SceneTag::Title] = new CGamePlayScene(CScene::SceneTag::Title, this);
 	arrScene[CScene::SceneTag::GamePlay] = new CGamePlayScene(CScene::SceneTag::GamePlay, this);
 }
 
