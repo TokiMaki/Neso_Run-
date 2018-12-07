@@ -25,6 +25,7 @@ public:
 	Road_Tree* Lroad = nullptr;
 	Road_Tree* Rroad = nullptr;
 	void ObstaclePushBack(int kind, float y, float z) { obstacle.push_back({ kind, y, z }); }
+	void ObstacleClear() { obstacle.clear(); }
 	std::list <Obstacle> GetObstacleList() const { return obstacle; }
 };
 

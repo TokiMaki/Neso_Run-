@@ -47,6 +47,9 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 		if (player.x > -30) {
 			player.x -= player.speed * frametime;
 		}
+		if (player.x <= -30) {
+			player.x = -30;
+		}
 		break;
 	case 0:
 		if (player.x > 0) {
@@ -59,6 +62,9 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 	case 1:
 		if (player.x < 30) {
 			player.x += player.speed * frametime;
+			if (player.x >= 30) {
+				player.x = 30;
+			}
 		}
 		break;
 	}
@@ -105,7 +111,7 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 				player.camera_rotate = 0;
 				count = 0;
 				player.input_rotate = false;
-				player.z = 0;
+				player.z = -(player.line * 30);
 			}
 		}
 
@@ -119,7 +125,7 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 				player.camera_rotate = 0;
 				count = 0;
 				player.input_rotate = false;
-				player.z = 0;
+				player.z = (player.line * 30);
 			}
 		}
 	}

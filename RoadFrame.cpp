@@ -15,10 +15,19 @@ GLvoid CGamePlayScene::Create_Road() {
 	temp = new(Road_Tree);
 		
 	if (main_road) {
-		if (player.dir == 1 && main_road->Lroad != nullptr)
+		if (player.dir == 1 && main_road->Lroad != nullptr) {
 			temp->road_length = main_road->Lroad->road_length;
-		if (player.dir == 0 && main_road->Rroad != nullptr)
+			for (Obstacle &i : main_road->Lroad->GetObstacleList()) {
+				temp->ObstaclePushBack(i.kind, i.y, i.z);
+			}
+		}
+			
+		if (player.dir == 0 && main_road->Rroad != nullptr) {
 			temp->road_length = main_road->Rroad->road_length;
+			for (Obstacle &i : main_road->Rroad->GetObstacleList()) {
+				temp->ObstaclePushBack(i.kind, i.y, i.z);
+			}
+		}
 	}
 
 	else {
@@ -30,6 +39,7 @@ GLvoid CGamePlayScene::Create_Road() {
 
 			temp->Lroad = new(Road_Tree);
 			temp->Lroad->road_length = uid(dre);
+			temp->Lroad->ObstacleClear();
 
 			temp->Rroad = nullptr;
 
@@ -41,6 +51,7 @@ GLvoid CGamePlayScene::Create_Road() {
 
 			temp->Rroad = new(Road_Tree);
 			temp->Rroad->road_length = uid(dre);
+			temp->Rroad->ObstacleClear();
 
 
 		}
@@ -49,22 +60,24 @@ GLvoid CGamePlayScene::Create_Road() {
 
 			temp->Lroad = new(Road_Tree);
 			temp->Lroad->road_length = uid(dre);
+			temp->Lroad->ObstacleClear();
 
 			temp->Rroad = new(Road_Tree);
 			temp->Rroad->road_length = uid(dre);
+			temp->Rroad->ObstacleClear();
 
 		}
 		if (main_road) {
 
 			if (main_road->Lroad) {
-				free(main_road->Lroad);
+				delete(main_road->Lroad);
 			}
 
 			if (main_road->Rroad) {
-				free(main_road->Rroad);
+				delete(main_road->Rroad);
 			}
 
-			free(main_road);
+			delete(main_road);
 		}
 
 		main_road = temp;
@@ -76,25 +89,29 @@ GLvoid CGamePlayScene::Create_Obstacle() {
 	std::uniform_int_distribution<> uid2(0, 3);
 
 	float temp = 0;
-	if (main_road) {
+
+	if ((main_road->GetObstacleList().size()) <= 0) {
+		printf("메인비엇다");
+	}
+	if (main_road && main_road->GetObstacleList().size() <= 0) {
 		main_road->GetObstacleList().clear();
 		while(temp < main_road->road_length - 400){
 			temp += uid(dre);
 			main_road->ObstaclePushBack(uid2(dre), 0, temp);
 		}
-		if (main_road->Lroad) {
-			temp = 0;
-			while (temp < main_road->road_length - 400) {
-				temp += uid(dre);
-				main_road->Lroad->ObstaclePushBack(uid2(dre), 0, temp);
-			}
+	}
+	if (main_road->Lroad && main_road->Lroad->GetObstacleList().size() <= 0) {
+		temp = 0;
+		while (temp < main_road->road_length - 400) {
+			temp += uid(dre);
+			main_road->Lroad->ObstaclePushBack(uid2(dre), 0, temp);
 		}
-		if (main_road->Rroad) {
-			temp = 0;
-			while (temp < main_road->road_length - 400) {
-				temp += uid(dre);
-				main_road->Rroad->ObstaclePushBack(uid2(dre), 0, temp);
-			}
+	}
+	if (main_road->Rroad && main_road->Rroad->GetObstacleList().size() <= 0) {
+		temp = 0;
+		while (temp < main_road->road_length - 400) {
+			temp += uid(dre);
+			main_road->Rroad->ObstaclePushBack(uid2(dre), 0, temp);
 		}
 	}
 }
@@ -112,10 +129,28 @@ GLvoid CGamePlayScene::Draw_Obstacle() {
 				glPopMatrix();
 		}
 		if (main_road->Lroad) {
-			
+			for (Obstacle &i : main_road->Lroad->GetObstacleList()) {
+				glPushMatrix(); {
+					glColor3f(1, 0, 0);
+					glTranslatef(0, 0, -main_road->road_length);
+					glRotatef(90, 0, 1, 0);
+					glTranslatef(0, 50, -i.z);
+					ObstacleFrame(i.kind, 60, 2.5);
+				}
+				glPopMatrix();
+			}
 		}
 		if (main_road->Rroad) {
-
+			for (Obstacle &i : main_road->Rroad->GetObstacleList()) {
+				glPushMatrix(); {
+					glColor3f(1, 0, 0);
+					glTranslatef(0, 0, -main_road->road_length);
+					glRotatef(-90, 0, 1, 0);
+					glTranslatef(0, 50, -i.z);
+					ObstacleFrame(i.kind, 60, 2.5);
+				}
+				glPopMatrix();
+			}
 		}
 	}
 }
