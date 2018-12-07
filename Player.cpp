@@ -41,24 +41,24 @@ GLvoid CGamePlayScene::Draw_Ball()
 	glPopMatrix();
 }
 
-GLvoid CGamePlayScene::Player_Line_Updater() {
+GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 	switch (player.reserve_line) {
 	case -1:
 		if (player.x > -30) {
-			player.x -= 5;
+			player.x -= player.speed * frametime;
 		}
 		break;
 	case 0:
 		if (player.x > 0) {
-			player.x -= 5;
+			player.x -= player.speed * frametime;
 		}
 		if (player.x < 0) {
-			player.x += 5;
+			player.x += player.speed * frametime;
 		}
 		break;
 	case 1:
 		if (player.x < 30) {
-			player.x += 5;
+			player.x += player.speed * frametime;
 		}
 		break;
 	}
@@ -76,20 +76,20 @@ GLvoid CGamePlayScene::Player_Line_Updater() {
 GLvoid CGamePlayScene::Player_Update(float frametime) {
 
 	if (!player.input_rotate) {
-		player.z -= 5;
-		Player_Line_Updater();
+		player.z -= player.speed * frametime;
+		Player_Line_Updater(frametime);
 		Player_Jump(frametime);
 		Player_Silde(frametime);
 	}
 	else if (main_road->road_length + player.z > (player.line * 30) && player.dir == 0) {
-		player.z -= 5;
-		Player_Line_Updater();
+		player.z -= player.speed * frametime;
+		Player_Line_Updater(frametime);
 		Player_Jump(frametime);
 		Player_Silde(frametime);
 	}
 	else if (main_road->road_length + player.z > -(player.line * 30) && player.dir == 1) {
-		player.z -= 5;
-		Player_Line_Updater();
+		player.z -= player.speed * frametime;
+		Player_Line_Updater(frametime);
 		Player_Jump(frametime);
 		Player_Silde(frametime);
 	}
@@ -174,8 +174,8 @@ GLvoid CGamePlayScene::Player_Jump(float frametime) {
 
 		if (player.y < 30) {
 			player.y += player.jump_gravity * frametime;
-			player.jump_gravity -= ((80 / 300.f) / 300.f) * frametime;
-			if (player.jump_gravity < (60 / 300.f) / 2.f) {
+			player.jump_gravity -= ((player.speed) / 300.f) * frametime;
+			if (player.jump_gravity < (player.speed / 4.f * 3.f) / 2.f) {
 				player.state = State::Jump;
 			}
 		}
@@ -189,13 +189,13 @@ GLvoid CGamePlayScene::Player_Jump(float frametime) {
 	if (player.reserve_state == State::Idle) {
 		if (player.y > 0) {
 			player.y -= player.jump_gravity * frametime;
-			player.jump_gravity += ((80 / 300.f) / 300.f) * frametime;
-			if (player.jump_gravity > (60 / 300.f) / 2.f) {
+			player.jump_gravity += ((player.speed) / 300.f) * frametime;
+			if (player.jump_gravity > (player.speed / 4.f * 3.f) / 2.f) {
 				player.state = State::Jump;
 			}
 			if (player.y <= 0) {
 				player.y = 0;
-				player.jump_gravity = 60 / 300.f;
+				player.jump_gravity = player.speed / 4.f * 3.f;
 			}
 		}
 	}

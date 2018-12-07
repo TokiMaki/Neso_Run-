@@ -21,11 +21,12 @@ struct Player {
 	int dir = 0;				// 哭率 1 坷弗率 0
 	int reserve_line = 0;		// -1 哭率 0 啊款单 1 坷弗率
 	int line = 0;				// -1 哭率 0 啊款单 1 坷弗率
+	float speed = 300 / 1000.f;
 	bool input_rotate = false;
 	float camera_rotate = 0;
 	State reserve_state = Idle;
 	State state = Idle;
-	float jump_gravity = 60 / 300.f;
+	float jump_gravity = ((300 / 1000.f) / 4.f) * 3.f;
 	float timer = 0;
 };
 
@@ -55,7 +56,7 @@ public:
 
 	// Player.cpp
 	GLvoid Player_Update(float frametime);
-	GLvoid Player_Line_Updater();
+	GLvoid Player_Line_Updater(float frametime);
 	GLvoid Player_KeyDown_Updater(int key);
 	GLvoid Player_Jump(float frametime);
 	GLvoid Player_Silde(float frametime);
