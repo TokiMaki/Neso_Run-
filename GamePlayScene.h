@@ -3,19 +3,23 @@
 #include <list>
 #include <random>
 
+
 struct Obstacle {
 	int kind;
 	float y;
 	float z;
 };
 
-struct Road_Tree {
+
+class Road_Tree {
+private:
+	std::list <Obstacle> obstacle;
+public:
 	float road_length = 0;
 	Road_Tree* Lroad = nullptr;
 	Road_Tree* Rroad = nullptr;
-
-	std::list <Obstacle> obstacle{};
-	Road_Tree() { obstacle.clear(); }
+	void ObstaclePushBack(int kind, float y, float z) { obstacle.push_back({ kind, y, z }); }
+	std::list <Obstacle> GetObstacleList() const { return obstacle; }
 };
 
 enum State {
@@ -42,6 +46,10 @@ struct Player {
 
 class CGamePlayScene : public CScene {
 public:
+
+	std::random_device rd;
+	std::default_random_engine dre;
+
 	CGamePlayScene(SceneTag tag, CRun_time_Framework * pFramework);
 	~CGamePlayScene();
 
@@ -62,9 +70,11 @@ public:
 	GLvoid Draw_Road();
 	GLvoid Create_Road();
 	GLvoid Create_Obstacle();
+	GLvoid Draw_Obstacle();
+	GLvoid ObstacleFrame(int kind, float width, float length);
 
 	// Player.cpp
-	GLvoid Draw_Ball();
+	GLvoid Draw_Player();
 	GLvoid Player_Update(float frametime);
 	GLvoid Player_Line_Updater(float frametime);
 	GLvoid Player_KeyDown_Updater(int key);
@@ -75,6 +85,7 @@ public:
 
 	bool Isin_Rect(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2);
 	bool NextRoadcheck(int dir);
+
 private:
 
 	Road_Tree* main_road;

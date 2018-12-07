@@ -76,6 +76,7 @@ private:
 	unsigned char camera_move = 0;	// 비트연산 동시키 입력
 
 public:
+
 	CRun_time_Framework();
 	~CRun_time_Framework();
 

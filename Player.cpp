@@ -10,7 +10,7 @@
 
 #define ROTATE_PER_SEC 90 / (1000.f / 5.f)
 
-GLvoid CGamePlayScene::Draw_Ball()
+GLvoid CGamePlayScene::Draw_Player()
 {
 	glPushMatrix();
 
