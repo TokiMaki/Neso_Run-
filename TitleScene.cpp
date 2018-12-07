@@ -23,39 +23,58 @@ void TitleScene::Render()
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 
-	gluLookAt(0, 0, 500, 0, 0, -500, 0, 1, 0);
+	gluLookAt(0, 0, 678, 0, 0, -800, 0, 1, 0);
 
 	// 텍스처 매핑 활성화 
 	glEnable(GL_TEXTURE_2D);
 
-	glEnable(GL_BLEND);
+	
 	glDisable(GL_DEPTH_TEST);
 
-	glBlendFunc(GL_DST_COLOR, GL_ZERO);
-	//glBindTexture(GL_TEXTURE_2D, titleTex[1]);
+	glPushMatrix();
+	glTranslatef(0, 100, 0);
+
+	glEnable(GL_BLEND);
+	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_texture(m_Tag, 0));
 	glBegin(GL_QUADS);
 	glTexCoord2f(1, 1);
-	glVertex2f(100, 100);
+	glVertex2f(400, 400);
 	glTexCoord2f(0, 1);
-	glVertex2f(-100, 100);
+	glVertex2f(-400, 400);
 	glTexCoord2f(0, 0);
-	glVertex2f(-100, -100);
+	glVertex2f(-400, -400);
 	glTexCoord2f(1, 0);
-	glVertex2f(100, -100);
+	glVertex2f(400, -400);
+	glEnd();
+
+
+	glBlendFunc(GL_DST_COLOR, GL_ZERO);
+	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_texture(m_Tag, 1));
+	glBegin(GL_QUADS);
+	glTexCoord2f(1, 1);
+	glVertex2f(400, 400);
+	glTexCoord2f(0, 1);
+	glVertex2f(-400, 400);
+	glTexCoord2f(0, 0);
+	glVertex2f(-400, -400);
+	glTexCoord2f(1, 0);
+	glVertex2f(400, -400);
 	glEnd();
 
 	glBlendFunc(GL_ONE, GL_ONE);
-	//glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_texture(m_Tag, 0));
 	glBegin(GL_QUADS);
 	glTexCoord2f(1, 1);
-	glVertex2f(100, 100);
+	glVertex2f(400, 400);
 	glTexCoord2f(0, 1);
-	glVertex2f(-100, 100);
+	glVertex2f(-400, 400);
 	glTexCoord2f(0, 0);
-	glVertex2f(-100, -100);
+	glVertex2f(-400, -400);
 	glTexCoord2f(1, 0);
-	glVertex2f(100, -100);
+	glVertex2f(400, -400);
 	glEnd();
+
+	glPopMatrix();
 
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);

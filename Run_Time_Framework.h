@@ -101,6 +101,7 @@ public:
 	GLvoid background(float r, float g, float b);
 	GLubyte * LoadDIBitmap(const char *filename, BITMAPINFO ** info);
 	GLvoid set_texture();
+	GLint get_texture(CScene::SceneTag tag, int num);
 
 
 private:

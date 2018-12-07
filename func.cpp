@@ -280,3 +280,9 @@ GLvoid CRun_time_Framework::set_texture()
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	return GLvoid();
 }
+
+GLint CRun_time_Framework::get_texture(CScene::SceneTag tag, int num)
+{
+	if (tag == CScene::SceneTag::Title)
+		return titleTex[num];
+}
