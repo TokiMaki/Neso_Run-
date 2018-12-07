@@ -176,7 +176,7 @@ GLvoid TitleScene::Update(float frametime) {
 GLvoid TitleScene::SpecialKey_Events(int key, int x, int y) {
 	switch (key) {
 	case GLUT_KEY_LEFT:
-		m_pFramework->MessagePass(Message::GamePlay);
+		
 		break;
 
 	case GLUT_KEY_RIGHT:
@@ -196,6 +196,9 @@ void TitleScene::Mouse_Events(int button, int state, int x, int y)
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
 		if (MouseonBtn[0] == true)
 			m_pFramework->MessagePass(Message::GamePlay);
+		else if (MouseonBtn[1] == true) {
+			m_pFramework->MessagePass(Message::Exit);
+		}
 	}
 }
 

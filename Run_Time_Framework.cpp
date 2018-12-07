@@ -248,6 +248,9 @@ GLvoid CRun_time_Framework::Update() {
 		GameMessage = dummy;
 		ChangeScene(CScene::GamePlay);
 		break;
+	case Exit:
+		glutLeaveMainLoop();
+		break;
 	}
 
 	if (FRAMETIME > 1000.0 / FPS_TIME) {
