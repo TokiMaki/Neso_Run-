@@ -80,6 +80,7 @@ public:
 	GLvoid KeyboardUp(unsigned char key, int x, int y);
 	GLvoid SpecialKeyboardDown(int key, int x, int y);
 	GLvoid Mouse(int button, int state, int x, int y);
+	GLvoid PassiveMotion(int x, int y);
 	GLvoid Update();
 	GLvoid Init();
 

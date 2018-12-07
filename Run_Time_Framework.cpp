@@ -207,6 +207,12 @@ GLvoid CRun_time_Framework::Mouse(int button, int state, int x, int y) {
 	return GLvoid();
 }
 
+GLvoid CRun_time_Framework::PassiveMotion(int x, int y)
+{
+	m_pCurrScene->PassiveMotion_Events(x, y);
+	return GLvoid();
+}
+
 GLvoid CRun_time_Framework::Init() {
 
 	//vari_init();
@@ -228,6 +234,7 @@ GLvoid CRun_time_Framework::Init() {
 	glutKeyboardUpFunc(m_fpKeyboardUp);
 	glutSpecialFunc(m_fpSpecialKeyDown);
 	glutMouseFunc(m_fpMouse);
+	glutPassiveMotionFunc(m_fpMouseMove);
 	glutIdleFunc(m_fpidle);
 
 	set_texture();

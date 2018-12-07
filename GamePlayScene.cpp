@@ -67,3 +67,7 @@ GLvoid CGamePlayScene::SpecialKey_Events(int key, int x, int y) {
 	}
 }
 
+void CGamePlayScene::PassiveMotion_Events(int x, int y)
+{
+}
+

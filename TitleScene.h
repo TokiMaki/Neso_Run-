@@ -13,11 +13,12 @@ public:
 	void Update(float frametime) override;
 	void Key_Events(unsigned key) override {};
 	void SpecialKey_Events(int key, int x, int y) override;
+	void PassiveMotion_Events(int x, int y) override;
 
 	// 만든 함수
 
 
 private:
-
+	bool MouseonBtn[2];
 	GLfloat identity[16];
 };

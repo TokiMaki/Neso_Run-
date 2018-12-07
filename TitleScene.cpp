@@ -16,6 +16,8 @@ TitleScene::~TitleScene()
 
 void TitleScene::BuildObjects()
 {
+	MouseonBtn[0] = false;
+	MouseonBtn[1] = false;
 }
 
 void TitleScene::Render()
@@ -88,6 +90,8 @@ void TitleScene::Render()
 	// 시작 버튼
 	{
 		float size = 140;
+		if (MouseonBtn[0] == true)
+			size = 180;
 		glPushMatrix();
 		glTranslatef(0, -80, 0);
 
@@ -122,6 +126,8 @@ void TitleScene::Render()
 	// 종료버튼
 	{
 		float size = 140;
+		if (MouseonBtn[1] == true)
+			size = 180;
 		glPushMatrix();
 		glTranslatef(0, -250, 0);
 
@@ -183,5 +189,9 @@ GLvoid TitleScene::SpecialKey_Events(int key, int x, int y) {
 	case GLUT_KEY_DOWN:
 		break;
 	}
+}
+
+void TitleScene::PassiveMotion_Events(int x, int y)
+{
 }
 
