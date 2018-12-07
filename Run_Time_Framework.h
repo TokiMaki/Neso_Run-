@@ -53,7 +53,7 @@ private:
 	GLfloat current_time;
 	GLint current_frame = 0;
 
-	GLuint titleTex[4];		//텍스처 이름
+	GLuint titleTex[5];		//텍스처 이름
 	GLubyte *pBytes;				// 데이터를 가리킬 포인터
 	BITMAPINFO *info;				// 비트맵 헤더 저장할 변수
 

@@ -231,7 +231,7 @@ GLubyte * CRun_time_Framework::LoadDIBitmap(const char *filename, BITMAPINFO ** 
 GLvoid CRun_time_Framework::set_texture()
 {
 	// n개의 이미지 텍스처 매핑을 한다.
-	glGenTextures(4, titleTex);
+	glGenTextures(5, titleTex);
 
 	//텍스처와 객체를 결합한다. --- (1) 
 	glBindTexture(GL_TEXTURE_2D, titleTex[0]);
@@ -272,6 +272,15 @@ GLvoid CRun_time_Framework::set_texture()
 
 	glBindTexture(GL_TEXTURE_2D, titleTex[3]);
 	pBytes = LoadDIBitmap("texture/ui/titleBtn_mask.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+	glBindTexture(GL_TEXTURE_2D, titleTex[4]);
+	pBytes = LoadDIBitmap("texture/character/character001.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

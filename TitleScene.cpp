@@ -28,8 +28,29 @@ void TitleScene::Render()
 	// 텍스처 매핑 활성화 
 	glEnable(GL_TEXTURE_2D);
 
-	glEnable(GL_BLEND);
+
 	glDisable(GL_DEPTH_TEST);
+	// 백그라운드
+	{
+		glPushMatrix();
+
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_texture(m_Tag, 4));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
+		glVertex2f(400, 400);
+		glTexCoord2f(0, 1);
+		glVertex2f(-400, 400);
+		glTexCoord2f(0, 0);
+		glVertex2f(-400, -400);
+		glTexCoord2f(1, 0);
+		glVertex2f(400, -400);
+		glEnd();
+
+		glPopMatrix();
+	}
+
+	glEnable(GL_BLEND);
 
 	// 로고
 	{
