@@ -228,13 +228,13 @@ GLubyte * CRun_time_Framework::LoadDIBitmap(const char *filename, BITMAPINFO ** 
 	return bits;
 }
 
-GLvoid CRun_time_Framework::set_texture()
+GLvoid CRun_time_Framework::set_TitleTexture()
 {
 	// n개의 이미지 텍스처 매핑을 한다.
-	glGenTextures(5, titleTex);
+	glGenTextures(5, TitleTex);
 
 	//텍스처와 객체를 결합한다. --- (1) 
-	glBindTexture(GL_TEXTURE_2D, titleTex[0]);
+	glBindTexture(GL_TEXTURE_2D, TitleTex[0]);
 
 	//이미지 로딩을 한다. --- (2) 
 	pBytes = LoadDIBitmap("texture/ui/logo.bmp", &info);
@@ -252,7 +252,7 @@ GLvoid CRun_time_Framework::set_texture()
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 	// 나머지 n-1개의 텍스처에도 (1) ~ (4)까지의 과정을 진행하여 텍스처를 설정한다.
-	glBindTexture(GL_TEXTURE_2D, titleTex[1]);
+	glBindTexture(GL_TEXTURE_2D, TitleTex[1]);
 	pBytes = LoadDIBitmap("texture/ui/logo_mask.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -261,7 +261,7 @@ GLvoid CRun_time_Framework::set_texture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-	glBindTexture(GL_TEXTURE_2D, titleTex[2]);
+	glBindTexture(GL_TEXTURE_2D, TitleTex[2]);
 	pBytes = LoadDIBitmap("texture/ui/titleBtn.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -270,7 +270,7 @@ GLvoid CRun_time_Framework::set_texture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-	glBindTexture(GL_TEXTURE_2D, titleTex[3]);
+	glBindTexture(GL_TEXTURE_2D, TitleTex[3]);
 	pBytes = LoadDIBitmap("texture/ui/titleBtn_mask.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -279,7 +279,7 @@ GLvoid CRun_time_Framework::set_texture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-	glBindTexture(GL_TEXTURE_2D, titleTex[4]);
+	glBindTexture(GL_TEXTURE_2D, TitleTex[4]);
 	pBytes = LoadDIBitmap("texture/character/character001.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -290,8 +290,49 @@ GLvoid CRun_time_Framework::set_texture()
 	return GLvoid();
 }
 
-GLint CRun_time_Framework::get_texture(CScene::SceneTag tag, int num)
+GLvoid CRun_time_Framework::set_CharSelTexture()
 {
-	if (tag == CScene::SceneTag::Title)
-		return titleTex[num];
+	// n개의 이미지 텍스처 매핑을 한다.
+	glGenTextures(2, CharSelTex);
+
+	//텍스처와 객체를 결합한다. --- (1) 
+	glBindTexture(GL_TEXTURE_2D, CharSelTex[0]);
+
+	//이미지 로딩을 한다. --- (2) 
+	pBytes = LoadDIBitmap("texture/ui/charSel.bmp", &info);
+
+	//텍스처 설정 정의를 한다. --- (3) 
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	//텍스처 파라미터 설정 --- (4) 
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	// 텍스처 모드 설정 
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+	// 나머지 n-1개의 텍스처에도 (1) ~ (4)까지의 과정을 진행하여 텍스처를 설정한다.
+	glBindTexture(GL_TEXTURE_2D, CharSelTex[1]);
+	pBytes = LoadDIBitmap("texture/ui/charSel_mask.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	return GLvoid();
+}
+
+GLint CRun_time_Framework::get_textureID(CScene::SceneTag tag, int num)
+{
+	switch (tag) {
+	case CScene::SceneTag::Title:
+		return TitleTex[num];
+		break;
+	case CScene::SceneTag::CharSel:
+		return CharSelTex[num];
+		break;
+	}
 }

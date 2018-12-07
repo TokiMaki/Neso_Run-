@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CharSelScene.cpp" />
     <ClCompile Include="C_Camera.cpp" />
     <ClCompile Include="func.cpp" />
     <ClCompile Include="GamePlayScene.cpp" />
@@ -34,6 +35,7 @@
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CharSelScene.h" />
     <ClInclude Include="C_Camera.h" />
     <ClInclude Include="GamePlayScene.h" />
     <ClInclude Include="Run_Time_Framework.h" />

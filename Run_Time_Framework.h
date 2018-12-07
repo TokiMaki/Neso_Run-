@@ -25,7 +25,7 @@
 
 #define FRAMETIME (current_time - Prevtime)
 
-enum Message { dummy, Charsel, GamePlay, GameOver, Exit};
+enum Message { dummy, Title, Charsel, GamePlay, GameOver, Exit};
 
 class C_Camera;
 
@@ -53,7 +53,10 @@ private:
 	GLfloat current_time;
 	GLint current_frame = 0;
 
-	GLuint titleTex[5];		//텍스처 이름
+	GLuint TitleTex[5];		//텍스처 이름
+	GLuint CharSelTex[2];
+	GLuint CharacterTex[9];
+
 	GLubyte *pBytes;				// 데이터를 가리킬 포인터
 	BITMAPINFO *info;				// 비트맵 헤더 저장할 변수
 
@@ -101,8 +104,9 @@ public:
 	GLvoid Key_Update();
 	GLvoid background(float r, float g, float b);
 	GLubyte * LoadDIBitmap(const char *filename, BITMAPINFO ** info);
-	GLvoid set_texture();
-	GLint get_texture(CScene::SceneTag tag, int num);
+	GLvoid set_TitleTexture();
+	GLvoid set_CharSelTexture();
+	GLint get_textureID(CScene::SceneTag tag, int num);
 
 
 private:

@@ -3,6 +3,7 @@
 #include "C_Camera.h"
 #include "GamePlayScene.h"
 #include "TitleScene.h"
+#include "CharSelScene.h"
 
 
 CRun_time_Framework* CRun_time_Framework::myself = nullptr;
@@ -15,6 +16,7 @@ CRun_time_Framework::CRun_time_Framework() {
 void CRun_time_Framework::BuildScene()
 {
 	arrScene[CScene::SceneTag::Title] = new TitleScene(CScene::SceneTag::Title, this);
+	arrScene[CScene::SceneTag::CharSel] = new CharSelScene(CScene::SceneTag::CharSel, this);
 	arrScene[CScene::SceneTag::GamePlay] = new CGamePlayScene(CScene::SceneTag::GamePlay, this);
 }
 
@@ -235,7 +237,8 @@ GLvoid CRun_time_Framework::Init() {
 	glutPassiveMotionFunc(m_fpMouseMove);
 	glutIdleFunc(m_fpidle);
 
-	set_texture();
+	set_TitleTexture();
+	set_CharSelTexture();
 }
 
 GLvoid CRun_time_Framework::Update() {
@@ -244,6 +247,10 @@ GLvoid CRun_time_Framework::Update() {
 
 	switch (GameMessage)
 	{
+	case Charsel:
+		GameMessage = dummy;
+		ChangeScene(CScene::CharSel);
+		break;
 	case GamePlay:
 		GameMessage = dummy;
 		ChangeScene(CScene::GamePlay);
