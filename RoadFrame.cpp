@@ -123,7 +123,6 @@ GLvoid CGamePlayScene::Draw_Obstacle() {
 GLvoid CGamePlayScene::Draw_Road() {
 	glPushMatrix();
 	glTranslatef(0, -55, 0);
-	printf("±æ±×·ÁÁü");
 	Draw_Obstacle();
 	glColor3f(0, 1, 0);
 

@@ -57,9 +57,12 @@ private:
 	GLuint TitleTex[5];		//텍스처 이름
 	GLuint CharSelTex[3];
 	GLuint CharacterTex[10];
+	GLuint IngameObjTex[2];
 
 	GLubyte *pBytes;				// 데이터를 가리킬 포인터
 	BITMAPINFO *info;				// 비트맵 헤더 저장할 변수
+
+	GLubyte *Pixmap;
 
 	float count;
 
@@ -107,11 +110,17 @@ public:
 	GLvoid Key_Update();
 	GLvoid background(float r, float g, float b);
 	GLubyte * LoadDIBitmap(const char *filename, BITMAPINFO ** info);
+
 	GLvoid set_TitleTexture();
 	GLvoid set_CharSelTexture();
 	GLvoid set_CharacterTexture();
+	GLvoid set_IngameObjTexture();
+	GLvoid set_Pixmap();
+
 	GLint get_UItextureID(CScene::SceneTag tag, int num);
 	GLint get_ChartextureID(int num);
+	GLint get_IngameObjID(int num);
+	GLubyte * get_Pixmap();
 
 	GLvoid set_charID(int id);
 	GLint get_charID();

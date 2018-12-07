@@ -10,6 +10,12 @@ struct Obstacle {
 	float z;
 };
 
+struct Coin {
+	int kind;
+	float y;
+	float z;
+};
+
 
 class Road_Tree {
 private:

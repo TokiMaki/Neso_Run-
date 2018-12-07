@@ -237,6 +237,8 @@ GLvoid CRun_time_Framework::Init() {
 	set_TitleTexture();
 	set_CharSelTexture();
 	set_CharacterTexture();
+	set_IngameObjTexture();
+	set_Pixmap();
 }
 
 GLvoid CRun_time_Framework::Update() {
