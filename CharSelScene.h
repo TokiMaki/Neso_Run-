@@ -17,9 +17,10 @@ public:
 	void PassiveMotion_Events(int x, int y) override;
 
 	// 만든 함수
-
+	GLvoid Draw_Character();
 
 private:
 	bool MouseonBtn[3];
+	float degree;
 	GLfloat identity[16];
 };

@@ -11,6 +11,7 @@ CharSelScene::CharSelScene(SceneTag tag, CRun_time_Framework * pFramework)
 	MouseonBtn[0] = false;
 	MouseonBtn[1] = false;
 	MouseonBtn[2] = false;
+	degree = 0;
 }
 
 CharSelScene::~CharSelScene()
@@ -204,14 +205,18 @@ void CharSelScene::Render()
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
 
+	Draw_Character();
+
 	glDisable(GL_TEXTURE_2D);
-	glDisable(GL_LIGHTING);
+
 
 	glPopMatrix();
 }
 
 GLvoid CharSelScene::Update(float frametime) {
-
+	degree += 0.1 * frametime;
+	if (degree > 360)
+		degree -= 360;
 }
 
 GLvoid CharSelScene::SpecialKey_Events(int key, int x, int y) {
@@ -257,4 +262,23 @@ void CharSelScene::PassiveMotion_Events(int x, int y)
 	if (x >= 260 && x <= 540 && y >= 610 && y <= 750)
 		MouseonBtn[2] = true;
 	else MouseonBtn[2] = false;
+}
+
+GLvoid CharSelScene::Draw_Character()
+{
+	glPushMatrix();
+
+
+	GLUquadricObj *sphere = gluNewQuadric();
+
+	gluQuadricDrawStyle(sphere, GLU_FILL);
+	gluQuadricTexture(sphere, GL_TRUE);
+
+	glRotatef(degree, 0, 1, 0);
+	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_ChartextureID(m_pFramework->get_charID()));
+	gluSphere(sphere, 100, 20, 20);
+	glEndList();
+	gluDeleteQuadric(sphere);
+
+	glPopMatrix();
 }
