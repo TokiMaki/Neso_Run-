@@ -286,7 +286,7 @@ GLvoid CRun_time_Framework::set_IngameObjTexture()
 	glBindTexture(GL_TEXTURE_2D, IngameObjTex[0]);
 
 	//이미지 로딩을 한다. --- (2) 
-	pBytes = LoadDIBitmap("texture/object/road.bmp", &info);
+	pBytes = LoadDIBitmap("texture/object/grass.bmp", &info);
 
 	//텍스처 설정 정의를 한다. --- (3) 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
@@ -299,6 +299,23 @@ GLvoid CRun_time_Framework::set_IngameObjTexture()
 
 	// 텍스처 모드 설정 
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+	// 나머지 n-1개의 텍스처에도 (1) ~ (4)까지의 과정을 진행하여 텍스처를 설정한다.
+	glBindTexture(GL_TEXTURE_2D, IngameObjTex[1]);
+	pBytes = LoadDIBitmap("texture/object/soil.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	return GLvoid();
+}
+
+GLvoid CRun_time_Framework::set_Pixmap()
+{
+	BITMAPINFO * l_bitinfo;
+	Pixmap = LoadDIBitmap("texture/ui/Pixmap.bmp", &l_bitinfo);
 	return GLvoid();
 }
 
@@ -322,4 +339,9 @@ GLint CRun_time_Framework::get_ChartextureID(int num)
 GLint CRun_time_Framework::get_IngameObjID(int num)
 {
 	return IngameObjTex[num];
+}
+
+GLubyte * CRun_time_Framework::get_Pixmap()
+{
+	return Pixmap;
 }
