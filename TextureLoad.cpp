@@ -277,6 +277,31 @@ GLvoid CRun_time_Framework::set_CharacterTexture()
 	return GLvoid();
 }
 
+GLvoid CRun_time_Framework::set_IngameObjTexture()
+{
+	// n개의 이미지 텍스처 매핑을 한다.
+	glGenTextures(1, IngameObjTex);
+
+	//텍스처와 객체를 결합한다. --- (1) 
+	glBindTexture(GL_TEXTURE_2D, IngameObjTex[0]);
+
+	//이미지 로딩을 한다. --- (2) 
+	pBytes = LoadDIBitmap("texture/object/road.bmp", &info);
+
+	//텍스처 설정 정의를 한다. --- (3) 
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	//텍스처 파라미터 설정 --- (4) 
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	// 텍스처 모드 설정 
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	return GLvoid();
+}
+
 GLint CRun_time_Framework::get_UItextureID(CScene::SceneTag tag, int num)
 {
 	switch (tag) {
@@ -292,4 +317,9 @@ GLint CRun_time_Framework::get_UItextureID(CScene::SceneTag tag, int num)
 GLint CRun_time_Framework::get_ChartextureID(int num)
 {
 	return CharacterTex[num];
+}
+
+GLint CRun_time_Framework::get_IngameObjID(int num)
+{
+	return IngameObjTex[num];
 }
