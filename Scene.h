@@ -20,6 +20,7 @@ public:
 	virtual void Render() = 0;
 	virtual void Key_Events(unsigned key) = 0;
 	virtual void SpecialKey_Events(int key, int x, int y) = 0;
+	virtual void Mouse_Events(int button, int state, int x, int y) = 0;
 	virtual void PassiveMotion_Events(int x, int y) = 0;
 
 protected:

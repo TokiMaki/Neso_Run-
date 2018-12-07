@@ -201,9 +201,7 @@ GLvoid CRun_time_Framework::SpecialKeyboardDown(int key, int x, int y) {
 }
 
 GLvoid CRun_time_Framework::Mouse(int button, int state, int x, int y) {
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-
-	}
+	m_pCurrScene->Mouse_Events(button, state, x, y);
 	return GLvoid();
 }
 

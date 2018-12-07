@@ -191,6 +191,10 @@ GLvoid TitleScene::SpecialKey_Events(int key, int x, int y) {
 	}
 }
 
+void TitleScene::Mouse_Events(int button, int state, int x, int y)
+{
+}
+
 void TitleScene::PassiveMotion_Events(int x, int y)
 {
 	if (x >= 260 && x <= 540 && y >= 390 && y <= 530)
