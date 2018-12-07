@@ -17,7 +17,7 @@ void CRun_time_Framework::BuildScene()
 {
 	arrScene[CScene::SceneTag::Title] = new TitleScene(CScene::SceneTag::Title, this);
 	arrScene[CScene::SceneTag::CharSel] = new CharSelScene(CScene::SceneTag::CharSel, this);
-	//arrScene[CScene::SceneTag::GamePlay] = new CGamePlayScene(CScene::SceneTag::GamePlay, this);
+	arrScene[CScene::SceneTag::GamePlay] = new CGamePlayScene(CScene::SceneTag::GamePlay, this);
 }
 
 void CRun_time_Framework::ChangeScene(CScene::SceneTag tag)
@@ -251,7 +251,6 @@ GLvoid CRun_time_Framework::Update() {
 		break;
 	case GamePlay:
 		GameMessage = dummy;
-		arrScene[CScene::SceneTag::GamePlay] = new CGamePlayScene(CScene::SceneTag::GamePlay, this);
 		ChangeScene(CScene::GamePlay);
 		break;
 	case Exit:

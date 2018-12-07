@@ -7,7 +7,12 @@ CGamePlayScene::CGamePlayScene(SceneTag tag, CRun_time_Framework * pFramework)
 	m_Tag = tag;
 	m_pFramework = pFramework;
 
-	vari_init();
+	static bool basic_init = false;
+
+	if (!basic_init) {
+		vari_init();
+		basic_init = true;
+	}
 }
 
 CGamePlayScene::~CGamePlayScene()
@@ -39,7 +44,6 @@ GLvoid CGamePlayScene::SpecialKey_Events(int key, int x, int y) {
 	case GLUT_KEY_LEFT:
 		printf("left\n");
 		if (NextRoadcheck(1)) {
-			printf("left in\n");
 			player.input_rotate = true;
 			player.dir = 1;
 		}
@@ -52,7 +56,6 @@ GLvoid CGamePlayScene::SpecialKey_Events(int key, int x, int y) {
 	case GLUT_KEY_RIGHT:
 		printf("right\n");
 		if (NextRoadcheck(0)) {
-			printf("right in\n");
 			player.input_rotate = true;
 			player.dir = 0;
 		}

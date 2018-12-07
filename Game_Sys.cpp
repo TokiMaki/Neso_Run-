@@ -2,10 +2,10 @@
 #include "GamePlayScene.h"
 
 bool CGamePlayScene::NextRoadcheck(int dir) {
-	if (main_road->road_length + player.z >= 210) {
+	if (main_road->road_length + player.z >= 240) {
 		return false;
 	}
-	else if (main_road->road_length + player.z < 30 && player.dir == 0) {
+	else if (main_road->road_length + player.z <= 0) {
 		return false;
 	}
 	else {

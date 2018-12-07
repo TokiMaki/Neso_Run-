@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "GamePlayScene.h"
-#include "Run_Time_Framework.h"
 
 #define UP 0
 #define LEFT 3
@@ -12,23 +11,19 @@ GLvoid CGamePlayScene::Draw_Ball()
 {
 	glPushMatrix();
 
-	glColor3f(1, 1, 1);
 	glTranslatef(player.x , player.y, player.z);
 
 	GLUquadricObj *sphere = gluNewQuadric();
 
-	glRotatef(player.camera_rotate + 90, 0, 1, 0);
-	glRotatef(player.z, 0, 0, 1);
+	//glRotatef(moon_degree, 0, 1, 0);
 
-	glEnable(GL_TEXTURE_2D);
 	gluQuadricDrawStyle(sphere, GLU_FILL);
 	gluQuadricTexture(sphere, GL_TRUE);
 
-	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_ChartextureID(m_pFramework->get_charID()));
+	// glBindTexture(GL_TEXTURE_2D, texture[1]);
 	gluSphere(sphere, RADIUS, 20, 20);
 	glEndList();
 	gluDeleteQuadric(sphere);
-	glDisable(GL_TEXTURE_2D);
 
 	glPopMatrix();
 }

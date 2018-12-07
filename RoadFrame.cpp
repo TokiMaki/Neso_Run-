@@ -71,7 +71,7 @@ GLvoid CGamePlayScene::Create_Road() {
 
 GLvoid CGamePlayScene::Draw_Road() {
 	glPushMatrix();
-	glTranslatef(0, -55, 0);
+	glTranslatef(0, -75, 0);
 	glColor3f(0, 1, 0);
 
 	RoadFrame(LOAD_WIDTH, main_road->road_length);

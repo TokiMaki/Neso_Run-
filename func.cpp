@@ -122,8 +122,9 @@ GLvoid CGamePlayScene::vari_init() {
 	identity[0] = identity[5] = identity[10] = identity[15] = 1;		// 행렬 초기화
 
 	main_road = NULL;
-	count = 0;
 
+	player.dir = 0;
+	count = 0;
 	Create_Road();
 }
 
@@ -137,15 +138,17 @@ GLvoid CGamePlayScene::shape_draw() {
 		glMultMatrixf(identity);
 	}
 	*/
-	gluLookAt(player.x + sin(pi / 180 * (player.camera_rotate)) * 50, 20, player.z + cos(pi / 180 * (player.camera_rotate)) * 50, player.x, player.y + 20, player.z, 0, 1, 0);
+	gluLookAt(player.x + sin(pi / 180 * (player.camera_rotate)) * 20, 20, player.z + cos(pi / 180 * (player.camera_rotate)) * 20, player.x, player.y + 20, player.z, 0, 1, 0);
 
 
 	glPushMatrix();
+	glColor3f(1, 0, 0);
 	Draw_Ball();
 	glPopMatrix();
 
 	glPushMatrix();
 
+	glColor3f(0.5, 0.5, 0.5);
 	Draw_Road();
 	glPopMatrix();
 
