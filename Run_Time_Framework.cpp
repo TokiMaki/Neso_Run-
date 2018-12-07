@@ -214,9 +214,6 @@ GLvoid CRun_time_Framework::PassiveMotion(int x, int y)
 }
 
 GLvoid CRun_time_Framework::Init() {
-
-	//vari_init();
-
 	m_pCamera = new C_Camera();
 	m_pCamera->CameraReset();
 
@@ -239,6 +236,7 @@ GLvoid CRun_time_Framework::Init() {
 
 	set_TitleTexture();
 	set_CharSelTexture();
+	set_CharacterTexture();
 }
 
 GLvoid CRun_time_Framework::Update() {

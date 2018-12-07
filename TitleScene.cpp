@@ -37,7 +37,7 @@ void TitleScene::Render()
 		glPushMatrix();
 
 		glBlendFunc(GL_DST_COLOR, GL_ZERO);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_textureID(m_Tag, 4));
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 4));
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex2f(400, 400);
@@ -60,7 +60,7 @@ void TitleScene::Render()
 		glTranslatef(0, 150, 0);
 
 		glBlendFunc(GL_DST_COLOR, GL_ZERO);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_textureID(m_Tag, 1));
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 1));
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex2f(400, 400);
@@ -73,7 +73,7 @@ void TitleScene::Render()
 		glEnd();
 
 		glBlendFunc(GL_ONE, GL_ONE);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_textureID(m_Tag, 0));
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 0));
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex2f(400, 400);
@@ -96,7 +96,7 @@ void TitleScene::Render()
 		glTranslatef(0, -80, 0);
 
 		glBlendFunc(GL_DST_COLOR, GL_ZERO);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_textureID(m_Tag, 3));
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 3));
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex2f(size, size / 2.0);
@@ -109,7 +109,7 @@ void TitleScene::Render()
 		glEnd();
 
 		glBlendFunc(GL_ONE, GL_ONE);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_textureID(m_Tag, 2));
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 2));
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex2f(size, size / 2.0);
@@ -132,7 +132,7 @@ void TitleScene::Render()
 		glTranslatef(0, -250, 0);
 
 		glBlendFunc(GL_DST_COLOR, GL_ZERO);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_textureID(m_Tag, 3));
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 3));
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 0.5);
 		glVertex2f(size, size / 2.0);
@@ -145,7 +145,7 @@ void TitleScene::Render()
 		glEnd();
 
 		glBlendFunc(GL_ONE, GL_ONE);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_textureID(m_Tag, 2));
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 2));
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 0.5);
 		glVertex2f(size, size / 2.0);
@@ -194,8 +194,9 @@ GLvoid TitleScene::SpecialKey_Events(int key, int x, int y) {
 void TitleScene::Mouse_Events(int button, int state, int x, int y)
 {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-		if (MouseonBtn[0] == true)
+		if (MouseonBtn[0] == true) {
 			m_pFramework->MessagePass(Message::Charsel);
+		}
 		else if (MouseonBtn[1] == true) {
 			m_pFramework->MessagePass(Message::Exit);
 		}

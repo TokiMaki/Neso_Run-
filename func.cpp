@@ -165,3 +165,11 @@ bool CGamePlayScene::Isin_Rect(int x1, int y1, int x2, int y2, int w1, int h1, i
 
 	return false;
 }
+
+GLvoid CRun_time_Framework::set_charID(int id) {
+	now_character = id;
+}
+
+GLint CRun_time_Framework::get_charID() {
+	return now_character;
+}

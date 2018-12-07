@@ -195,7 +195,7 @@ GLvoid CRun_time_Framework::set_CharacterTexture()
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 	glBindTexture(GL_TEXTURE_2D, CharacterTex[2]);
-	pBytes = LoadDIBitmap("texture/character/character002.bmp", &info);
+	pBytes = LoadDIBitmap("texture/character/character003.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -204,7 +204,7 @@ GLvoid CRun_time_Framework::set_CharacterTexture()
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 	glBindTexture(GL_TEXTURE_2D, CharacterTex[3]);
-	pBytes = LoadDIBitmap("texture/character/character002.bmp", &info);
+	pBytes = LoadDIBitmap("texture/character/character004.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -213,7 +213,7 @@ GLvoid CRun_time_Framework::set_CharacterTexture()
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 	glBindTexture(GL_TEXTURE_2D, CharacterTex[4]);
-	pBytes = LoadDIBitmap("texture/character/character002.bmp", &info);
+	pBytes = LoadDIBitmap("texture/character/character005.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -222,7 +222,7 @@ GLvoid CRun_time_Framework::set_CharacterTexture()
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 	glBindTexture(GL_TEXTURE_2D, CharacterTex[5]);
-	pBytes = LoadDIBitmap("texture/character/character002.bmp", &info);
+	pBytes = LoadDIBitmap("texture/character/character006.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -231,7 +231,7 @@ GLvoid CRun_time_Framework::set_CharacterTexture()
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 	glBindTexture(GL_TEXTURE_2D, CharacterTex[6]);
-	pBytes = LoadDIBitmap("texture/character/character002.bmp", &info);
+	pBytes = LoadDIBitmap("texture/character/character007.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -240,7 +240,7 @@ GLvoid CRun_time_Framework::set_CharacterTexture()
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 	glBindTexture(GL_TEXTURE_2D, CharacterTex[7]);
-	pBytes = LoadDIBitmap("texture/character/character002.bmp", &info);
+	pBytes = LoadDIBitmap("texture/character/character008.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -249,7 +249,7 @@ GLvoid CRun_time_Framework::set_CharacterTexture()
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 	glBindTexture(GL_TEXTURE_2D, CharacterTex[8]);
-	pBytes = LoadDIBitmap("texture/character/character002.bmp", &info);
+	pBytes = LoadDIBitmap("texture/character/character009.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -258,7 +258,7 @@ GLvoid CRun_time_Framework::set_CharacterTexture()
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 	glBindTexture(GL_TEXTURE_2D, CharacterTex[9]);
-	pBytes = LoadDIBitmap("texture/character/character002.bmp", &info);
+	pBytes = LoadDIBitmap("texture/character/charStage.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -268,7 +268,7 @@ GLvoid CRun_time_Framework::set_CharacterTexture()
 	return GLvoid();
 }
 
-GLint CRun_time_Framework::get_textureID(CScene::SceneTag tag, int num)
+GLint CRun_time_Framework::get_UItextureID(CScene::SceneTag tag, int num)
 {
 	switch (tag) {
 	case CScene::SceneTag::Title:
@@ -278,4 +278,9 @@ GLint CRun_time_Framework::get_textureID(CScene::SceneTag tag, int num)
 		return CharSelTex[num];
 		break;
 	}
+}
+
+GLint CRun_time_Framework::get_ChartextureID(int num)
+{
+	return CharacterTex[num];
 }

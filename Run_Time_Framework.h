@@ -65,6 +65,8 @@ private:
 
 	int mod;
 
+	int now_character;
+
 	GLboolean GameMessage{ dummy };
 
 	GLfloat identity[16];
@@ -101,15 +103,17 @@ public:
 	void ChangeScene(CScene::SceneTag tag);
 
 	// 만든 함수
-	
 	GLvoid Key_Update();
 	GLvoid background(float r, float g, float b);
 	GLubyte * LoadDIBitmap(const char *filename, BITMAPINFO ** info);
 	GLvoid set_TitleTexture();
 	GLvoid set_CharSelTexture();
 	GLvoid set_CharacterTexture();
-	GLint get_textureID(CScene::SceneTag tag, int num);
+	GLint get_UItextureID(CScene::SceneTag tag, int num);
+	GLint get_ChartextureID(int num);
 
+	GLvoid set_charID(int id);
+	GLint get_charID();
 
 private:
 	Idle m_fpidle{ nullptr };

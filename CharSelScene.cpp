@@ -6,6 +6,11 @@ CharSelScene::CharSelScene(SceneTag tag, CRun_time_Framework * pFramework)
 {
 	m_Tag = tag;
 	m_pFramework = pFramework;
+
+	m_pFramework->set_charID(Character::mari);
+	MouseonBtn[0] = false;
+	MouseonBtn[1] = false;
+	MouseonBtn[2] = false;
 }
 
 CharSelScene::~CharSelScene()
@@ -16,9 +21,6 @@ CharSelScene::~CharSelScene()
 
 void CharSelScene::BuildObjects()
 {
-	MouseonBtn[0] = false;
-	MouseonBtn[1] = false;
-	MouseonBtn[2] = false;
 }
 
 void CharSelScene::Render()
@@ -38,7 +40,7 @@ void CharSelScene::Render()
 		glPushMatrix();
 
 		glBlendFunc(GL_DST_COLOR, GL_ZERO);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_textureID(m_Tag, 0));
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_ChartextureID(m_pFramework->get_charID()));
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex2f(400, 400);
@@ -63,7 +65,7 @@ void CharSelScene::Render()
 		glTranslatef(0, 300, 0);
 
 		glBlendFunc(GL_DST_COLOR, GL_ZERO);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_textureID(m_Tag, 1));
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 1));
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 0.75);
 		glVertex2f(size, size / 4.0);
@@ -76,7 +78,7 @@ void CharSelScene::Render()
 		glEnd();
 
 		glBlendFunc(GL_ONE, GL_ONE);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_textureID(m_Tag, 0));
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 0));
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 0.75);
 		glVertex2f(size, size / 4.0);
@@ -99,7 +101,7 @@ void CharSelScene::Render()
 		glTranslatef(-350, 0, 0);
 
 		glBlendFunc(GL_DST_COLOR, GL_ZERO);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_textureID(m_Tag, 1));
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 1));
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.25, 1);
 		glVertex2f(size, size);
@@ -112,7 +114,7 @@ void CharSelScene::Render()
 		glEnd();
 
 		glBlendFunc(GL_ONE, GL_ONE);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_textureID(m_Tag, 0));
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 0));
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.25, 1);
 		glVertex2f(size, size);
@@ -135,7 +137,7 @@ void CharSelScene::Render()
 		glTranslatef(350, 0, 0);
 
 		glBlendFunc(GL_DST_COLOR, GL_ZERO);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_textureID(m_Tag, 1));
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 1));
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.5, 1);
 		glVertex2f(size, size);
@@ -148,7 +150,7 @@ void CharSelScene::Render()
 		glEnd();
 
 		glBlendFunc(GL_ONE, GL_ONE);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_textureID(m_Tag, 0));
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 0));
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.5, 1);
 		glVertex2f(size, size);
@@ -171,7 +173,7 @@ void CharSelScene::Render()
 		glTranslatef(0, -300, 0);
 
 		glBlendFunc(GL_DST_COLOR, GL_ZERO);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_textureID(m_Tag, 1));
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 1));
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 0.5);
 		glVertex2f(size, size / 2.0);
@@ -184,7 +186,7 @@ void CharSelScene::Render()
 		glEnd();
 
 		glBlendFunc(GL_ONE, GL_ONE);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_textureID(m_Tag, 0));
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 0));
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 0.5);
 		glVertex2f(size, size / 2.0);
@@ -233,8 +235,9 @@ GLvoid CharSelScene::SpecialKey_Events(int key, int x, int y) {
 void CharSelScene::Mouse_Events(int button, int state, int x, int y)
 {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-		if (MouseonBtn[0] == true)
-			m_pFramework->MessagePass(Message::GamePlay);
+		if (MouseonBtn[0] == true) {
+			//m_pFramework->MessagePass(Message::GamePlay);
+		}
 		else if (MouseonBtn[2] == true) {
 			m_pFramework->MessagePass(Message::GamePlay);
 		}
