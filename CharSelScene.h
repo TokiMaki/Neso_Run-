@@ -20,6 +20,6 @@ public:
 
 
 private:
-	bool MouseonBtn[2];
+	bool MouseonBtn[3];
 	GLfloat identity[16];
 };
