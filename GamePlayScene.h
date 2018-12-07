@@ -1,8 +1,6 @@
 #pragma once
 #include "Scene.h"
 
-#define FRAMETIME (current_time - Prevtime)
-
 struct Road_Tree {
 	float road_length = 0;
 	Road_Tree* Lroad = NULL;
@@ -10,15 +8,24 @@ struct Road_Tree {
 	float temp = 0;
 };
 
+enum State {
+	Idle,
+	Jump,
+	Slide
+};
+
 struct Player {
 	float x = 0;
 	float y = 0;
 	float z = 0;
-	int dir = 0;		// 哭率 1 坷弗率 0
-	int reserve_line = 0;
-	int line = 0;		// -1 哭率 0 啊款单 1 坷弗率
+	int dir = 0;				// 哭率 1 坷弗率 0
+	int reserve_line = 0;		// -1 哭率 0 啊款单 1 坷弗率
+	int line = 0;				// -1 哭率 0 啊款单 1 坷弗率
 	bool input_rotate = false;
 	float camera_rotate = 0;
+	State reserve_state = Idle;
+	State state = Idle;
+	float jump_gravite = 30 / 300.f;
 };
 
 class CGamePlayScene : public CScene {
@@ -48,6 +55,8 @@ public:
 	// Player.cpp
 	GLvoid Player_Update(float frametime);
 	GLvoid Player_Line_Updater();
+	GLvoid Player_KeyDown_Updater(int key);
+	GLvoid Player_Jump(float frametime);
 
 	GLvoid shape_draw();
 

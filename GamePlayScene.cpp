@@ -35,31 +35,12 @@ GLvoid CGamePlayScene::Update(float frametime) {
 }
 
 GLvoid CGamePlayScene::SpecialKey_Events(int key, int x, int y) {
+	Player_KeyDown_Updater(key);
 	switch (key) {
 	case GLUT_KEY_LEFT:
-		printf("left\n");
-		if (NextRoadcheck(1)) {
-			printf("left in\n");
-			player.input_rotate = true;
-			player.dir = 1;
-		}
-		else if (!player.input_rotate) {
-			if (player.reserve_line > -1)
-				player.reserve_line -= 1;
-		}
 		break;
 
 	case GLUT_KEY_RIGHT:
-		printf("right\n");
-		if (NextRoadcheck(0)) {
-			printf("right in\n");
-			player.input_rotate = true;
-			player.dir = 0;
-		}
-		else if (!player.input_rotate) {
-			if (player.reserve_line < 1)
-				player.reserve_line += 1;
-		}
 		break;
 
 	case GLUT_KEY_UP:
