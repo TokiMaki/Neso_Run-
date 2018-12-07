@@ -28,53 +28,110 @@ void TitleScene::Render()
 	// 텍스처 매핑 활성화 
 	glEnable(GL_TEXTURE_2D);
 
-	
+	glEnable(GL_BLEND);
 	glDisable(GL_DEPTH_TEST);
 
-	glPushMatrix();
-	glTranslatef(0, 100, 0);
+	// 로고
+	{
+		glPushMatrix();
+		glTranslatef(0, 150, 0);
 
-	glEnable(GL_BLEND);
-	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_texture(m_Tag, 0));
-	glBegin(GL_QUADS);
-	glTexCoord2f(1, 1);
-	glVertex2f(400, 400);
-	glTexCoord2f(0, 1);
-	glVertex2f(-400, 400);
-	glTexCoord2f(0, 0);
-	glVertex2f(-400, -400);
-	glTexCoord2f(1, 0);
-	glVertex2f(400, -400);
-	glEnd();
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_texture(m_Tag, 1));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
+		glVertex2f(400, 400);
+		glTexCoord2f(0, 1);
+		glVertex2f(-400, 400);
+		glTexCoord2f(0, 0);
+		glVertex2f(-400, -400);
+		glTexCoord2f(1, 0);
+		glVertex2f(400, -400);
+		glEnd();
 
+		glBlendFunc(GL_ONE, GL_ONE);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_texture(m_Tag, 0));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
+		glVertex2f(400, 400);
+		glTexCoord2f(0, 1);
+		glVertex2f(-400, 400);
+		glTexCoord2f(0, 0);
+		glVertex2f(-400, -400);
+		glTexCoord2f(1, 0);
+		glVertex2f(400, -400);
+		glEnd();
 
-	glBlendFunc(GL_DST_COLOR, GL_ZERO);
-	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_texture(m_Tag, 1));
-	glBegin(GL_QUADS);
-	glTexCoord2f(1, 1);
-	glVertex2f(400, 400);
-	glTexCoord2f(0, 1);
-	glVertex2f(-400, 400);
-	glTexCoord2f(0, 0);
-	glVertex2f(-400, -400);
-	glTexCoord2f(1, 0);
-	glVertex2f(400, -400);
-	glEnd();
+		glPopMatrix();
+	}
+	// 시작 버튼
+	{
+		float size = 140;
+		glPushMatrix();
+		glTranslatef(0, -80, 0);
 
-	glBlendFunc(GL_ONE, GL_ONE);
-	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_texture(m_Tag, 0));
-	glBegin(GL_QUADS);
-	glTexCoord2f(1, 1);
-	glVertex2f(400, 400);
-	glTexCoord2f(0, 1);
-	glVertex2f(-400, 400);
-	glTexCoord2f(0, 0);
-	glVertex2f(-400, -400);
-	glTexCoord2f(1, 0);
-	glVertex2f(400, -400);
-	glEnd();
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_texture(m_Tag, 3));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
+		glVertex2f(size, size / 2.0);
+		glTexCoord2f(0, 1);
+		glVertex2f(-size, size / 2.0);
+		glTexCoord2f(0, 0.5);
+		glVertex2f(-size, -size / 2.0);
+		glTexCoord2f(1, 0.5);
+		glVertex2f(size, -size / 2.0);
+		glEnd();
 
-	glPopMatrix();
+		glBlendFunc(GL_ONE, GL_ONE);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_texture(m_Tag, 2));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
+		glVertex2f(size, size / 2.0);
+		glTexCoord2f(0, 1);
+		glVertex2f(-size, size / 2.0);
+		glTexCoord2f(0, 0.5);
+		glVertex2f(-size, -size / 2.0);
+		glTexCoord2f(1, 0.5);
+		glVertex2f(size, -size / 2.0);
+		glEnd();
+
+		glPopMatrix();
+	}
+	// 종료버튼
+	{
+		float size = 140;
+		glPushMatrix();
+		glTranslatef(0, -250, 0);
+
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_texture(m_Tag, 3));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 0.5);
+		glVertex2f(size, size / 2.0);
+		glTexCoord2f(0, 0.5);
+		glVertex2f(-size, size / 2.0);
+		glTexCoord2f(0, 0);
+		glVertex2f(-size, -size / 2.0);
+		glTexCoord2f(1, 0);
+		glVertex2f(size, -size / 2.0);
+		glEnd();
+
+		glBlendFunc(GL_ONE, GL_ONE);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_texture(m_Tag, 2));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 0.5);
+		glVertex2f(size, size / 2.0);
+		glTexCoord2f(0, 0.5);
+		glVertex2f(-size, size / 2.0);
+		glTexCoord2f(0, 0);
+		glVertex2f(-size, -size / 2.0);
+		glTexCoord2f(1, 0);
+		glVertex2f(size, -size / 2.0);
+		glEnd();
+
+		glPopMatrix();
+	}
 
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
