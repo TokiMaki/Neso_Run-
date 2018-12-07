@@ -20,8 +20,50 @@ void TitleScene::BuildObjects()
 
 void TitleScene::Render()
 {
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
 
-	glutWireCube(100);
+	gluLookAt(0, 0, 500, 0, 0, -500, 0, 1, 0);
+
+	// 텍스처 매핑 활성화 
+	glEnable(GL_TEXTURE_2D);
+
+	glEnable(GL_BLEND);
+	glDisable(GL_DEPTH_TEST);
+
+	glBlendFunc(GL_DST_COLOR, GL_ZERO);
+	//glBindTexture(GL_TEXTURE_2D, titleTex[1]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1, 1);
+	glVertex2f(100, 100);
+	glTexCoord2f(0, 1);
+	glVertex2f(-100, 100);
+	glTexCoord2f(0, 0);
+	glVertex2f(-100, -100);
+	glTexCoord2f(1, 0);
+	glVertex2f(100, -100);
+	glEnd();
+
+	glBlendFunc(GL_ONE, GL_ONE);
+	//glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1, 1);
+	glVertex2f(100, 100);
+	glTexCoord2f(0, 1);
+	glVertex2f(-100, 100);
+	glTexCoord2f(0, 0);
+	glVertex2f(-100, -100);
+	glTexCoord2f(1, 0);
+	glVertex2f(100, -100);
+	glEnd();
+
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
+
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_LIGHTING);
+
+	glPopMatrix();
 }
 
 GLvoid TitleScene::Update(float frametime) {

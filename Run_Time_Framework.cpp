@@ -9,7 +9,7 @@ CRun_time_Framework* CRun_time_Framework::myself = nullptr;
 
 CRun_time_Framework::CRun_time_Framework() {
 	BuildScene();
-	ChangeScene(CScene::SceneTag::GamePlay);
+	ChangeScene(CScene::SceneTag::Title);
 }
 
 void CRun_time_Framework::BuildScene()
@@ -229,6 +229,8 @@ GLvoid CRun_time_Framework::Init() {
 	glutSpecialFunc(m_fpSpecialKeyDown);
 	glutMouseFunc(m_fpMouse);
 	glutIdleFunc(m_fpidle);
+
+	set_texture();
 }
 
 GLvoid CRun_time_Framework::Update() {

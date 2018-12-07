@@ -53,6 +53,10 @@ private:
 	GLfloat current_time;
 	GLint current_frame = 0;
 
+	GLuint titleTex[4];		//텍스처 이름
+	GLubyte *pBytes;				// 데이터를 가리킬 포인터
+	BITMAPINFO *info;				// 비트맵 헤더 저장할 변수
+
 	float count;
 
 	int mod;
@@ -95,6 +99,8 @@ public:
 	
 	GLvoid Key_Update();
 	GLvoid background(float r, float g, float b);
+	GLubyte * LoadDIBitmap(const char *filename, BITMAPINFO ** info);
+	GLvoid set_texture();
 
 
 private:
