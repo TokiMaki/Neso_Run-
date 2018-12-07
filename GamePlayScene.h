@@ -1,11 +1,19 @@
 #pragma once
 #include "Scene.h"
 
+struct Obstacle {
+	int kind;
+	float y;
+	float z;
+	Obstacle* next;
+};
+
 struct Road_Tree {
 	float road_length = 0;
-	Road_Tree* Lroad = NULL;
-	Road_Tree* Rroad = NULL;
+	Road_Tree* Lroad = nullptr;
+	Road_Tree* Rroad = nullptr;
 	float temp = 0;
+	Obstacle* obstacle = nullptr;
 };
 
 enum State {
@@ -46,15 +54,15 @@ public:
 	// 만든 함수
 	GLvoid vari_init();
 
-	GLvoid Draw_Ball();
-	GLvoid Create_Road();
-
 
 	// RoadFrame.cpp
 	GLvoid RoadFrame(float width, float length);		// width는 수치가 2배로 들어감 ex) 60 넣으면 120의 넓이 함수안에 Push_PopMatrix() 가 붙어있지 않음
 	GLvoid Draw_Road();
+	GLvoid Create_Road();
+	GLvoid Create_Obstacle(Road_Tree* Road);
 
 	// Player.cpp
+	GLvoid Draw_Ball();
 	GLvoid Player_Update(float frametime);
 	GLvoid Player_Line_Updater(float frametime);
 	GLvoid Player_KeyDown_Updater(int key);

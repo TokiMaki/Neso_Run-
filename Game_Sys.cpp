@@ -11,10 +11,10 @@ bool CGamePlayScene::NextRoadcheck(int dir) {
 	}
 	*/
 	else {
-		if (dir == 1 && main_road->Lroad != NULL) {
+		if (dir == 1 && main_road->Lroad != nullptr) {
 			return true;
 		}
-		else if (dir == 0 && main_road->Rroad != NULL) {
+		else if (dir == 0 && main_road->Rroad != nullptr) {
 			return true;
 		}
 	}

@@ -121,7 +121,7 @@ GLvoid CGamePlayScene::vari_init() {
 	memset(identity, 0, sizeof(identity));
 	identity[0] = identity[5] = identity[10] = identity[15] = 1;		// 행렬 초기화
 
-	main_road = NULL;
+	main_road = nullptr;
 	count = 0;
 
 	Create_Road();

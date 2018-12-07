@@ -7,15 +7,15 @@
 
 GLvoid CGamePlayScene::Create_Road() {
 	Road_Tree* temp;
-	srand(time(NULL));
+	srand(time(nullptr));
 	int road_random_temp = 0;
 
 	temp = (Road_Tree*)malloc(sizeof(Road_Tree));
 		
-	if (main_road != NULL) {
-		if (player.dir == 1 && main_road->Lroad != NULL)
+	if (main_road != nullptr) {
+		if (player.dir == 1 && main_road->Lroad != nullptr)
 			temp->road_length = main_road->Lroad->road_length;
-		if (player.dir == 0 && main_road->Rroad != NULL)
+		if (player.dir == 0 && main_road->Rroad != nullptr)
 			temp->road_length = main_road->Rroad->road_length;
 	}
 
@@ -29,13 +29,13 @@ GLvoid CGamePlayScene::Create_Road() {
 			temp->Lroad = (Road_Tree*)malloc(sizeof(Road_Tree));
 			temp->Lroad->road_length = (rand() % MAX_ROAD) + MIN_ROAD;
 
-			temp->Rroad = NULL;
+			temp->Rroad = nullptr;
 
 		}
 
 		if (road_random_temp == 1) {
 
-			temp->Lroad = NULL;
+			temp->Lroad = nullptr;
 
 			temp->Rroad = (Road_Tree*)malloc(sizeof(Road_Tree));
 			temp->Rroad->road_length = (rand() % MAX_ROAD) + MIN_ROAD;
@@ -53,13 +53,13 @@ GLvoid CGamePlayScene::Create_Road() {
 
 		}
 
-		if (main_road != NULL) {
+		if (main_road != nullptr) {
 
-			if (main_road->Lroad != NULL) {
+			if (main_road->Lroad != nullptr) {
 				delete(main_road->Lroad);
 			}
 
-			if (main_road->Rroad != NULL) {
+			if (main_road->Rroad != nullptr) {
 				delete(main_road->Rroad);
 			}
 
@@ -67,6 +67,16 @@ GLvoid CGamePlayScene::Create_Road() {
 		}
 
 		main_road = temp;
+}
+
+GLvoid CGamePlayScene::Create_Obstacle(Road_Tree* Road) {
+	Road_Tree* temp;
+	Road_Tree* temp2;
+	temp = Road;
+	if (temp->obstacle == nullptr) {
+			Road->obstacle = (Obstacle*)malloc(sizeof(Obstacle));
+			Road->obstacle->kind = 0;
+	}
 }
 
 GLvoid CGamePlayScene::Draw_Road() {
@@ -77,7 +87,7 @@ GLvoid CGamePlayScene::Draw_Road() {
 	RoadFrame(LOAD_WIDTH, main_road->road_length);
 	RoadFrame(LOAD_WIDTH, -main_road->road_length);
 
-	if (main_road->Lroad != NULL) {
+	if (main_road->Lroad != nullptr) {
 		glPushMatrix();
 		glTranslatef(0, 0, -main_road->road_length);
 		glRotatef(90, 0, 1, 0);
@@ -94,7 +104,7 @@ GLvoid CGamePlayScene::Draw_Road() {
 		glPopMatrix();
 	}
 
-	if (main_road->Rroad != NULL) {
+	if (main_road->Rroad != nullptr) {
 		glPushMatrix();
 		glTranslatef(0, 0, -main_road->road_length);
 		glRotatef(-90, 0, 1, 0);

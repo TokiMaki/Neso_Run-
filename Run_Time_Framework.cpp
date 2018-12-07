@@ -217,7 +217,7 @@ GLvoid CRun_time_Framework::Init() {
 	m_pCamera = new C_Camera();
 	m_pCamera->CameraReset();
 
-	srand(time(NULL));
+	srand(time(nullptr));
 	myself = this;
 	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH); // 디스플레이 모드 설정
