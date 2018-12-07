@@ -25,7 +25,8 @@ struct Player {
 	float camera_rotate = 0;
 	State reserve_state = Idle;
 	State state = Idle;
-	float jump_gravite = 30 / 300.f;
+	float jump_gravity = 60 / 300.f;
+	float timer = 0;
 };
 
 class CGamePlayScene : public CScene {
@@ -57,6 +58,7 @@ public:
 	GLvoid Player_Line_Updater();
 	GLvoid Player_KeyDown_Updater(int key);
 	GLvoid Player_Jump(float frametime);
+	GLvoid Player_Silde(float frametime);
 
 	GLvoid shape_draw();
 

@@ -137,7 +137,7 @@ GLvoid CGamePlayScene::shape_draw() {
 		glMultMatrixf(identity);
 	}
 	*/
-	gluLookAt(player.x + sin(pi / 180 * (player.camera_rotate)) * 50, 20, player.z + cos(pi / 180 * (player.camera_rotate)) * 50, player.x, player.y + 20, player.z, 0, 1, 0);
+	gluLookAt(player.x + sin(pi / 180 * (player.camera_rotate)) * 50, 20, player.z + cos(pi / 180 * (player.camera_rotate)) * 50, player.x, 20, player.z, 0, 1, 0);
 
 
 	glPushMatrix();

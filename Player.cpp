@@ -19,8 +19,14 @@ GLvoid CGamePlayScene::Draw_Ball()
 
 	GLUquadricObj *sphere = gluNewQuadric();
 
+	if (player.state == State::Slide) {
+		glTranslatef(0, -5 * 0.3, 0);
+		glScalef(1, 0.7, 1);
+	}
+
 	glRotatef(player.camera_rotate + 90, 0, 1, 0);
 	glRotatef(player.z, 0, 0, 1);
+
 
 	glEnable(GL_TEXTURE_2D);
 	gluQuadricDrawStyle(sphere, GLU_FILL);
@@ -72,14 +78,20 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 	if (!player.input_rotate) {
 		player.z -= 5;
 		Player_Line_Updater();
+		Player_Jump(frametime);
+		Player_Silde(frametime);
 	}
 	else if (main_road->road_length + player.z > (player.line * 30) && player.dir == 0) {
 		player.z -= 5;
 		Player_Line_Updater();
+		Player_Jump(frametime);
+		Player_Silde(frametime);
 	}
 	else if (main_road->road_length + player.z > -(player.line * 30) && player.dir == 1) {
 		player.z -= 5;
 		Player_Line_Updater();
+		Player_Jump(frametime);
+		Player_Silde(frametime);
 	}
 
 	else {
@@ -93,7 +105,6 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 				player.camera_rotate = 0;
 				count = 0;
 				player.input_rotate = false;
-				player.y = 0;
 				player.z = 0;
 			}
 		}
@@ -108,7 +119,6 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 				player.camera_rotate = 0;
 				count = 0;
 				player.input_rotate = false;
-				player.y = 0;
 				player.z = 0;
 			}
 		}
@@ -144,42 +154,69 @@ GLvoid CGamePlayScene::Player_KeyDown_Updater(int key) {
 		break;
 
 	case GLUT_KEY_UP:
-		if (player.reserve_state == State::Idle && player.y <= 0) {
+		if ((player.reserve_state == State::Slide || player.reserve_state == State::Idle) && player.y <= 0) {
+			printf("%f", player.jump_gravity);
 			player.reserve_state = State::Jump;
 		}
 		break;
 
 	case GLUT_KEY_DOWN:
+		if ((player.reserve_state == State::Slide || player.reserve_state == State::Idle) && player.y <= 0) {
+			printf("Slide");
+			player.reserve_state = State::Slide;
+		}
 		break;
 	}
 }
 
 GLvoid CGamePlayScene::Player_Jump(float frametime) {
-	if (player.reserve_state = State::Jump) {
+	if (player.reserve_state == State::Jump) {
 
 		if (player.y < 30) {
-			player.y += player.jump_gravite * frametime;
-			if (player.y > 15) {
+			player.y += player.jump_gravity * frametime;
+			player.jump_gravity -= ((80 / 300.f) / 300.f) * frametime;
+			if (player.jump_gravity < (60 / 300.f) / 2.f) {
 				player.state = State::Jump;
 			}
 		}
 
-		if (player.y >= 30) {
+		if (player.y >= 30 || player.jump_gravity < 0) {
 			player.reserve_state = State::Idle;
 		}
 
 	}
 
-	if (player.reserve_state = State::Idle) {
+	if (player.reserve_state == State::Idle) {
 		if (player.y > 0) {
-			player.y -= player.jump_gravite * frametime;
-			if (player.y < 15) {
-				player.state = State::Idle;
+			player.y -= player.jump_gravity * frametime;
+			player.jump_gravity += ((80 / 300.f) / 300.f) * frametime;
+			if (player.jump_gravity > (60 / 300.f) / 2.f) {
+				player.state = State::Jump;
 			}
-			if (player.y < 0) {
+			if (player.y <= 0) {
 				player.y = 0;
+				player.jump_gravity = 60 / 300.f;
 			}
 		}
+	}
 
+}
+
+GLvoid CGamePlayScene::Player_Silde(float frametime) {
+
+	if (player.reserve_state == State::Slide) {
+		if (player.timer < 500.f) {
+			player.state = Slide;
+			player.timer += frametime;
+		}
+		if (player.timer >= 500.f) {
+			player.reserve_state = State::Idle;
+			player.state = State::Idle;
+			player.timer = 0;
+		}
+	}
+
+	if (player.reserve_state == State::Idle) {
+		player.timer = 0;
 	}
 }
