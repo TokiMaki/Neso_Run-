@@ -26,6 +26,7 @@
 #define FRAMETIME (current_time - Prevtime)
 
 enum Message { dummy, Title, Charsel, GamePlay, GameOver, Exit};
+enum Character { chika, you, riko, hanamaru, ruby, yoshiko, dia, kanan, mari };
 
 class C_Camera;
 
@@ -55,7 +56,7 @@ private:
 
 	GLuint TitleTex[5];		//텍스처 이름
 	GLuint CharSelTex[2];
-	GLuint CharacterTex[9];
+	GLuint CharacterTex[10];
 
 	GLubyte *pBytes;				// 데이터를 가리킬 포인터
 	BITMAPINFO *info;				// 비트맵 헤더 저장할 변수
@@ -106,6 +107,7 @@ public:
 	GLubyte * LoadDIBitmap(const char *filename, BITMAPINFO ** info);
 	GLvoid set_TitleTexture();
 	GLvoid set_CharSelTexture();
+	GLvoid set_CharacterTexture();
 	GLint get_textureID(CScene::SceneTag tag, int num);
 
 
