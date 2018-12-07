@@ -12,7 +12,7 @@ GLvoid CGamePlayScene::Create_Road() {
 
 	temp = (Road_Tree*)malloc(sizeof(Road_Tree));
 		
-	if (main_road != nullptr) {
+	if (main_road) {
 		if (player.dir == 1 && main_road->Lroad != nullptr)
 			temp->road_length = main_road->Lroad->road_length;
 		if (player.dir == 0 && main_road->Rroad != nullptr)
@@ -52,30 +52,45 @@ GLvoid CGamePlayScene::Create_Road() {
 			temp->Rroad->road_length = (rand() % MAX_ROAD) + MIN_ROAD;
 
 		}
+		if (main_road) {
 
-		if (main_road != nullptr) {
-
-			if (main_road->Lroad != nullptr) {
-				delete(main_road->Lroad);
+			if (main_road->Lroad) {
+				free(main_road->Lroad);
 			}
 
-			if (main_road->Rroad != nullptr) {
-				delete(main_road->Rroad);
+			if (main_road->Rroad) {
+				free(main_road->Rroad);
 			}
 
-			delete(main_road);
+			free(main_road);
 		}
 
 		main_road = temp;
 }
 
-GLvoid CGamePlayScene::Create_Obstacle(Road_Tree* Road) {
-	Road_Tree* temp;
-	Road_Tree* temp2;
-	temp = Road;
-	if (temp->obstacle == nullptr) {
-			Road->obstacle = (Obstacle*)malloc(sizeof(Obstacle));
-			Road->obstacle->kind = 0;
+GLvoid CGamePlayScene::Create_Obstacle() {
+	std::random_device rd;
+	std::default_random_engine dre(rd());
+	std::uniform_int_distribution<> uid(100, 200);
+
+	float temp = 0;
+	if (main_road) {
+		if (temp < main_road->road_length - 300) {
+			temp += uid(dre);
+		}
+		main_road->obstacle.push_back({0, 0, temp});
+		if (main_road->Lroad) {
+			if (temp < main_road->road_length - 300) {
+				temp += uid(dre);
+			}
+			main_road->Lroad->obstacle.push_back({ 0, 0, temp });
+		}
+		if (main_road->Rroad) {
+			if (temp < main_road->road_length - 300) {
+				temp += uid(dre);
+			}
+			main_road->Rroad->obstacle.push_back({ 0, 0, temp });
+		}
 	}
 }
 
