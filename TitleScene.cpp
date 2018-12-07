@@ -193,6 +193,10 @@ GLvoid TitleScene::SpecialKey_Events(int key, int x, int y) {
 
 void TitleScene::Mouse_Events(int button, int state, int x, int y)
 {
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+		if (MouseonBtn[0] == true)
+			m_pFramework->MessagePass(Message::GamePlay);
+	}
 }
 
 void TitleScene::PassiveMotion_Events(int x, int y)
