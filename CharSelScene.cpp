@@ -241,7 +241,16 @@ void CharSelScene::Mouse_Events(int button, int state, int x, int y)
 {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
 		if (MouseonBtn[0] == true) {
-			//m_pFramework->MessagePass(Message::GamePlay);
+			int ID = m_pFramework->get_charID() - 1;
+			if (ID < 0)
+				ID += 9;
+			m_pFramework->set_charID(ID);
+		}
+		else if (MouseonBtn[1] == true) {
+			int ID = m_pFramework->get_charID() + 1;
+			if (ID > 8)
+				ID -= 9;
+			m_pFramework->set_charID(ID);
 		}
 		else if (MouseonBtn[2] == true) {
 			m_pFramework->MessagePass(Message::GamePlay);
@@ -267,7 +276,6 @@ void CharSelScene::PassiveMotion_Events(int x, int y)
 GLvoid CharSelScene::Draw_Character()
 {
 	glPushMatrix();
-
 
 	GLUquadricObj *sphere = gluNewQuadric();
 
