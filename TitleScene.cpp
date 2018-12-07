@@ -6,6 +6,7 @@ TitleScene::TitleScene(SceneTag tag, CRun_time_Framework * pFramework)
 {
 	m_Tag = tag;
 	m_pFramework = pFramework;
+	scroll = 0;
 }
 
 TitleScene::~TitleScene()
@@ -39,13 +40,13 @@ void TitleScene::Render()
 		glBlendFunc(GL_DST_COLOR, GL_ZERO);
 		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 4));
 		glBegin(GL_QUADS);
-		glTexCoord2f(1, 1);
+		glTexCoord2f(1 - scroll, 1 + scroll / 2.0);
 		glVertex2f(400, 400);
-		glTexCoord2f(0, 1);
+		glTexCoord2f(0 - scroll, 1 + scroll / 2.0);
 		glVertex2f(-400, 400);
-		glTexCoord2f(0, 0);
+		glTexCoord2f(0 - scroll, 0 + scroll / 2.0);
 		glVertex2f(-400, -400);
-		glTexCoord2f(1, 0);
+		glTexCoord2f(1 - scroll, 0 + scroll / 2.0);
 		glVertex2f(400, -400);
 		glEnd();
 
@@ -170,7 +171,7 @@ void TitleScene::Render()
 }
 
 GLvoid TitleScene::Update(float frametime) {
-	
+	scroll += 0.0001*frametime;
 }
 
 GLvoid TitleScene::SpecialKey_Events(int key, int x, int y) {

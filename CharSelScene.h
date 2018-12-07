@@ -22,5 +22,6 @@ public:
 private:
 	bool MouseonBtn[3];
 	float degree;
+	float scroll;
 	GLfloat identity[16];
 };
