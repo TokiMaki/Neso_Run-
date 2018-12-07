@@ -124,6 +124,7 @@ GLvoid CGamePlayScene::vari_init() {
 	main_road = NULL;
 
 	player.dir = 0;
+	count = 0;
 	Create_Road();
 }
 

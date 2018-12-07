@@ -17,8 +17,8 @@ struct Player {
 	int dir = 0;		// 0 z--, 1 x--, 2 z++, 3 x++
 	int reserve_line = 0;
 	int line;		// -1 哭率 0 啊款单 1 坷弗率
-	bool input_rotate;
-	float camera_rotate;
+	bool input_rotate = false;
+	float camera_rotate = 0;
 };
 
 class CGamePlayScene : public CScene {
@@ -54,11 +54,10 @@ public:
 	bool Isin_Rect(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2);
 	bool NextRoadcheck(int dir);
 private:
+
 	Road_Tree* main_road;
 	Player player;
 	float count;
-
-	int mod;
 
 	GLfloat identity[16];
 };

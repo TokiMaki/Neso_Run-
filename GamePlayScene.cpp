@@ -6,7 +6,13 @@ CGamePlayScene::CGamePlayScene(SceneTag tag, CRun_time_Framework * pFramework)
 {
 	m_Tag = tag;
 	m_pFramework = pFramework;
-	vari_init();
+
+	static bool basic_init = false;
+
+	if (!basic_init) {
+		vari_init();
+		basic_init = true;
+	}
 }
 
 CGamePlayScene::~CGamePlayScene()

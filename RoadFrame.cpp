@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "GamePlayScene.h"
 
-#define MIN_ROAD 1200
+#define MIN_ROAD 400
 #define MAX_ROAD 100
 #define LOAD_WIDTH 60
 
