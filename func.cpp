@@ -126,6 +126,7 @@ GLvoid CGamePlayScene::vari_init() {
 
 	bg_scroll = 0;
 	bg_degree = 0;
+	fever_highlight = 0;
 
 	Create_Road();
 }
@@ -348,7 +349,190 @@ GLvoid CGamePlayScene::Draw_background()
 /*
 GLvoid CGamePlayScene::Draw_Feverbackground()
 {
-	return GLvoid();
+	glEnable(GL_TEXTURE_2D);
+	glDisable(GL_DEPTH_TEST);
+
+	// 하늘
+	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(9));
+	glBegin(GL_QUADS);
+	glTexCoord2f(1 + bg_scroll, 1);
+	glVertex3f(400, 400, -500);
+	glTexCoord2f(1 + bg_scroll, 0);
+	glVertex3f(400, -400, -500);
+	glTexCoord2f(0 + bg_scroll, 0);
+	glVertex3f(-400, -400, -500);
+	glTexCoord2f(0 + bg_scroll, 1);
+	glVertex3f(-400, 400, -500);
+	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
+	// 별궤적
+	{
+		int rad = 170;
+		glLineWidth(2);
+		glPushMatrix();
+		glRotatef(bg_degree, 0, 0, 1);
+		// 루비
+		glColor4f(0.98, 0.46, 0.89, 0.5);
+		glBegin(GL_LINES);
+		for (int i = 0; i < 120; ++i) {
+			glVertex3f(rad * cos(i / 180.0*pi), rad * sin(i / 180.0*pi), -499);
+			glVertex3f(rad * cos((i + 1) / 180.0*pi), rad * sin((i + 1) / 180.0*pi), -499);
+		}
+		glEnd();
+		// 요시코
+		glColor4f(0.54, 0.54, 0.54, 0.5);
+		glBegin(GL_LINES);
+		for (int i = -40; i < 80; ++i) {
+			glVertex3f((rad + 10) * cos(i / 180.0*pi), (rad + 10) * sin(i / 180.0*pi), -499);
+			glVertex3f((rad + 10) * cos((i + 1) / 180.0*pi), (rad + 10) * sin((i + 1) / 180.0*pi), -499);
+		}
+		glEnd();
+		// 하나마루
+		glColor4f(0.90, 0.84, 0.09, 0.5);
+		glBegin(GL_LINES);
+		for (int i = -80; i < 40; ++i) {
+			glVertex3f((rad + 20) * cos(i / 180.0*pi), (rad + 20) * sin(i / 180.0*pi), -499);
+			glVertex3f((rad + 20) * cos((i + 1) / 180.0*pi), (rad + 20) * sin((i + 1) / 180.0*pi), -499);
+		}
+		glEnd();
+		// 요우
+		glColor4f(0.29, 0.73, 0.98, 0.5);
+		glBegin(GL_LINES);
+		for (int i = -120; i < 0; ++i) {
+			glVertex3f((rad + 30) * cos(i / 180.0*pi), (rad + 30) * sin(i / 180.0*pi), -499);
+			glVertex3f((rad + 30) * cos((i + 1) / 180.0*pi), (rad + 30) * sin((i + 1) / 180.0*pi), -499);
+		}
+		glEnd();
+		// 치카
+		glColor4f(0.94, 0.64, 0.04, 0.5);
+		glBegin(GL_LINES);
+		for (int i = -160; i < -40; ++i) {
+			glVertex3f((rad + 40) * cos(i / 180.0*pi), (rad + 40) * sin(i / 180.0*pi), -499);
+			glVertex3f((rad + 40) * cos((i + 1) / 180.0*pi), (rad + 40) * sin((i + 1) / 180.0*pi), -499);
+		}
+		glEnd();
+		// 리코
+		glColor4f(0.91, 0.66, 0.91, 0.5);
+		glBegin(GL_LINES);
+		for (int i = -200; i < -80; ++i) {
+			glVertex3f((rad + 50) * cos(i / 180.0*pi), (rad + 50) * sin(i / 180.0*pi), -499);
+			glVertex3f((rad + 50) * cos((i + 1) / 180.0*pi), (rad + 50) * sin((i + 1) / 180.0*pi), -499);
+		}
+		glEnd();
+		// 다이아
+		glColor4f(0.95, 0.23, 0.3, 0.5);
+		glBegin(GL_LINES);
+		for (int i = -240; i < -120; ++i) {
+			glVertex3f((rad + 60) * cos(i / 180.0*pi), (rad + 60) * sin(i / 180.0*pi), -499);
+			glVertex3f((rad + 60) * cos((i + 1) / 180.0*pi), (rad + 60) * sin((i + 1) / 180.0*pi), -499);
+		}
+		glEnd();
+		// 카난
+		glColor4f(0.07, 0.91, 0.68, 0.5);
+		glBegin(GL_LINES);
+		for (int i = -280; i < -160; ++i) {
+			glVertex3f((rad + 70) * cos(i / 180.0*pi), (rad + 70) * sin(i / 180.0*pi), -499);
+			glVertex3f((rad + 70) * cos((i + 1) / 180.0*pi), (rad + 70) * sin((i + 1) / 180.0*pi), -499);
+		}
+		glEnd();
+		// 마리
+		glColor4f(0.68, 0.35, 0.92, 0.5);
+		glBegin(GL_LINES);
+		for (int i = -320; i < -200; ++i) {
+			glVertex3f((rad + 80) * cos(i / 180.0*pi), (rad + 80) * sin(i / 180.0*pi), -499);
+			glVertex3f((rad + 80) * cos((i + 1) / 180.0*pi), (rad + 80) * sin((i + 1) / 180.0*pi), -499);
+		}
+		glEnd();
+		glPopMatrix();
+		glLineWidth(1);
+	}
+	glEnable(GL_TEXTURE_2D);
+
+	glEnable(GL_BLEND);
+	// 기초 배경
+	{
+		glColor4f(1, 1, 1, 1.0);
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(8));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
+		glVertex3f(400, 400, -500);
+		glTexCoord2f(1, 0);
+		glVertex3f(400, -400, -500);
+		glTexCoord2f(0, 0);
+		glVertex3f(-400, -400, -500);
+		glTexCoord2f(0, 1);
+		glVertex3f(-400, 400, -500);
+		glEnd();
+
+		
+		glColor4f(1, 1, 1, 1.0);
+		glBlendFunc(GL_ONE, GL_ONE);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(7));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
+		glVertex3f(400, 400, -500);
+		glTexCoord2f(1, 0);
+		glVertex3f(400, -400, -500);
+		glTexCoord2f(0, 0);
+		glVertex3f(-400, -400, -500);
+		glTexCoord2f(0, 1);
+		glVertex3f(-400, 400, -500);
+		glEnd();
+		
+	}
+	glDisable(GL_TEXTURE_2D);
+
+	// 하이라이트
+	{
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glColor4f(0, 1, 1, 0.3 - 0.3*(fever_highlight / 50));
+		glBegin(GL_POLYGON);
+		glVertex3f(-75, 0, -499);
+		glVertex3f(-60, 0, -499);
+		glVertex3f(15 - 400 * cos(fever_highlight / 180.0*pi), 600 * sin(fever_highlight / 180.0*pi), -499);
+		glVertex3f(-15 - 400 * cos(fever_highlight / 180.0*pi), 600 * sin(fever_highlight / 180.0*pi), -499);
+		glEnd();
+
+		glBegin(GL_POLYGON);
+		glVertex3f(-90, -20, -499);
+		glVertex3f(-75, -20, -499);
+		glVertex3f(15 - 400 * cos((fever_highlight + 15) / 180.0*pi), 600 * sin((fever_highlight + 15) / 180.0*pi), -499);
+		glVertex3f(-15 - 400 * cos((fever_highlight + 15) / 180.0*pi), 600 * sin((fever_highlight + 15) / 180.0*pi), -499);
+		glEnd();
+
+		glBegin(GL_POLYGON);
+		glVertex3f(-105, -30, -499);
+		glVertex3f(-90, -30, -499);
+		glVertex3f(15 - 400 * cos((fever_highlight + 30) / 180.0*pi), 600 * sin((fever_highlight + 30) / 180.0*pi), -499);
+		glVertex3f(-15 - 400 * cos((fever_highlight + 30) / 180.0*pi), 600 * sin((fever_highlight + 30) / 180.0*pi), -499);
+		glEnd();
+
+		glBegin(GL_POLYGON);
+		glVertex3f(-75 + 120, 0, -499);
+		glVertex3f(-60 + 120, 0, -499);
+		glVertex3f(15 + 400 * cos(fever_highlight / 180.0*pi), 600 * sin(fever_highlight / 180.0*pi), -499);
+		glVertex3f(-15 + 400 * cos(fever_highlight / 180.0*pi), 600 * sin(fever_highlight / 180.0*pi), -499);
+		glEnd();
+
+		glBegin(GL_POLYGON);
+		glVertex3f(-90 + 150, -20, -499);
+		glVertex3f(-75 + 150, -20, -499);
+		glVertex3f(15 + 400 * cos((fever_highlight + 15) / 180.0*pi), 600 * sin((fever_highlight + 15) / 180.0*pi), -499);
+		glVertex3f(-15 + 400 * cos((fever_highlight + 15) / 180.0*pi), 600 * sin((fever_highlight + 15) / 180.0*pi), -499);
+		glEnd();
+
+		glBegin(GL_POLYGON);
+		glVertex3f(-105 + 180, -30, -499);
+		glVertex3f(-90 + 180, -30, -499);
+		glVertex3f(15 + 400 * cos((fever_highlight + 30) / 180.0*pi), 600 * sin((fever_highlight + 30) / 180.0*pi), -499);
+		glVertex3f(-15 + 400 * cos((fever_highlight + 30) / 180.0*pi), 600 * sin((fever_highlight + 30) / 180.0*pi), -499);
+		glEnd();
+	}
+
+	glDisable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
 }
 */
 
