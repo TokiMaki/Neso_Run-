@@ -9,7 +9,7 @@ GLvoid CGamePlayScene::Create_Road() {
 	Road_Tree* temp;
 
 	std::uniform_int_distribution<> uid(MIN_ROAD, MAX_ROAD);
-	std::uniform_int_distribution<> random_road_kind(0, 3);
+	std::uniform_int_distribution<> random_road_kind(0, 2);
 
 	int road_random_temp = 0;
 
@@ -32,9 +32,9 @@ GLvoid CGamePlayScene::Create_Road() {
 	}
 
 	else {
-		temp->road_length = random_road_kind(dre);
+		temp->road_length = uid(dre);
 	}
-		road_random_temp = rand() % 3;
+		road_random_temp = random_road_kind(dre);
 
 		if (road_random_temp == 0) {
 

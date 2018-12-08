@@ -140,7 +140,9 @@ GLvoid CGamePlayScene::shape_draw() {
 		glMultMatrixf(identity);
 	}
 	*/
+	// 원래시점
 	gluLookAt(player.x + sin(pi / 180 * (player.camera_rotate)) * 50, 20, player.z + cos(pi / 180 * (player.camera_rotate)) * 50, player.x, 20, player.z, 0, 1, 0);
+	// 탑뷰시점
 	//gluLookAt(player.x, 200, player.z, player.x, 0, player.z, 0, 0, -1);
 
 

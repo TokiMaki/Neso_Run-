@@ -47,7 +47,7 @@ struct Player {
 	float camera_rotate = 0;
 	State reserve_state = Idle;
 	State state = Idle;
-	float jump_gravity = ((300 / 1000.f) / 4.f) * 3.f;
+	float jump_gravity = 300 / 1000.f;
 	float timer = 0;
 };
 

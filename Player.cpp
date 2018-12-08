@@ -48,7 +48,7 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 			player.x -= player.speed * frametime;
 		}
 		if (player.x <= -30) {
-			player.x = -30;
+			player.x += player.speed * frametime;
 		}
 		break;
 	case 0:
@@ -62,9 +62,9 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 	case 1:
 		if (player.x < 30) {
 			player.x += player.speed * frametime;
-			if (player.x >= 30) {
-				player.x = 30;
-			}
+		}
+		if (player.x >= 30) {
+			player.x -= player.speed * frametime;
 		}
 		break;
 	}
@@ -83,10 +83,14 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 
 	if (!player.input_rotate) {
 		player.z -= player.speed * frametime;
+		if (main_road->road_length + player.z < 0) {
+			printf("%f\n", main_road->road_length + player.z);
+		}
 		Player_Line_Updater(frametime);
 		Player_Jump(frametime);
 		Player_Silde(frametime);
 	}
+	/*
 	else if (main_road->road_length + player.z > (player.line * 30) && player.dir == 0) {
 		player.z -= player.speed * frametime;
 		Player_Line_Updater(frametime);
@@ -99,6 +103,7 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 		Player_Jump(frametime);
 		Player_Silde(frametime);
 	}
+	*/
 
 	else {
 		if (player.dir == 0) {
@@ -107,11 +112,22 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 				player.camera_rotate -= ROTATE_PER_SEC * frametime;
 			}
 			else if (count <= -90) {
-				Create_Road();
 				player.camera_rotate = 0;
 				count = 0;
 				player.input_rotate = false;
+
+				player.x = (main_road->road_length + player.z);
+				printf("%f\n", main_road->road_length + player.z);
+				player.reserve_line = 1;
+				if (main_road->road_length + player.z < 20) {
+					player.reserve_line = 0;
+				}
+				if (main_road->road_length + player.z < -20) {
+					player.reserve_line = -1;
+				}
+
 				player.z = -(player.line * 30);
+				Create_Road();
 			}
 		}
 
@@ -121,11 +137,22 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 				player.camera_rotate += ROTATE_PER_SEC * frametime;
 			}
 			else if (count >= 90) {
-				Create_Road();
 				player.camera_rotate = 0;
 				count = 0;
 				player.input_rotate = false;
+
+				player.x = -(main_road->road_length + player.z);
+				printf("%f\n", main_road->road_length + player.z);
+				player.reserve_line = -1;
+
+				if (main_road->road_length + player.z < 20) {
+					player.reserve_line = 0;
+				}
+				if (main_road->road_length + player.z < -20) {
+					player.reserve_line = 1;
+				}
 				player.z = (player.line * 30);
+				Create_Road();
 			}
 		}
 	}
@@ -134,7 +161,7 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 GLvoid CGamePlayScene::Player_KeyDown_Updater(int key) {
 	switch (key) {
 	case GLUT_KEY_LEFT:
-		printf("left\n");
+		//printf("left\n");
 		if (NextRoadcheck(1)) {
 			printf("left in\n");
 			player.input_rotate = true;
@@ -147,7 +174,7 @@ GLvoid CGamePlayScene::Player_KeyDown_Updater(int key) {
 		break;
 
 	case GLUT_KEY_RIGHT:
-		printf("right\n");
+		//printf("right\n");
 		if (NextRoadcheck(0)) {
 			printf("right in\n");
 			player.input_rotate = true;
@@ -161,14 +188,14 @@ GLvoid CGamePlayScene::Player_KeyDown_Updater(int key) {
 
 	case GLUT_KEY_UP:
 		if ((player.reserve_state == State::Slide || player.reserve_state == State::Idle) && player.y <= 0) {
-			printf("%f", player.jump_gravity);
+			//printf("%f", player.jump_gravity);
 			player.reserve_state = State::Jump;
 		}
 		break;
 
 	case GLUT_KEY_DOWN:
 		if ((player.reserve_state == State::Slide || player.reserve_state == State::Idle) && player.y <= 0) {
-			printf("Slide");
+			//printf("Slide");
 			player.reserve_state = State::Slide;
 		}
 		break;
@@ -178,15 +205,15 @@ GLvoid CGamePlayScene::Player_KeyDown_Updater(int key) {
 GLvoid CGamePlayScene::Player_Jump(float frametime) {
 	if (player.reserve_state == State::Jump) {
 
-		if (player.y < 30) {
+		if (player.y < 100) {
 			player.y += player.jump_gravity * frametime;
-			player.jump_gravity -= ((player.speed) / 300.f) * frametime;
-			if (player.jump_gravity < (player.speed / 4.f * 3.f) / 2.f) {
+			player.jump_gravity -= ((player.speed) / (100.f * (1 / player.speed))) * frametime;
+			if (player.jump_gravity < (player.speed / 2.f * 4.f) / 2.f) {
 				player.state = State::Jump;
 			}
 		}
 
-		if (player.y >= 30 || player.jump_gravity < 0) {
+		if (player.y >= 100 || player.jump_gravity < 0) {
 			player.reserve_state = State::Idle;
 		}
 
@@ -195,13 +222,13 @@ GLvoid CGamePlayScene::Player_Jump(float frametime) {
 	if (player.reserve_state == State::Idle) {
 		if (player.y > 0) {
 			player.y -= player.jump_gravity * frametime;
-			player.jump_gravity += ((player.speed) / 300.f) * frametime;
-			if (player.jump_gravity > (player.speed / 4.f * 3.f) / 2.f) {
+			player.jump_gravity += ((player.speed) / 1000.f) * frametime;
+			if (player.jump_gravity > (player.speed / 2.f * 4.f) / 2.f) {
 				player.state = State::Jump;
 			}
 			if (player.y <= 0) {
 				player.y = 0;
-				player.jump_gravity = player.speed / 4.f * 3.f;
+				player.jump_gravity = ((player.speed / 2.f) * 4.f);
 			}
 		}
 	}
