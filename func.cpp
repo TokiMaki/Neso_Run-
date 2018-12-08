@@ -346,7 +346,6 @@ GLvoid CGamePlayScene::Draw_background()
 	glDisable(GL_TEXTURE_2D);
 }
 
-/*
 GLvoid CGamePlayScene::Draw_Feverbackground()
 {
 	glEnable(GL_TEXTURE_2D);
@@ -534,7 +533,6 @@ GLvoid CGamePlayScene::Draw_Feverbackground()
 	glDisable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 }
-*/
 
 bool CGamePlayScene::Isin_Rect(int x1, int y1, int x2, int y2, int w1, int h1, int w2, int h2)
 {

@@ -82,7 +82,7 @@ bool CGamePlayScene::Collision_Obstacle_Cube(Obstacle t) {
 GLvoid CGamePlayScene::Collision_Coin() {			// 장애물 충돌체크
 	for (Coin &i : main_road->GetCoinList()) {
 		if (Collision_Coin_Cube(i)) {
-
+			main_road->CoinRemove(i);
 		}
 	}
 }

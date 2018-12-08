@@ -15,6 +15,13 @@ struct Coin {
 	float x;
 	float y;
 	float z;
+	bool operator ==(const Coin& st)
+	{
+		return x == st.x &&
+			y == st.y && 
+			z == st.z &&
+			kind == st.kind;
+	}
 };
 
 
@@ -26,11 +33,15 @@ public:
 	float road_length = 0;
 	Road_Tree* Lroad = nullptr;
 	Road_Tree* Rroad = nullptr;
+
 	void ObstaclePushBack(int kind, float y, float z) { obstacle.push_back({ kind, y, z }); }
 	void ObstacleClear() { obstacle.clear(); }
 	std::list <Obstacle> GetObstacleList() const { return obstacle; }
+
 	void CoinPushBack(int kind, float x, float y, float z) { coin.push_back({ kind, x, y, z }); }
+	void CoinRemove(Coin i) { coin.remove(i); }
 	std::list <Coin> GetCoinList() const { return coin; }
+
 };
 
 enum State {
