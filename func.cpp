@@ -122,7 +122,29 @@ GLvoid CGamePlayScene::vari_init() {
 	identity[0] = identity[5] = identity[10] = identity[15] = 1;		// 행렬 초기화
 
 	main_road = nullptr;
-	count = 0;
+
+
+	player.x = 0;
+	player.y = 0;
+	player.z = 0;
+
+	player.dir = 0;				// 왼쪽 1 오른쪽 0
+	player.reserve_line = 0;		// -1 왼쪽 0 가운데 1 오른쪽
+	player.line = 0;				// -1 왼쪽 0 가운데 1 오른쪽
+
+	player.speed = 150 / 1000.f;
+	player.jump_gravity = 100 / 1000.f;
+
+	player.input_rotate = false;
+	player.camera_rotate = 0;
+	player.roll = 0;
+	player.reserve_state = Idle;
+	player.state = Idle;
+	player.timer = 0;
+	player.death = false;
+
+	death_timer = 1;
+
 
 	bg_scroll = 0;
 	bg_degree = 0;
