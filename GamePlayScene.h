@@ -156,6 +156,7 @@ private:
 	Player player;
 
 	float start_timer;
+	bool started;
 	float count;
 
 	float bg_scroll;
