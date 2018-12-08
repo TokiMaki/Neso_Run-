@@ -48,8 +48,8 @@ struct Player {
 	int reserve_line = 0;		// -1 哭率 0 啊款单 1 坷弗率
 	int line = 0;				// -1 哭率 0 啊款单 1 坷弗率
 
-	float speed = 300 / 1000.f;
-	float jump_gravity = 200 / 1000.f;
+	float speed = 150 / 1000.f;
+	float jump_gravity = 100 / 1000.f;
 
 	bool input_rotate = false;
 	float camera_rotate = 0;
@@ -88,6 +88,7 @@ public:
 	GLvoid Draw_Obstacle();
 	GLvoid ObstacleFrame(int kind, float width, float length);
 	GLvoid Create_Coin();
+	GLvoid Create_Coin_Algorism(Road_Tree* t, int z, int* line);
 	GLvoid Draw_Coin();
 
 	// Player.cpp
@@ -107,6 +108,8 @@ public:
 	bool NextRoadcheck(int dir);
 	GLvoid Collision_Obstacle();
 	bool Collision_Obstacle_Cube(Obstacle t);
+	GLvoid Collision_Coin();
+	bool Collision_Coin_Cube(Coin t);
 
 private:
 

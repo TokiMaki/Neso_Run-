@@ -23,9 +23,11 @@ bool CGamePlayScene::NextRoadcheck(int dir) {
 	return false;
 }
 
-GLvoid CGamePlayScene::Collision_Obstacle() {
+GLvoid CGamePlayScene::Collision_Obstacle() {			// 장애물 충돌체크
 	for (Obstacle &i : main_road->GetObstacleList()) {
-		Collision_Obstacle_Cube(i);
+		if (Collision_Obstacle_Cube(i)) {
+
+		}
 	}
 }
 
@@ -75,3 +77,26 @@ bool CGamePlayScene::Collision_Obstacle_Cube(Obstacle t) {
 	}
 	return false;
 }
+
+
+GLvoid CGamePlayScene::Collision_Coin() {			// 장애물 충돌체크
+	for (Coin &i : main_road->GetCoinList()) {
+		if (Collision_Coin_Cube(i)) {
+
+		}
+	}
+}
+
+bool CGamePlayScene::Collision_Coin_Cube(Coin t) {
+	if (player.x - 5 < t.x + 5 &&
+		player.x + 5 > t.x - 5 &&
+		player.y - 5 < t.y + 5 &&
+		player.y + 5 > t.y - 5 &&
+		-player.z - 5 < t.z + 5 &&
+		-player.z + 5 > t.z - 5) {
+		printf("코인 충돌함");
+		return true;
+	}
+	return false;
+}
+
