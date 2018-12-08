@@ -9,6 +9,7 @@ GLvoid CGamePlayScene::Create_Road() {
 	Road_Tree* temp;
 
 	std::uniform_int_distribution<> uid(MIN_ROAD, MAX_ROAD);
+	std::uniform_int_distribution<> random_road_kind(0, 3);
 
 	int road_random_temp = 0;
 
@@ -31,7 +32,7 @@ GLvoid CGamePlayScene::Create_Road() {
 	}
 
 	else {
-		temp->road_length = uid(dre);
+		temp->road_length = random_road_kind(dre);
 	}
 		road_random_temp = rand() % 3;
 
@@ -177,7 +178,7 @@ GLvoid CGamePlayScene::Draw_Road() {
 		glPushMatrix();
 		glTranslatef(0, 0, -main_road->road_length);
 		glRotatef(90, 0, 1, 0);
-		RoadFrame(LOAD_WIDTH, LOAD_WIDTH);
+		RoadFrame(LOAD_WIDTH, LOAD_WIDTH + LOAD_WIDTH);
 		//glutSolidCube(main_road->Lroad->road_length);
 		glPopMatrix();
 	}
@@ -194,7 +195,7 @@ GLvoid CGamePlayScene::Draw_Road() {
 		glPushMatrix();
 		glTranslatef(0, 0, -main_road->road_length);
 		glRotatef(-90, 0, 1, 0);
-		RoadFrame(LOAD_WIDTH, LOAD_WIDTH);
+		RoadFrame(LOAD_WIDTH, LOAD_WIDTH + LOAD_WIDTH);
 		//glutSolidCube(main_road->Lroad->road_length);
 		glPopMatrix();
 	}
@@ -403,9 +404,9 @@ GLvoid CGamePlayScene::RoadFrame(float width, float length) {
 	glTexCoord2f(0, 1);
 	glVertex3f(width, 0, 0);
 	glTexCoord2f(1, 1);
-	glVertex3f(width, 0, -length);
+	glVertex3f(width, 0, -length + width);
 	glTexCoord2f(1, 0);
-	glVertex3f(width, 50, -length);
+	glVertex3f(width, 50, -length + width);
 	glEnd();
 
 	/*
@@ -419,9 +420,9 @@ GLvoid CGamePlayScene::RoadFrame(float width, float length) {
 
 	glBegin(GL_QUADS);
 	glTexCoord2f(0, 0);
-	glVertex3f(-width, 50, -length);
+	glVertex3f(-width, 50, -length + width);
 	glTexCoord2f(0, 1);
-	glVertex3f(-width, 0, -length);
+	glVertex3f(-width, 0, -length + width);
 	glTexCoord2f(1, 1);
 	glVertex3f(-width, 0, 0);
 	glTexCoord2f(1, 0);
@@ -431,13 +432,13 @@ GLvoid CGamePlayScene::RoadFrame(float width, float length) {
 	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(0));
 	glBegin(GL_QUADS);
 	glTexCoord2f(0, 0);
-	glVertex3f(-width, 50, -length);
+	glVertex3f(-width, 50, -length + width);
 	glTexCoord2f(0, 1);
 	glVertex3f(-width, 50, 0);
 	glTexCoord2f(1, 1);
 	glVertex3f(width, 50, 0);
 	glTexCoord2f(1, 0);
-	glVertex3f(width, 50, -length);
+	glVertex3f(width, 50, -length + width);
 	glEnd();
 
 	/*
