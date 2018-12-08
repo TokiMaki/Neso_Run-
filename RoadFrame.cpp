@@ -420,188 +420,198 @@ GLvoid CGamePlayScene::Draw_Coin() {
 }
 
 GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
+	glEnable(GL_TEXTURE_2D);
+	glColor3f(1, 1, 1);
+	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(12));
 	switch (kind) {
 	case 0:		// 우로 피할수 있는 장애물
-
-		glColor4f(1, 0, 0, 0.5);
 		glBegin(GL_QUADS);
-		glVertex3f(-width, 40, -length);
-		glVertex3f(-width, 0, -length);
-		glVertex3f(width / 4.f, 0, -length);
+		glTexCoord2f(1, 1);
 		glVertex3f(width / 4.f, 40, -length);
-		glEnd();
-
-		glBegin(GL_QUADS);
-		glVertex3f(width / 4.f, 40, -length);
+		glTexCoord2f(1, 0);
 		glVertex3f(width / 4.f, 0, -length);
+		glTexCoord2f(0, 0);
 		glVertex3f(width / 4.f, 0, length);
+		glTexCoord2f(0, 1);
 		glVertex3f(width / 4.f, 40, length);
 		glEnd();
 
 		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
 		glVertex3f(-width, 40, length);
+		glTexCoord2f(1, 0);
 		glVertex3f(-width, 0, length);
+		glTexCoord2f(0, 0);
 		glVertex3f(-width, 0, -length);
+		glTexCoord2f(0, 1);
 		glVertex3f(-width, 40, -length);
 		glEnd();
 
 		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
 		glVertex3f(-width, 40, length);
+		glTexCoord2f(1, 0);
 		glVertex3f(-width, 40, -length);
+		glTexCoord2f(0, 0);
 		glVertex3f(width / 4.f, 40, -length);
+		glTexCoord2f(0, 1);
 		glVertex3f(width / 4.f, 40, length);
 		glEnd();
 
 		glBegin(GL_QUADS);
-		glVertex3f(-width, 0, -length);
-		glVertex3f(-width, 0, length);
-		glVertex3f(width / 4.f, 0, length);
-		glVertex3f(width / 4.f, 0, -length);
-		glEnd();
-
-		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
 		glVertex3f(width / 4.f, 40, length);
+		glTexCoord2f(1, 0);
 		glVertex3f(width / 4.f, 0, length);
+		glTexCoord2f(0, 0);
 		glVertex3f(-width, 0, length);
+		glTexCoord2f(0, 1);
 		glVertex3f(-width, 40, length);
 		glEnd();
+
+
+
 		break;
 
 	case 1:			// 좌로 피할수 있는 장애물
-		glColor4f(0, 1, 0, 0.5);
 		glBegin(GL_QUADS);
-		glVertex3f(width, 40, -length);
-		glVertex3f(width, 0, -length);
-		glVertex3f(-width / 4.f, 0, -length);
+		glTexCoord2f(1, 1);
 		glVertex3f(-width / 4.f, 40, -length);
-		glEnd();
-
-		glBegin(GL_QUADS);
-		glVertex3f(-width / 4.f, 40, -length);
+		glTexCoord2f(1, 0);
 		glVertex3f(-width / 4.f, 0, -length);
+		glTexCoord2f(0, 0);
 		glVertex3f(-width / 4.f, 0, length);
+		glTexCoord2f(0, 1);
 		glVertex3f(-width / 4.f, 40, length);
 		glEnd();
 
 		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
 		glVertex3f(width, 40, length);
+		glTexCoord2f(1, 0);
 		glVertex3f(width, 0, length);
+		glTexCoord2f(0, 0);
 		glVertex3f(width, 0, -length);
+		glTexCoord2f(0, 1);
 		glVertex3f(width, 40, -length);
 		glEnd();
 
 		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
 		glVertex3f(width, 40, length);
+		glTexCoord2f(1, 0);
 		glVertex3f(width, 40, -length);
+		glTexCoord2f(0, 0);
 		glVertex3f(-width / 4.f, 40, -length);
+		glTexCoord2f(0, 1);
 		glVertex3f(-width / 4.f, 40, length);
 		glEnd();
 
 		glBegin(GL_QUADS);
-		glVertex3f(width, 0, -length);
-		glVertex3f(width, 0, length);
-		glVertex3f(-width / 4.f, 0, length);
-		glVertex3f(-width / 4.f, 0, -length);
-		glEnd();
-
-		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
 		glVertex3f(-width / 4.f, 40, length);
+		glTexCoord2f(1, 0);
 		glVertex3f(-width / 4.f, 0, length);
+		glTexCoord2f(0, 0);
 		glVertex3f(width, 0, length);
+		glTexCoord2f(0, 1);
 		glVertex3f(width, 40, length);
 		glEnd();
 		break;
 
 	case 2:			//점프로 피할수 있는 장애물
-		glColor4f(0, 0, 1, 0.5);
 		glBegin(GL_QUADS);
-		glVertex3f(width, 10, -length);
-		glVertex3f(width, 0, -length);
-		glVertex3f(-width, 0, -length);
+		glTexCoord2f(1, 1);
 		glVertex3f(-width, 10, -length);
-		glEnd();
-
-		glBegin(GL_QUADS);
-		glVertex3f(-width, 10, -length);
+		glTexCoord2f(1, 0);
 		glVertex3f(-width, 0, -length);
+		glTexCoord2f(0, 0);
 		glVertex3f(-width, 0, length);
+		glTexCoord2f(0, 1);
 		glVertex3f(-width, 10, length);
 		glEnd();
 
-
 		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
 		glVertex3f(width, 10, length);
+		glTexCoord2f(1, 0);
 		glVertex3f(width, 0, length);
+		glTexCoord2f(0, 0);
 		glVertex3f(width, 0, -length);
+		glTexCoord2f(0, 1);
 		glVertex3f(width, 10, -length);
 		glEnd();
 
 		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
 		glVertex3f(width, 10, length);
+		glTexCoord2f(1, 0);
 		glVertex3f(width, 10, -length);
+		glTexCoord2f(0, 0);
 		glVertex3f(-width, 10, -length);
+		glTexCoord2f(0, 1);
 		glVertex3f(-width, 10, length);
 		glEnd();
 
 		glBegin(GL_QUADS);
-		glVertex3f(width, 0, -length);
-		glVertex3f(width, 0, length);
-		glVertex3f(-width, 0, length);
-		glVertex3f(-width, 0, -length);
-		glEnd();
-		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
 		glVertex3f(-width, 10, length);
+		glTexCoord2f(1, 0);
 		glVertex3f(-width, 0, length);
+		glTexCoord2f(0, 0);
 		glVertex3f(width, 0, length);
+		glTexCoord2f(0, 1);
 		glVertex3f(width, 10, length);
 		glEnd();
 		break;
 
 	case 3:			//슬라이딩으로 피할수 있는 장애물
-		glColor4f(1, 1, 0, 0.5);
 		glBegin(GL_QUADS);
-		glVertex3f(width, 50, -length);
-		glVertex3f(width, 8, -length);
-		glVertex3f(-width, 8, -length);
+		glTexCoord2f(1, 1);
 		glVertex3f(-width, 50, -length);
-		glEnd();
-
-		glBegin(GL_QUADS);
-		glVertex3f(-width, 50, -length);
+		glTexCoord2f(1, 0);
 		glVertex3f(-width, 8, -length);
+		glTexCoord2f(0, 0);
 		glVertex3f(-width, 8, length);
+		glTexCoord2f(0, 1);
 		glVertex3f(-width, 50, length);
 		glEnd();
 
 		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
 		glVertex3f(width, 50, length);
+		glTexCoord2f(1, 0);
 		glVertex3f(width, 8, length);
+		glTexCoord2f(0, 0);
 		glVertex3f(width, 8, -length);
+		glTexCoord2f(0, 1);
 		glVertex3f(width, 50, -length);
 		glEnd();
 
 		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
 		glVertex3f(width, 50, length);
+		glTexCoord2f(1, 0);
 		glVertex3f(width, 8, -length);
+		glTexCoord2f(0, 0);
 		glVertex3f(-width, 8, -length);
+		glTexCoord2f(0, 1);
 		glVertex3f(-width, 50, length);
 		glEnd();
 
 		glBegin(GL_QUADS);
-		glVertex3f(width, 8, -length);
-		glVertex3f(width, 8, length);
-		glVertex3f(-width, 8, length);
-		glVertex3f(-width, 8, -length);
-		glEnd();
-
-		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
 		glVertex3f(-width, 50, length);
+		glTexCoord2f(1, 0);
 		glVertex3f(-width, 8, length);
+		glTexCoord2f(0, 0);
 		glVertex3f(width, 8, length);
+		glTexCoord2f(0, 1);
 		glVertex3f(width, 50, length);
 		glEnd();
 		break;
 	}
+	glDisable(GL_TEXTURE_2D);
 }
 
 GLvoid CGamePlayScene::RoadFrame(float width, float length) {
