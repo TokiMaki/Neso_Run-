@@ -94,6 +94,7 @@ public:
 
 	GLvoid shape_draw();
 	GLvoid Draw_background();
+	GLvoid Draw_Feverbackground();
 
 	bool Isin_Rect(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2);
 	bool NextRoadcheck(int dir);

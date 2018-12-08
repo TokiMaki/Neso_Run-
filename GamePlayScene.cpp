@@ -25,8 +25,8 @@ void CGamePlayScene::Render()
 {
 	glEnable(GL_DEPTH_TEST);
 
-	Draw_background();
-	
+	//Draw_background();
+	Draw_Feverbackground();
 	
 	shape_draw();
 
