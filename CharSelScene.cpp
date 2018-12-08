@@ -248,18 +248,21 @@ void CharSelScene::Mouse_Events(int button, int state, int x, int y)
 {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
 		if (MouseonBtn[0] == true) {
+			m_pFramework->play_fx(1);
 			int ID = m_pFramework->get_charID() - 1;
 			if (ID < 0)
 				ID += 9;
 			m_pFramework->set_charID(ID);
 		}
 		else if (MouseonBtn[1] == true) {
+			m_pFramework->play_fx(1);
 			int ID = m_pFramework->get_charID() + 1;
 			if (ID > 8)
 				ID -= 9;
 			m_pFramework->set_charID(ID);
 		}
 		else if (MouseonBtn[2] == true) {
+			m_pFramework->play_fx(0);
 			m_pFramework->set_bgm(1);
 			m_pFramework->MessagePass(Message::GamePlay);
 		}

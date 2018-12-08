@@ -7,6 +7,7 @@ GLvoid CRun_time_Framework::init_sound()
 	FMOD_System_Init(pFmod, 10, FMOD_INIT_NORMAL, NULL);
 
 	load_bgm();
+	load_fx();
 	load_voice();
 }
 
@@ -31,6 +32,27 @@ GLvoid CRun_time_Framework::set_bgm(int id)
 		NowPlaying = PlayBGM::normal;
 		break;
 	}
+}
+
+GLvoid CRun_time_Framework::load_fx()
+{
+	FMOD_System_CreateSound(pFmod, "sound/fx/BtnClick.wav", FMOD_LOOP_OFF, NULL, &FX[0]);
+	FMOD_System_CreateSound(pFmod, "sound/fx/CharChange.wav", FMOD_LOOP_OFF, NULL, &FX[1]);
+	FMOD_System_CreateSound(pFmod, "sound/fx/Coin01.wav", FMOD_LOOP_OFF, NULL, &FX[2]);
+	FMOD_System_CreateSound(pFmod, "sound/fx/Coin02.wav", FMOD_LOOP_OFF, NULL, &FX[3]);
+	FMOD_System_CreateSound(pFmod, "sound/fx/Coin03.wav", FMOD_LOOP_OFF, NULL, &FX[4]);
+	FMOD_System_CreateSound(pFmod, "sound/fx/Coin04.wav", FMOD_LOOP_OFF, NULL, &FX[5]);
+	FMOD_System_CreateSound(pFmod, "sound/fx/Coin05.wav", FMOD_LOOP_OFF, NULL, &FX[6]);
+	FMOD_System_CreateSound(pFmod, "sound/fx/Coin06.wav", FMOD_LOOP_OFF, NULL, &FX[7]);
+	FMOD_System_CreateSound(pFmod, "sound/fx/Coin07.wav", FMOD_LOOP_OFF, NULL, &FX[8]);
+	FMOD_System_CreateSound(pFmod, "sound/fx/Jump.wav", FMOD_LOOP_OFF, NULL, &FX[9]);
+	return GLvoid();
+}
+
+GLvoid CRun_time_Framework::play_fx(int id)
+{
+	FMOD_System_PlaySound(pFmod, FX[id], NULL, false, &ch[1]);
+	return GLvoid();
 }
 
 GLvoid CRun_time_Framework::load_voice()
