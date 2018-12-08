@@ -176,8 +176,8 @@ GLvoid CGamePlayScene::Collision_Coin() {			// 아이템 & 코인 충돌체크
 				else if (score % 500 == 0)
 					m_pFramework->play_voice(m_pFramework->get_charID(), 5);
 				player.fever_gauge += 1.5;
-				main_road->CoinRemove(i);
 			}
+			main_road->CoinRemove(i);
 		}
 	}
 }

@@ -144,7 +144,7 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 
 		if (player.elapse_time > 10000 && player.autorun != ItemState::Act) {
 			player.elapse_time -= 10000;
-			if (player.speed <= 500 / 1000.f) {
+			if (player.speed <= 460 / 1000.f) {
 				player.speed += 20 / 1000.f;
 			}
 		}

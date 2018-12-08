@@ -266,12 +266,13 @@ GLvoid CGamePlayScene::Create_Coin_Algorism(Road_Tree* t, int z, int* line) {
 	int random_temp = item(dre);
 	int coin_kind;
 
+	// 나올 확률 부분
 	switch (random_temp) {
 	case 0:
 	case 1:
-	case 2:
 		coin_kind = 1;
 		break;
+	case 2:
 	case 3:
 		coin_kind = 2;
 		break;
@@ -570,9 +571,9 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glTexCoord2f(1, 1);
 		glVertex3f(-width, 50, -length);
 		glTexCoord2f(1, 0);
-		glVertex3f(-width, 8, -length);
+		glVertex3f(-width, 10, -length);
 		glTexCoord2f(0, 0);
-		glVertex3f(-width, 8, length);
+		glVertex3f(-width, 10, length);
 		glTexCoord2f(0, 1);
 		glVertex3f(-width, 50, length);
 		glEnd();
@@ -581,9 +582,9 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glTexCoord2f(1, 1);
 		glVertex3f(width, 50, length);
 		glTexCoord2f(1, 0);
-		glVertex3f(width, 8, length);
+		glVertex3f(width, 10, length);
 		glTexCoord2f(0, 0);
-		glVertex3f(width, 8, -length);
+		glVertex3f(width, 10, -length);
 		glTexCoord2f(0, 1);
 		glVertex3f(width, 50, -length);
 		glEnd();
@@ -592,9 +593,9 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glTexCoord2f(1, 1);
 		glVertex3f(width, 50, length);
 		glTexCoord2f(1, 0);
-		glVertex3f(width, 8, -length);
+		glVertex3f(width, 10, -length);
 		glTexCoord2f(0, 0);
-		glVertex3f(-width, 8, -length);
+		glVertex3f(-width, 10, -length);
 		glTexCoord2f(0, 1);
 		glVertex3f(-width, 50, length);
 		glEnd();
@@ -603,9 +604,9 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glTexCoord2f(1, 1);
 		glVertex3f(-width, 50, length);
 		glTexCoord2f(1, 0);
-		glVertex3f(-width, 8, length);
+		glVertex3f(-width, 10, length);
 		glTexCoord2f(0, 0);
-		glVertex3f(width, 8, length);
+		glVertex3f(width, 10, length);
 		glTexCoord2f(0, 1);
 		glVertex3f(width, 50, length);
 		glEnd();
