@@ -9,6 +9,7 @@ public:
 		Title,
 		CharSel,
 		GamePlay,
+		Result,
 		Scene_Count
 	};
 

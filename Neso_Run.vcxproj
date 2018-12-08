@@ -26,6 +26,7 @@
     <ClCompile Include="Game_Sys.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="RoadFrame.cpp" />
     <ClCompile Include="Run_Time_Framework.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="CharSelScene.h" />
     <ClInclude Include="C_Camera.h" />
     <ClInclude Include="GamePlayScene.h" />
+    <ClInclude Include="ResultScene.h" />
     <ClInclude Include="Run_Time_Framework.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="stdafx.h" />
@@ -50,13 +52,13 @@
     <ProjectGuid>{D50B61B0-54DC-4113-A2BC-495DAE69B96B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Neso_Run</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
