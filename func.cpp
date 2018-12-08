@@ -383,6 +383,7 @@ GLvoid CRun_time_Framework::set_bgm(int id)
 {
 	FMOD_Channel_Stop(ch[0]);
 	FMOD_System_PlaySound(pFmod, BGM[id], NULL, false, &ch[0]);
+	FMOD_Sound_GetLength(BGM[id], length, FMOD_TIMEUNIT_MS);
 	switch (id) {
 	case 1:
 		NowPlaying = PlayBGM::normal;
