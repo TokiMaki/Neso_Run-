@@ -223,13 +223,13 @@ GLvoid CGamePlayScene::Create_Coin() {
 	if (main_road->GetCoinList().empty()) {
 		if (main_road->Lroad) {
 			if (main_road->Lroad->GetCoinList().empty()) 
-			printf("¿Ş\n");
+			printf("ì™¼\n");
 		}
 		if (main_road->Rroad) {
 			if (main_road->Rroad->GetCoinList().empty())
-			printf("¿À¸¥\n");
+			printf("ì˜¤ë¥¸\n");
 		}
-		printf("¸ŞÀÎ ÄÚÀÎ¸®½ºÆ®°¡ ¾ø³×?\n");
+		printf("ë©”ì¸ ì½”ì¸ë¦¬ìŠ¤íŠ¸ê°€ ì—†ë„¤?\n");
 	}
 	*/
 
@@ -271,12 +271,13 @@ GLvoid CGamePlayScene::Create_Coin_Algorism(Road_Tree* t, int z, int* line) {
 	case 0:
 		coin_kind = 1;
 		break;
+	case 1:
+		coin_kind = 2;
+		break;
 	default:
 		coin_kind = 0;
 		break;
 	}
-
-
 
 	for (Obstacle &i : t->GetObstacleList()) {
 		if (z + 50 == int(i.z)) {
@@ -351,7 +352,6 @@ GLvoid CGamePlayScene::Create_Coin_Algorism(Road_Tree* t, int z, int* line) {
 	}
 }
 
-
 GLvoid CGamePlayScene::Draw_Coin() {
 	for (Coin &i : main_road->GetCoinList()) {
 		glPushMatrix(); {
@@ -361,6 +361,9 @@ GLvoid CGamePlayScene::Draw_Coin() {
 				break;
 			case 1:
 				glColor4f(0, 1, 0, 1);
+				break;
+			case 2:
+				glColor4f(1, 0, 0, 1);
 				break;
 			}
 			glTranslatef(i.x, i.y + 55, -i.z);
@@ -377,6 +380,9 @@ GLvoid CGamePlayScene::Draw_Coin() {
 					break;
 				case 1:
 					glColor4f(0, 1, 0, 1);
+					break;
+				case 2:
+					glColor4f(1, 0, 0, 1);
 					break;
 				}
 					glTranslatef(0, 0, -main_road->road_length);
@@ -397,6 +403,9 @@ GLvoid CGamePlayScene::Draw_Coin() {
 				case 1:
 					glColor4f(0, 1, 0, 1);
 					break;
+				case 2:
+					glColor4f(1, 0, 0, 1);
+					break;
 				}
 				glTranslatef(0, 0, -main_road->road_length);
 				glRotatef(-90, 0, 1, 0);
@@ -411,7 +420,7 @@ GLvoid CGamePlayScene::Draw_Coin() {
 
 GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 	switch (kind) {
-	case 0:		// ¿ì·Î ÇÇÇÒ¼ö ÀÖ´Â Àå¾Ö¹°
+	case 0:		// ìš°ë¡œ í”¼í• ìˆ˜ ìˆëŠ” ì¥ì• ë¬¼
 
 		glBegin(GL_QUADS);
 		glVertex3f(-width, 40, -length);
@@ -459,7 +468,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 
 		break;
 
-	case 1:			// ÁÂ·Î ÇÇÇÒ¼ö ÀÖ´Â Àå¾Ö¹°
+	case 1:			// ì¢Œë¡œ í”¼í• ìˆ˜ ìˆëŠ” ì¥ì• ë¬¼
 		glBegin(GL_QUADS);
 		glVertex3f(width, 40, -length);
 		glVertex3f(width, 0, -length);
@@ -503,7 +512,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glEnd();
 		break;
 
-	case 2:			//Á¡ÇÁ·Î ÇÇÇÒ¼ö ÀÖ´Â Àå¾Ö¹°
+	case 2:			//ì í”„ë¡œ í”¼í• ìˆ˜ ìˆëŠ” ì¥ì• ë¬¼
 		glBegin(GL_QUADS);
 		glVertex3f(width, 10, -length);
 		glVertex3f(width, 0, -length);
@@ -547,7 +556,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glEnd();
 		break;
 
-	case 3:			//½½¶óÀÌµùÀ¸·Î ÇÇÇÒ¼ö ÀÖ´Â Àå¾Ö¹°
+	case 3:			//ìŠ¬ë¼ì´ë”©ìœ¼ë¡œ í”¼í• ìˆ˜ ìˆëŠ” ì¥ì• ë¬¼
 		glBegin(GL_QUADS);
 		glVertex3f(width, 50, -length);
 		glVertex3f(width, 8, -length);
