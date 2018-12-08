@@ -269,6 +269,10 @@ GLvoid CGamePlayScene::Create_Coin_Algorism(Road_Tree* t, int z, int* line) {
 
 	switch (random_temp) {
 	case 0:
+	case 2:
+	case 3:
+	case 4:
+	case 5:
 		coin_kind = 1;
 		break;
 	case 1:
