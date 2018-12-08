@@ -31,6 +31,12 @@ GLvoid CRun_time_Framework::set_bgm(int id)
 	case 1:
 		NowPlaying = PlayBGM::normal;
 		break;
+	case 2:
+		NowPlaying = PlayBGM::loop;
+		break;
+	case 3:
+		NowPlaying = PlayBGM::fever;
+		break;
 	}
 }
 

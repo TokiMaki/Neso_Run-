@@ -86,13 +86,15 @@ bool CGamePlayScene::Collision_Obstacle_Cube(Obstacle t) {
 }
 
 
-GLvoid CGamePlayScene::Collision_Coin() {			// 장애물 충돌체크
+GLvoid CGamePlayScene::Collision_Coin() {			// 아이템 & 코인 충돌체크
 	for (Coin &i : main_road->GetCoinList()) {
 		if (Collision_Coin_Cube(i)) {
 			if (i.kind == 1) {
 				if (player.autorun_state == AutorunState::None) {
 					player.item_timer.not_autorun_speed = player.speed;
 					player.speed = 800 / 1000.f;
+					m_pFramework->set_bgm(3);
+					
 				}
 				player.autorun_state = AutorunState::Autorun;
 				player.item_timer.autorun_timer = 0;

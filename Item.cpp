@@ -17,8 +17,9 @@ GLvoid CGamePlayScene::Autorun(float frametime) {
 		player.dir = 0;
 	}
 
-	if (player.item_timer.autorun_timer > 3000) {
+	if (player.item_timer.autorun_timer > 10000) {
 		player.autorun_state = AutorunState::None;
+		m_pFramework->set_bgm(2);
 	}
 
 }
