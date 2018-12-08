@@ -69,7 +69,7 @@ struct Player {
 	int reserve_line = 0;		// -1 哭率 0 啊款单 1 坷弗率
 	int line = 0;				// -1 哭率 0 啊款单 1 坷弗率
 	Item item_timer;
-	ItemState autorun_state = None;
+	ItemState autorun = None;
 
 	float speed = 150 / 1000.f;
 	float jump_gravity = 0;
