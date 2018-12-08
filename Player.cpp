@@ -293,6 +293,10 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 		}
 	}
 	else if (player.death) {
+		if (dead_sound == false) {
+			m_pFramework->play_fx(10);
+			dead_sound = true;
+		}
 		Player_Death_Paticle_Update(frametime);
 	}
 }

@@ -157,7 +157,9 @@ private:
 	Player player;
 
 	float start_timer;
-	bool started;
+	bool start_sound;
+	bool dead_sound;
+
 	float count;
 
 	float bg_scroll;

@@ -123,7 +123,8 @@ GLvoid CGamePlayScene::vari_init() {
 
 	main_road = nullptr;
 
-	started = false;
+	start_sound = false;
+	dead_sound = false;
 	score = 0;
 
 	player.x = 0;
@@ -198,9 +199,9 @@ bool CGamePlayScene::Start_Timer(float frametime) {
 		return false;
 	}
 	else if (start_timer >= 3000) {
-		if (started == false) {
+		if (start_sound == false) {
 			m_pFramework->play_voice(m_pFramework->get_charID(), 0);
-			started = true;
+			start_sound = true;
 		}
 		return true;
 	}
