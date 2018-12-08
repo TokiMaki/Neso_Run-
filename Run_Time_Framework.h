@@ -49,6 +49,7 @@ private:
 	FMOD_SYSTEM* pFmod;
 	FMOD_CHANNEL* ch[10];
 	FMOD_SOUND* BGM[5];
+	FMOD_SOUND* FX[10];
 	FMOD_SOUND* VOICE[9][6];
 	unsigned int *length;
 	unsigned int *nowpos;
@@ -131,6 +132,8 @@ public:
 	GLvoid init_sound();
 	GLvoid load_bgm();
 	GLvoid set_bgm(int id);
+	GLvoid load_fx();
+	GLvoid play_fx(int id);
 	GLvoid load_voice();
 	GLvoid play_voice(int charid, int voiceid);
 

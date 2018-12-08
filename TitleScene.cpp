@@ -195,6 +195,7 @@ void TitleScene::Mouse_Events(int button, int state, int x, int y)
 {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
 		if (MouseonBtn[0] == true) {
+			m_pFramework->play_fx(0);
 			m_pFramework->MessagePass(Message::Charsel);
 		}
 		else if (MouseonBtn[1] == true) {

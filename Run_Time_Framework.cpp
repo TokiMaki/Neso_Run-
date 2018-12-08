@@ -267,7 +267,6 @@ GLvoid CRun_time_Framework::Update() {
 	FMOD_Channel_GetPosition(ch[0], nowpos, FMOD_TIMEUNIT_MS);
 	switch (NowPlaying) {
 	case home:
-		printf("%d\n", *nowpos);
 		if (*nowpos >= *length - 50) {
 			FMOD_Channel_SetPosition(ch[0], 6886, FMOD_TIMEUNIT_MS);
 		}
