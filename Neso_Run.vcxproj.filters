@@ -54,6 +54,9 @@
     <ClCompile Include="TextureLoad.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Run_Time_Framework.h">

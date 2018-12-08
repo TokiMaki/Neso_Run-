@@ -34,6 +34,7 @@
     </ClCompile>
     <ClCompile Include="TextureLoad.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="Sound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CharSelScene.h" />
@@ -49,7 +50,7 @@
     <ProjectGuid>{D50B61B0-54DC-4113-A2BC-495DAE69B96B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Neso_Run</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
