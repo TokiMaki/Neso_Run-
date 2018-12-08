@@ -60,7 +60,7 @@ struct Player {
 	int line = 0;				// -1 哭率 0 啊款单 1 坷弗率
 
 	float speed = 150 / 1000.f;
-	float jump_gravity = 100 / 1000.f;
+	float jump_gravity = 0;
 
 	bool input_rotate = false;
 	float camera_rotate = 0;
@@ -117,11 +117,14 @@ public:
 	GLvoid Draw_background();
 	GLvoid Draw_Feverbackground();
 
+	// Item.cpp
+	GLvoid Autorun();
+
 	bool Isin_Rect(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2);
 
 	// Game_sys.cpp
 	bool NextRoadcheck(int dir);
-	GLvoid Collision_Obstacle();
+	GLvoid Collision_Obstacle(float frametime);
 	bool Collision_Obstacle_Cube(Obstacle t);
 	GLvoid Collision_Coin();
 	bool Collision_Coin_Cube(Coin t);

@@ -4,14 +4,12 @@
 #define ROAD_WIDTH 60
 
 bool CGamePlayScene::NextRoadcheck(int dir) {
-	if (main_road->road_length + player.z >= 210) {
+	if (main_road->road_length + player.z >= 180) {
 		return false;
 	}
-	/*
-	else if (main_road->road_length + player.z < 30 && player.dir == 0) {
+	else if (main_road->road_length + player.z < -45) {
 		return false;
 	}
-	*/
 	else {
 		if (dir == 1 && main_road->Lroad != nullptr) {
 			return true;
@@ -23,9 +21,18 @@ bool CGamePlayScene::NextRoadcheck(int dir) {
 	return false;
 }
 
-GLvoid CGamePlayScene::Collision_Obstacle() {			// 장애물 충돌체크
+GLvoid CGamePlayScene::Collision_Obstacle(float frametime) {			// 장애물 충돌체크
+	float gravity = ((player.speed) / 4.f * 3.f);
+
 	for (Obstacle &i : main_road->GetObstacleList()) {
 		if (Collision_Obstacle_Cube(i)) {
+			player.death = true;
+		}
+	}
+	if (main_road->road_length + player.z < -60) {
+		player.y -= player.jump_gravity * frametime;
+		player.jump_gravity += gravity / (50.f * (1 / gravity)) * frametime;;
+		if (player.y <= -20) {
 			player.death = true;
 		}
 	}

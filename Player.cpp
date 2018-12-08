@@ -127,7 +127,7 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 
 GLvoid CGamePlayScene::Player_Update(float frametime) {
 	if (!player.death) {
-		Collision_Obstacle();
+		Collision_Obstacle(frametime);
 		Collision_Coin();
 		if (!player.input_rotate) {
 			player.z -= player.speed * frametime;
@@ -295,6 +295,7 @@ GLvoid CGamePlayScene::Player_KeyDown_Updater(int key) {
 	case GLUT_KEY_UP:
 		if ((player.reserve_state == State::Slide || player.reserve_state == State::Idle) && player.y <= 0) {
 			//printf("%f", player.jump_gravity);
+			player.jump_gravity = 100 / 1000.f;
 			player.reserve_state = State::Jump;
 		}
 		break;
@@ -336,7 +337,7 @@ GLvoid CGamePlayScene::Player_Jump(float frametime) {
 			}
 			if (player.y <= 0) {
 				player.y = 0;
-				player.jump_gravity = gravity;
+				player.jump_gravity = 0;
 			}
 		}
 	}

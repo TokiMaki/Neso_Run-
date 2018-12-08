@@ -144,6 +144,7 @@ GLvoid CGamePlayScene::vari_init() {
 	player.death = false;
 
 	death_timer = 1;
+	count = 0;
 
 
 	bg_scroll = 0;
