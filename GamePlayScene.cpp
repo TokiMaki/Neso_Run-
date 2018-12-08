@@ -28,6 +28,13 @@ void CGamePlayScene::Render()
 	glDrawPixels(800, 800, GL_BGR_EXT, GL_UNSIGNED_BYTE, m_pFramework->get_Pixmap());
 	
 	glEnable(GL_DEPTH_TEST);
+
+	glBegin(GL_QUADS);
+	glVertex3f(400, 400, -500);
+	glVertex3f(400, -400, -500);
+	glVertex3f(-400, -400, -500);
+	glVertex3f(-400, 400, -500);
+	glEnd();
 	
 	shape_draw();
 
