@@ -123,6 +123,7 @@ GLvoid CGamePlayScene::vari_init() {
 
 	main_road = nullptr;
 
+	started = false;
 	score = 0;
 
 	player.x = 0;
@@ -195,7 +196,11 @@ bool CGamePlayScene::Start_Timer(float frametime) {
 		start_timer += frametime;
 		return false;
 	}
-	if (start_timer >= 3000) {
+	else if (start_timer >= 3000) {
+		if (started == false) {
+			m_pFramework->play_voice(m_pFramework->get_charID(), 0);
+			started = true;
+		}
 		return true;
 	}
 }
@@ -827,6 +832,41 @@ GLvoid CGamePlayScene::Draw_UI()
 
 			glPopMatrix();
 		}
+		glPopMatrix();
+	}
+
+	// 게임시작 메세지
+	if (start_timer < 3000) {
+		glPushMatrix();
+		float size = 125;
+		glColor4f(1, 1, 1, 1.0);
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(11));
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.5, 1);
+		glVertex3f(size, size / 2.0, -400);
+		glTexCoord2f(0, 1);
+		glVertex3f(-size, size / 2.0, -400);
+		glTexCoord2f(0, 0.75);
+		glVertex3f(-size, -size / 2.0, -400);
+		glTexCoord2f(0.5, 0.75);
+		glVertex3f(size, -size / 2.0, -400);
+		glEnd();
+
+
+		glColor4f(1, 1, 1, 1.0);
+		glBlendFunc(GL_ONE, GL_ONE);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(10));
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.5, 1);
+		glVertex3f(size, size / 2.0, -400);
+		glTexCoord2f(0, 1);
+		glVertex3f(-size, size / 2.0, -400);
+		glTexCoord2f(0, 0.75);
+		glVertex3f(-size, -size / 2.0, -400);
+		glTexCoord2f(0.5, 0.75);
+		glVertex3f(size, -size / 2.0, -400);
+		glEnd();
 		glPopMatrix();
 	}
 
