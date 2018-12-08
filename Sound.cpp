@@ -28,6 +28,9 @@ GLvoid CRun_time_Framework::set_bgm(int id)
 	FMOD_Channel_SetVolume(ch[0], 0.3);
 	FMOD_Sound_GetLength(BGM[id], length, FMOD_TIMEUNIT_MS);
 	switch (id) {
+	case 0:
+		NowPlaying = PlayBGM::home;
+		break;
 	case 1:
 		NowPlaying = PlayBGM::normal;
 		break;
@@ -36,6 +39,9 @@ GLvoid CRun_time_Framework::set_bgm(int id)
 		break;
 	case 3:
 		NowPlaying = PlayBGM::fever;
+		break;
+	case 4:
+		NowPlaying = PlayBGM::result;
 		break;
 	}
 }
