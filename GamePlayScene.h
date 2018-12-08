@@ -75,6 +75,7 @@ struct Player {
 	ItemState autorun = None;
 	ItemState invincible = None;
 
+	float elapse_time = 0;
 
 	float speed = 150 / 1000.f;
 	float jump_gravity = 0;

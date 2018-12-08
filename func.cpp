@@ -144,6 +144,7 @@ GLvoid CGamePlayScene::vari_init() {
 	player.state = Idle;
 	player.timer = 0;
 	player.death = false;
+	player.elapse_time = 0;
 
 	death_timer = 1;
 	count = 0;

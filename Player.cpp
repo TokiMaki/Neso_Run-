@@ -140,7 +140,14 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 
 GLvoid CGamePlayScene::Player_Update(float frametime) {
 	if (!player.death) {
+		player.elapse_time += frametime;
 
+		if (player.elapse_time > 10000 && player.autorun != ItemState::Act) {
+			player.elapse_time -= 10000;
+			if (player.speed <= 600 / 1000.f) {
+				player.speed += 25 / 1000.f;
+			}
+		}
 
 		if (player.autorun != ItemState::Act && player.invincible != ItemState::Act) {
 			Collision_Obstacle(frametime);
