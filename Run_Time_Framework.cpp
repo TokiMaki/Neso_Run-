@@ -217,6 +217,15 @@ GLvoid CRun_time_Framework::Init() {
 	m_pCamera = new C_Camera();
 	m_pCamera->CameraReset();
 
+	init_sound();
+	nowpos = new unsigned int;
+	length = new unsigned int;
+
+	FMOD_System_PlaySound(pFmod, BGM[0], NULL, false, &ch[0]);
+	FMOD_Channel_SetVolume(ch[0], 0.3);
+	FMOD_Sound_GetLength(BGM[0], length, FMOD_TIMEUNIT_MS);
+	NowPlaying = PlayBGM::home;
+
 	srand(time(nullptr));
 	myself = this;
 	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
@@ -257,6 +266,38 @@ GLvoid CRun_time_Framework::Update() {
 		break;
 	case Exit:
 		glutLeaveMainLoop();
+		break;
+	}
+
+	// bgm 교체 관련
+	FMOD_Channel_GetPosition(ch[0], nowpos, FMOD_TIMEUNIT_MS);
+	switch (NowPlaying) {
+	case home:
+		printf("%d\n", *nowpos);
+		if (*nowpos >= *length - 50) {
+			FMOD_Channel_SetPosition(ch[0], 6886, FMOD_TIMEUNIT_MS);
+		}
+		break;
+	case normal:
+		if (*nowpos >= 42820) {
+			FMOD_Channel_Stop(ch[0]);
+			FMOD_System_PlaySound(pFmod, BGM[2], NULL, false, &ch[0]);
+			FMOD_Channel_SetVolume(ch[0], 0.3);
+			FMOD_Sound_GetLength(BGM[2], length, FMOD_TIMEUNIT_MS);
+			NowPlaying = PlayBGM::loop;
+		}
+		break;
+	case loop:
+		if (*nowpos >= 36545) {
+			FMOD_Channel_SetPosition(ch[0], 0, FMOD_TIMEUNIT_MS);
+		}
+		break;
+	case fever:
+		break;
+	case result:
+		if (*nowpos >= 31587) {
+			FMOD_Channel_SetPosition(ch[0], 8000, FMOD_TIMEUNIT_MS);
+		}
 		break;
 	}
 
