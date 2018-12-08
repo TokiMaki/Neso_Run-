@@ -49,7 +49,7 @@ private:
 	FMOD_SYSTEM* pFmod;
 	FMOD_CHANNEL* ch[10];
 	FMOD_SOUND* BGM[5];
-	FMOD_SOUND* FX[10];
+	FMOD_SOUND* FX[13];
 	FMOD_SOUND* VOICE[9][6];
 	unsigned int *length;
 	unsigned int *nowpos;
