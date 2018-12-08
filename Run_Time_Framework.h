@@ -62,8 +62,6 @@ private:
 	GLubyte *pBytes;				// 데이터를 가리킬 포인터
 	BITMAPINFO *info;				// 비트맵 헤더 저장할 변수
 
-	GLubyte *Pixmap;
-
 	float count;
 
 	int mod;
@@ -115,12 +113,10 @@ public:
 	GLvoid set_CharSelTexture();
 	GLvoid set_CharacterTexture();
 	GLvoid set_IngameObjTexture();
-	GLvoid set_Pixmap();
 
 	GLint get_UItextureID(CScene::SceneTag tag, int num);
 	GLint get_ChartextureID(int num);
 	GLint get_IngameObjID(int num);
-	GLubyte * get_Pixmap();
 
 	GLvoid set_charID(int id);
 	GLint get_charID();

@@ -357,13 +357,6 @@ GLvoid CRun_time_Framework::set_IngameObjTexture()
 	return GLvoid();
 }
 
-GLvoid CRun_time_Framework::set_Pixmap()
-{
-	BITMAPINFO * l_bitinfo;
-	Pixmap = LoadDIBitmap("texture/ui/Pixmap.bmp", &l_bitinfo);
-	return GLvoid();
-}
-
 GLint CRun_time_Framework::get_UItextureID(CScene::SceneTag tag, int num)
 {
 	switch (tag) {
@@ -384,9 +377,4 @@ GLint CRun_time_Framework::get_ChartextureID(int num)
 GLint CRun_time_Framework::get_IngameObjID(int num)
 {
 	return IngameObjTex[num];
-}
-
-GLubyte * CRun_time_Framework::get_Pixmap()
-{
-	return Pixmap;
 }
