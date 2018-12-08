@@ -68,6 +68,8 @@ struct Player {
 	State reserve_state = Idle;
 	State state = Idle;
 	float timer = 0;
+
+	bool death = false;
 };
 
 class CGamePlayScene : public CScene {
@@ -108,6 +110,8 @@ public:
 	GLvoid Player_KeyDown_Updater(int key);
 	GLvoid Player_Jump(float frametime);
 	GLvoid Player_Silde(float frametime);
+	GLvoid Player_Death_Paticle();
+	GLvoid Player_Death_Paticle_Update(float frametime);
 
 	GLvoid Shape_draw();
 	GLvoid Draw_background();
@@ -131,6 +135,8 @@ private:
 	float bg_scroll;
 	float bg_degree;
 	float fever_highlight;
+
+	float death_timer;
 
 	GLfloat identity[16];
 };

@@ -26,7 +26,7 @@ bool CGamePlayScene::NextRoadcheck(int dir) {
 GLvoid CGamePlayScene::Collision_Obstacle() {			// 장애물 충돌체크
 	for (Obstacle &i : main_road->GetObstacleList()) {
 		if (Collision_Obstacle_Cube(i)) {
-
+			player.death = true;
 		}
 	}
 }

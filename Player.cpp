@@ -10,12 +10,14 @@
 
 #define ROTATE_PER_SEC 90 / (1000.f / 5.f)
 
+#define PI 3.141592
+
 GLvoid CGamePlayScene::Draw_Player()
 {
 	glPushMatrix();
 
 	glColor3f(1, 1, 1);
-	glTranslatef(player.x , player.y, player.z);
+	glTranslatef(player.x, player.y, player.z);
 
 	GLUquadricObj *sphere = gluNewQuadric();
 
@@ -24,20 +26,21 @@ GLvoid CGamePlayScene::Draw_Player()
 		glScalef(1, 0.7, 1);
 	}
 
+	if (!player.death) {
+		glMultMatrixf(identity);
+		glEnable(GL_TEXTURE_2D);
+		gluQuadricDrawStyle(sphere, GLU_FILL);
+		gluQuadricTexture(sphere, GL_TRUE);
 
-	glMultMatrixf(identity);
-
-
-
-	glEnable(GL_TEXTURE_2D);
-	gluQuadricDrawStyle(sphere, GLU_FILL);
-	gluQuadricTexture(sphere, GL_TRUE);
-
-	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_ChartextureID(m_pFramework->get_charID()));
-	gluSphere(sphere, RADIUS, 20, 20);
-	glEndList();
-	gluDeleteQuadric(sphere);
-	glDisable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_ChartextureID(m_pFramework->get_charID()));
+		gluSphere(sphere, RADIUS, 20, 20);
+		glEndList();
+		gluDeleteQuadric(sphere);
+		glDisable(GL_TEXTURE_2D);
+	}
+	if (player.death) {
+		Player_Death_Paticle();
+	}
 
 	glPopMatrix();
 }
@@ -123,136 +126,141 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 }
 
 GLvoid CGamePlayScene::Player_Update(float frametime) {
-	Collision_Obstacle();
-	Collision_Coin();
-	if (!player.input_rotate) {
-		player.z -= player.speed * frametime;
-		if (main_road->road_length + player.z < 0) {
-			printf("%f\n", main_road->road_length + player.z);
-		}
-
-		if (player.state == State::Idle) {
-			player.roll -= player.speed * 2 * frametime;
-			glPushMatrix();
-			{
-				glRotatef(-player.speed * 2 * frametime, 1.f, 0.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
-				glMultMatrixf(identity);
-				glGetFloatv(GL_MODELVIEW_MATRIX, identity);
-			}
-			glPopMatrix();
-		}
-
-		Player_Line_Updater(frametime);
-		Player_Jump(frametime);
-		Player_Silde(frametime);
-	}
-	else if (main_road->road_length + player.z > 30) {
-		player.z -= player.speed * frametime;
-
-		if (player.state == State::Idle) {
-			player.roll -= player.speed * 2 * frametime;
-			glPushMatrix();
-			{
-				glRotatef(-player.speed * 2 * frametime, 1.f, 0.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
-				glMultMatrixf(identity);
-				glGetFloatv(GL_MODELVIEW_MATRIX, identity);
-			}
-			glPopMatrix();
-		}
-
-		Player_Line_Updater(frametime);
-		Player_Jump(frametime);
-		Player_Silde(frametime);
-	}
-
-	else {
-		if (player.dir == 0) {
-			if (count > -90) {
-				count -= ROTATE_PER_SEC * frametime;
-				player.camera_rotate -= ROTATE_PER_SEC * frametime;
-				glPushMatrix();
-				{
-					glRotatef(-ROTATE_PER_SEC * frametime, 0.f, 1.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
-					glMultMatrixf(identity);
-					glGetFloatv(GL_MODELVIEW_MATRIX, identity);
-				}
-				glPopMatrix();
-			}
-			else if (count <= -90) {
-				player.camera_rotate = 0;
-				count = 0;
-
-				//memset(identity, 0, sizeof(identity));
-				//identity[0] = identity[5] = identity[10] = identity[15] = 1;		// 행렬 초기화
-				glPushMatrix();
-				{
-					glRotatef(90, 0.f, 1.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
-					glMultMatrixf(identity);
-					glGetFloatv(GL_MODELVIEW_MATRIX, identity);
-				}
-				glPopMatrix();
-
-				player.input_rotate = false;
-
-				player.x = (main_road->road_length + player.z);
+	if (!player.death) {
+		Collision_Obstacle();
+		Collision_Coin();
+		if (!player.input_rotate) {
+			player.z -= player.speed * frametime;
+			if (main_road->road_length + player.z < 0) {
 				printf("%f\n", main_road->road_length + player.z);
-				player.reserve_line = 1;
-				if (main_road->road_length + player.z < 20) {
-					player.reserve_line = 0;
-				}
-				if (main_road->road_length + player.z < -20) {
-					player.reserve_line = -1;
-				}
-
-				player.z = -(player.line * 30);
-				Create_Road();
 			}
+
+			if (player.state == State::Idle) {
+				player.roll -= player.speed * 2 * frametime;
+				glPushMatrix();
+				{
+					glRotatef(-player.speed * 2 * frametime, 1.f, 0.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+					glMultMatrixf(identity);
+					glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+				}
+				glPopMatrix();
+			}
+
+			Player_Line_Updater(frametime);
+			Player_Jump(frametime);
+			Player_Silde(frametime);
+		}
+		else if (main_road->road_length + player.z > 30) {
+			player.z -= player.speed * frametime;
+
+			if (player.state == State::Idle) {
+				player.roll -= player.speed * 2 * frametime;
+				glPushMatrix();
+				{
+					glRotatef(-player.speed * 2 * frametime, 1.f, 0.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+					glMultMatrixf(identity);
+					glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+				}
+				glPopMatrix();
+			}
+
+			Player_Line_Updater(frametime);
+			Player_Jump(frametime);
+			Player_Silde(frametime);
 		}
 
-		if (player.dir == 1) {
-			if (count < 90) {
-				count += ROTATE_PER_SEC * frametime;
-				player.camera_rotate += ROTATE_PER_SEC * frametime;
-				glPushMatrix();
-				{
-					glRotatef(ROTATE_PER_SEC * frametime, 0.f, 1.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
-					glMultMatrixf(identity);
-					glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+		else {
+			if (player.dir == 0) {
+				if (count > -90) {
+					count -= ROTATE_PER_SEC * frametime;
+					player.camera_rotate -= ROTATE_PER_SEC * frametime;
+					glPushMatrix();
+					{
+						glRotatef(-ROTATE_PER_SEC * frametime, 0.f, 1.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+						glMultMatrixf(identity);
+						glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+					}
+					glPopMatrix();
 				}
-				glPopMatrix();
-			}
-			else if (count >= 90) {
-				player.camera_rotate = 0;
-				count = 0;
-				
-				
-				//memset(identity, 0, sizeof(identity));
-				//identity[0] = identity[5] = identity[10] = identity[15] = 1;		// 행렬 초기화
+				else if (count <= -90) {
+					player.camera_rotate = 0;
+					count = 0;
 
-				glPushMatrix();
-				{
-					glRotatef(-90, 0.f, 1.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
-					glMultMatrixf(identity);
-					glGetFloatv(GL_MODELVIEW_MATRIX, identity);
-				}
-				glPopMatrix();
+					//memset(identity, 0, sizeof(identity));
+					//identity[0] = identity[5] = identity[10] = identity[15] = 1;		// 행렬 초기화
+					glPushMatrix();
+					{
+						glRotatef(90, 0.f, 1.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+						glMultMatrixf(identity);
+						glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+					}
+					glPopMatrix();
 
-				player.input_rotate = false;
+					player.input_rotate = false;
 
-				player.x = -(main_road->road_length + player.z);
-				printf("%f\n", main_road->road_length + player.z);
-				player.reserve_line = -1;
-
-				if (main_road->road_length + player.z < 20) {
-					player.reserve_line = 0;
-				}
-				if (main_road->road_length + player.z < -20) {
+					player.x = (main_road->road_length + player.z);
+					printf("%f\n", main_road->road_length + player.z);
 					player.reserve_line = 1;
+					if (main_road->road_length + player.z < 20) {
+						player.reserve_line = 0;
+					}
+					if (main_road->road_length + player.z < -20) {
+						player.reserve_line = -1;
+					}
+
+					player.z = -(player.line * 30);
+					Create_Road();
 				}
-				player.z = (player.line * 30);
-				Create_Road();
+			}
+
+			if (player.dir == 1) {
+				if (count < 90) {
+					count += ROTATE_PER_SEC * frametime;
+					player.camera_rotate += ROTATE_PER_SEC * frametime;
+					glPushMatrix();
+					{
+						glRotatef(ROTATE_PER_SEC * frametime, 0.f, 1.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+						glMultMatrixf(identity);
+						glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+					}
+					glPopMatrix();
+				}
+				else if (count >= 90) {
+					player.camera_rotate = 0;
+					count = 0;
+
+
+					//memset(identity, 0, sizeof(identity));
+					//identity[0] = identity[5] = identity[10] = identity[15] = 1;		// 행렬 초기화
+
+					glPushMatrix();
+					{
+						glRotatef(-90, 0.f, 1.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+						glMultMatrixf(identity);
+						glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+					}
+					glPopMatrix();
+
+					player.input_rotate = false;
+
+					player.x = -(main_road->road_length + player.z);
+					printf("%f\n", main_road->road_length + player.z);
+					player.reserve_line = -1;
+
+					if (main_road->road_length + player.z < 20) {
+						player.reserve_line = 0;
+					}
+					if (main_road->road_length + player.z < -20) {
+						player.reserve_line = 1;
+					}
+					player.z = (player.line * 30);
+					Create_Road();
+				}
 			}
 		}
+	}
+	else if (player.death) {
+		Player_Death_Paticle_Update(frametime);
 	}
 }
 
@@ -351,5 +359,29 @@ GLvoid CGamePlayScene::Player_Silde(float frametime) {
 
 	if (player.reserve_state == State::Idle) {
 		player.timer = 0;
+	}
+}
+
+GLvoid CGamePlayScene::Player_Death_Paticle() {
+	glPushMatrix(); {
+		glScalef(death_timer, death_timer, death_timer);
+		glColor3f(0, 1, 0);
+		for (float i = 0; i < 20; ++i) {
+			for (float j = 0; j < 5; ++j) {
+				glPushMatrix(); {
+					glRotatef((180 / 5.f) * j, 0, 0, 1);
+					glTranslatef(sin(PI / 180 * (360 / 20.f) * i) * 5, 0, cos(PI / 180 * (360 / 20.f) * i) * 5);
+					glutSolidCube(2.5 / death_timer);
+					glPopMatrix();
+				}
+			}
+		}
+	}
+	glPopMatrix();
+}
+
+GLvoid CGamePlayScene::Player_Death_Paticle_Update(float frametime) {
+	if (death_timer <= 50) {
+		death_timer += 1 / 100.f * frametime;
 	}
 }
