@@ -345,6 +345,11 @@ GLvoid CGamePlayScene::Draw_background()
 	glDisable(GL_TEXTURE_2D);
 }
 
+GLvoid CGamePlayScene::Draw_Feverbackground()
+{
+	return GLvoid();
+}
+
 bool CGamePlayScene::Isin_Rect(int x1, int y1, int x2, int y2, int w1, int h1, int w2, int h2)
 {
 	if (x1 < w2 && y1 < h2 && x2 > w1 && y2 > h1)
