@@ -21,6 +21,7 @@ public:
 
 private:
 	bool MouseonBtn;
+	int score;
 	float degree;
 	float scroll;
 	GLfloat identity[16];

@@ -254,6 +254,7 @@ GLvoid CRun_time_Framework::Update() {
 	{
 	case Title:
 		GameMessage = dummy;
+		//delete arrScene[CScene::SceneTag::GamePlay];
 		ChangeScene(CScene::Title);
 		break;
 	case Charsel:
