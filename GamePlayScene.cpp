@@ -50,15 +50,16 @@ GLvoid CGamePlayScene::SpecialKey_Events(int key, int x, int y) {
 	Player_KeyDown_Updater(key);
 	switch (key) {
 	case GLUT_KEY_LEFT:
+		m_pFramework->play_fx(11);
 		break;
-
 	case GLUT_KEY_RIGHT:
+		m_pFramework->play_fx(11);
 		break;
-
 	case GLUT_KEY_UP:
+		m_pFramework->play_fx(9);
 		break;
-
 	case GLUT_KEY_DOWN:
+		m_pFramework->play_fx(12);
 		break;
 	}
 }
