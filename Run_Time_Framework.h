@@ -27,6 +27,7 @@
 
 enum Message { dummy, Title, Charsel, GamePlay, GameOver, Exit};
 enum Character { chika, you, riko, hanamaru, ruby, yoshiko, dia, kanan, mari };
+enum PlayBGM { none, home, normal, loop, fever, result };
 
 class C_Camera;
 
@@ -44,6 +45,13 @@ private:
 
 	CScene * arrScene[CScene::SceneTag::Scene_Count];
 	CScene * m_pCurrScene;
+
+	FMOD_SYSTEM* pFmod;
+	FMOD_CHANNEL* ch[10];
+	FMOD_SOUND* BGM[5];
+	FMOD_SOUND* VOICE[9][6];
+	unsigned int *length;
+	unsigned int *nowpos;
 
 	float camera_zoom = 0;
 	float camera_x = 0;
@@ -69,6 +77,7 @@ private:
 	int now_character;
 
 	GLboolean GameMessage{ dummy };
+	GLboolean NowPlaying{ none };
 
 	GLfloat identity[16];
 
@@ -117,9 +126,15 @@ public:
 	GLint get_UItextureID(CScene::SceneTag tag, int num);
 	GLint get_ChartextureID(int num);
 	GLint get_IngameObjID(int num);
-
+	
 	GLvoid set_charID(int id);
 	GLint get_charID();
+
+	GLvoid init_sound();
+	GLvoid load_bgm();
+	GLvoid set_bgm(int id);
+	GLvoid load_voice();
+	GLvoid play_voice(int charid, int voiceid);
 
 private:
 	Idle m_fpidle{ nullptr };
