@@ -17,17 +17,15 @@ GLvoid CGamePlayScene::Create_Road() {
 		
 	if (main_road) {
 		if (player.dir == 1 && main_road->Lroad != nullptr) {
-			temp->road_length = main_road->Lroad->road_length;
-			for (Obstacle &i : main_road->Lroad->GetObstacleList()) {
-				temp->ObstaclePushBack(i.kind, i.y, i.z);
-			}
+			temp = main_road->Lroad;
+			temp->Lroad = nullptr;
+			temp->Rroad = nullptr;
 		}
 			
 		if (player.dir == 0 && main_road->Rroad != nullptr) {
-			temp->road_length = main_road->Rroad->road_length;
-			for (Obstacle &i : main_road->Rroad->GetObstacleList()) {
-				temp->ObstaclePushBack(i.kind, i.y, i.z);
-			}
+			temp = main_road->Rroad;
+			temp->Lroad = nullptr;
+			temp->Rroad = nullptr;
 		}
 	}
 
@@ -70,11 +68,11 @@ GLvoid CGamePlayScene::Create_Road() {
 		}
 		if (main_road) {
 
-			if (main_road->Lroad) {
+			if (temp != main_road->Lroad) {
 				delete(main_road->Lroad);
 			}
 
-			if (main_road->Rroad) {
+			if (temp != main_road->Rroad) {
 				delete(main_road->Rroad);
 			}
 
@@ -215,8 +213,20 @@ GLvoid CGamePlayScene::Create_Coin() {
 
 	float temp = 50;
 	float random_temp;
-	float present_line = 0;
+	int present_line = 0;
 	Coin t;
+
+	if (main_road->GetCoinList().empty()) {
+		if (main_road->Lroad) {
+			if (main_road->Lroad->GetCoinList().empty()) 
+			printf("왼\n");
+		}
+		if (main_road->Rroad) {
+			if (main_road->Rroad->GetCoinList().empty())
+			printf("오른\n");
+		}
+		printf("시발\n");
+	}
 
 	if (main_road && main_road->GetCoinList().empty()) {
 		while (true) {
@@ -224,7 +234,7 @@ GLvoid CGamePlayScene::Create_Coin() {
 			if (temp >= main_road->road_length - 100)
 				break;
 			for (Obstacle &i : main_road->GetObstacleList()) {
-				if (temp + 50 == i.z) {
+				if (temp + 50 == int(i.z)) {
 					switch (i.kind) {
 					case 0:
 						if (present_line < 1)
@@ -245,7 +255,7 @@ GLvoid CGamePlayScene::Create_Coin() {
 
 					}
 				}
-				else if (temp == i.z) {
+				else if (temp == int(i.z)) {
 					switch (i.kind) {
 					case 0:
 						main_road->CoinPushBack(0, 30, 0, temp);
@@ -289,7 +299,7 @@ GLvoid CGamePlayScene::Create_Coin() {
 			if (temp >= main_road->Lroad->road_length - 100)
 				break;
 			for (Obstacle &i : main_road->Lroad->GetObstacleList()) {
-				if (temp + 50 == i.z) {
+				if (temp + 50 == int(i.z)) {
 					switch (i.kind) {
 					case 0:
 						if (present_line < 1)
@@ -310,7 +320,7 @@ GLvoid CGamePlayScene::Create_Coin() {
 
 					}
 				}
-				else if (temp == i.z) {
+				else if (temp == int(i.z)) {
 					switch (i.kind) {
 					case 0:
 						main_road->Lroad->CoinPushBack(0, 30, 0, temp);
@@ -330,7 +340,7 @@ GLvoid CGamePlayScene::Create_Coin() {
 				}
 			}
 			if (main_road->Lroad->GetCoinList().empty()) {
-				main_road->Lroad->CoinPushBack(0, 0, present_line * 30, temp);
+				main_road->Lroad->CoinPushBack(0, present_line * 30, 0, temp);
 				random_temp = uid(dre);
 				if (present_line + random_temp >= -1 && present_line + random_temp <= 1) {
 					present_line += random_temp;
@@ -338,7 +348,7 @@ GLvoid CGamePlayScene::Create_Coin() {
 				continue;
 			}
 			if (!main_road->Lroad->GetCoinList().empty() && main_road->Lroad->GetCoinList().back().z != temp) {
-				main_road->Lroad->CoinPushBack(0, 0, present_line * 30, temp);
+				main_road->Lroad->CoinPushBack(0, present_line * 30, 0, temp);
 				random_temp = uid(dre);
 				if (present_line + random_temp >= -1 && present_line + random_temp <= 1) {
 					present_line += random_temp;
@@ -347,7 +357,7 @@ GLvoid CGamePlayScene::Create_Coin() {
 			}
 		}
 	}
-	if (main_road->Rroad && main_road->Rroad->GetObstacleList().empty()) {
+	if (main_road->Rroad && main_road->Rroad->GetCoinList().empty()) {
 		temp = 50;
 		while (true) {
 			temp += 50;
@@ -358,7 +368,7 @@ GLvoid CGamePlayScene::Create_Coin() {
 				if (temp >= main_road->Rroad->road_length - 100)
 					break;
 				for (Obstacle &i : main_road->Rroad->GetObstacleList()) {
-					if (temp + 50 == i.z) {
+					if (temp + 50 == int(i.z)) {
 						switch (i.kind) {
 						case 0:
 							if (present_line < 1)
@@ -379,15 +389,15 @@ GLvoid CGamePlayScene::Create_Coin() {
 
 						}
 					}
-					else if (temp == i.z) {
+					else if (temp == int(i.z)) {
 						switch (i.kind) {
 						case 0:
-							main_road->Rroad->CoinPushBack(0, 30, 0, temp);
 							present_line = 1;
+							main_road->Rroad->CoinPushBack(0, present_line * 30, 0, temp);
 							break;
 						case 1:
-							main_road->Rroad->CoinPushBack(0, -30, 0, temp);
 							present_line = -1;
+							main_road->Rroad->CoinPushBack(0, present_line * 30, 0, temp);
 							break;
 						case 2:
 							main_road->Rroad->CoinPushBack(0, present_line * 30, 30, temp);
@@ -399,7 +409,7 @@ GLvoid CGamePlayScene::Create_Coin() {
 					}
 				}
 				if (main_road->Rroad->GetCoinList().empty()) {
-					main_road->Rroad->CoinPushBack(0, 0, present_line * 30, temp);
+					main_road->Rroad->CoinPushBack(0, present_line * 30, 0, temp);
 					random_temp = uid(dre);
 					if (present_line + random_temp >= -1 && present_line + random_temp <= 1) {
 						present_line += random_temp;
@@ -407,7 +417,7 @@ GLvoid CGamePlayScene::Create_Coin() {
 					continue;
 				}
 				if (!main_road->Rroad->GetCoinList().empty() && main_road->Rroad->GetCoinList().back().z != temp) {
-					main_road->Rroad->CoinPushBack(0, 0, present_line * 30, temp);
+					main_road->Rroad->CoinPushBack(0, present_line * 30, 0, temp);
 					random_temp = uid(dre);
 					if (present_line + random_temp >= -1 && present_line + random_temp <= 1) {
 						present_line += random_temp;
@@ -428,12 +438,36 @@ GLvoid CGamePlayScene::Draw_Coin() {
 		}
 		glPopMatrix();
 	}
+	if (main_road->Lroad) {
+		for (Coin &i : main_road->Lroad->GetCoinList()) {
+			glPushMatrix(); {
+				glColor4f(0, 0, 1, 1);
+					glTranslatef(0, 0, -main_road->road_length);
+					glRotatef(90, 0, 1, 0);
+					glTranslatef(i.x, i.y + 50, -i.z);
+					glutSolidCube(5);
+			}
+			glPopMatrix();
+		}
+	}
+	if (main_road->Rroad) {
+		for (Coin &i : main_road->Rroad->GetCoinList()) {
+			glPushMatrix(); {
+				glColor4f(0, 0, 1, 1);
+				glTranslatef(0, 0, -main_road->road_length);
+				glRotatef(-90, 0, 1, 0);
+				glTranslatef(i.x, i.y + 50, -i.z);
+				glutSolidCube(5);
+			}
+			glPopMatrix();
+		}
+	}
 	glColor4f(1, 1, 1, 1);
 }
 
 GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 	switch (kind) {
-	case 0:		// 좌로 피할수 있는 장애물
+	case 0:		// 우로 피할수 있는 장애물
 
 		glBegin(GL_QUADS);
 		glVertex3f(-width, 40, -length);
@@ -481,7 +515,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 
 		break;
 
-	case 1:			// 우로 피할수 있는 장애물
+	case 1:			// 좌로 피할수 있는 장애물
 		glBegin(GL_QUADS);
 		glVertex3f(width, 40, -length);
 		glVertex3f(width, 0, -length);
@@ -525,7 +559,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glEnd();
 		break;
 
-	case 2:			//슬라이딩으로 피할수 있는 장애물
+	case 2:			//점프로 피할수 있는 장애물
 		glBegin(GL_QUADS);
 		glVertex3f(width, 10, -length);
 		glVertex3f(width, 0, -length);
@@ -569,7 +603,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glEnd();
 		break;
 
-	case 3:			//점프로 피할수 있는 장애물
+	case 3:			//슬라이딩으로 피할수 있는 장애물
 		glBegin(GL_QUADS);
 		glVertex3f(width, 50, -length);
 		glVertex3f(width, 8, -length);
