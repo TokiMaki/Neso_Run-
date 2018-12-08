@@ -128,11 +128,11 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 GLvoid CGamePlayScene::Player_Update(float frametime) {
 	if (!player.death) {
 
-		if (player.autorun_state != AutorunState::Autorun) {
+		if (player.autorun_state != ItemState::Act) {
 			Collision_Obstacle(frametime);
 		}
 
-		if (player.autorun_state == AutorunState::Autorun) {
+		if (player.autorun_state == ItemState::Act) {
 			Autorun(frametime);
 		}
 
