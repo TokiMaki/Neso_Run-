@@ -203,12 +203,15 @@ GLvoid CGamePlayScene::Player_KeyDown_Updater(int key) {
 }
 
 GLvoid CGamePlayScene::Player_Jump(float frametime) {
+	float gravity = ((player.speed) / 4.f * 3.f);
+
 	if (player.reserve_state == State::Jump) {
+
 
 		if (player.y < 100) {
 			player.y += player.jump_gravity * frametime;
-			player.jump_gravity -= ((player.speed) / (100.f * (1 / player.speed))) * frametime;
-			if (player.jump_gravity < (player.speed / 2.f * 4.f) / 2.f) {
+			player.jump_gravity -= gravity / (50.f * (1 / gravity)) * frametime;
+			if (player.jump_gravity < gravity / 2.f) {
 				player.state = State::Jump;
 			}
 		}
@@ -218,17 +221,16 @@ GLvoid CGamePlayScene::Player_Jump(float frametime) {
 		}
 
 	}
-
 	if (player.reserve_state == State::Idle) {
 		if (player.y > 0) {
 			player.y -= player.jump_gravity * frametime;
-			player.jump_gravity += ((player.speed) / 1000.f) * frametime;
-			if (player.jump_gravity > (player.speed / 2.f * 4.f) / 2.f) {
+			player.jump_gravity += gravity / (50.f * (1 / gravity)) * frametime;
+			if (player.jump_gravity > gravity / 2.f) {
 				player.state = State::Jump;
 			}
 			if (player.y <= 0) {
 				player.y = 0;
-				player.jump_gravity = ((player.speed / 2.f) * 4.f);
+				player.jump_gravity = gravity;
 			}
 		}
 	}
