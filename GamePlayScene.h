@@ -103,6 +103,7 @@ public:
 
 	// 만든 함수
 	GLvoid vari_init();
+	bool Start_Timer(float frametime);
 
 	// RoadFrame.cpp
 	GLvoid RoadFrame(float width, float length);		// width는 수치가 2배로 들어감 ex) 60 넣으면 120의 넓이 함수안에 Push_PopMatrix() 가 붙어있지 않음
@@ -146,6 +147,8 @@ private:
 
 	Road_Tree* main_road;
 	Player player;
+
+	float start_timer;
 	float count;
 
 	float bg_scroll;

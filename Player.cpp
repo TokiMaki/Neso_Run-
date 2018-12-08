@@ -393,7 +393,7 @@ GLvoid CGamePlayScene::Player_Death_Paticle_Update(float frametime) {
 	if (death_timer <= 50) {
 		death_timer += 1 / 100.f * frametime;
 	}
-	else if (death_timer > 50) {
+	else if (death_timer > 25) {
 		m_pFramework->set_bgm(4);
 		m_pFramework->MessagePass(Message::GameOver);
 	}

@@ -36,7 +36,9 @@ void CGamePlayScene::Render()
 }
 
 GLvoid CGamePlayScene::Update(float frametime) {
-	Player_Update(frametime);
+	if (Start_Timer(frametime)) {
+		Player_Update(frametime);
+	}
 	bg_scroll += 0.00001*frametime;
 	bg_degree += 0.05*frametime;
 	if (bg_degree > 360)

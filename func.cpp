@@ -148,6 +148,7 @@ GLvoid CGamePlayScene::vari_init() {
 	count = 0;
 	camera_z = 0;
 	camera_z_dir = 30 / 1000.f;
+	start_timer = 0;
 
 
 	bg_scroll = 0;
@@ -187,6 +188,16 @@ GLvoid CGamePlayScene::Shape_draw() {
 
 	glPopMatrix();
 
+}
+
+bool CGamePlayScene::Start_Timer(float frametime) {
+	if (start_timer < 3000) {
+		start_timer += frametime;
+		return false;
+	}
+	if (start_timer >= 3000) {
+		return true;
+	}
 }
 
 GLvoid CGamePlayScene::Draw_background()
