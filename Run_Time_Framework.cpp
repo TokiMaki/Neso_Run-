@@ -11,7 +11,7 @@ CRun_time_Framework* CRun_time_Framework::myself = nullptr;
 
 CRun_time_Framework::CRun_time_Framework() {
 	BuildScene();
-	ChangeScene(CScene::SceneTag::Title);
+	ChangeScene(CScene::SceneTag::Result);
 }
 
 void CRun_time_Framework::BuildScene()
@@ -243,6 +243,7 @@ GLvoid CRun_time_Framework::Init() {
 	set_CharSelTexture();
 	set_CharacterTexture();
 	set_IngameObjTexture();
+	set_ResultTexture();
 }
 
 GLvoid CRun_time_Framework::Update() {
@@ -251,6 +252,10 @@ GLvoid CRun_time_Framework::Update() {
 
 	switch (GameMessage)
 	{
+	case Title:
+		GameMessage = dummy;
+		ChangeScene(CScene::Title);
+		break;
 	case Charsel:
 		GameMessage = dummy;
 		ChangeScene(CScene::CharSel);

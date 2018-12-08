@@ -8,9 +8,7 @@ ResultScene::ResultScene(SceneTag tag, CRun_time_Framework * pFramework)
 	m_pFramework = pFramework;
 
 	m_pFramework->set_charID(Character::mari);
-	MouseonBtn[0] = false;
-	MouseonBtn[1] = false;
-	MouseonBtn[2] = false;
+	MouseonBtn = false;
 	degree = 0;
 	scroll = 0;
 }
@@ -59,7 +57,7 @@ void ResultScene::Render()
 
 	glEnable(GL_BLEND);
 
-	// 캐릭터 셀렉트
+	// 리절트
 	{
 		float size = 250;
 
@@ -70,106 +68,35 @@ void ResultScene::Render()
 		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 1));
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 0.75);
-		glVertex2f(size, size / 4.0);
-		glTexCoord2f(0, 0.75);
-		glVertex2f(-size, size / 4.0);
-		glTexCoord2f(0, 0.5);
-		glVertex2f(-size, -size / 4.0);
+		glVertex2f(size, size / 2.0);
+		glTexCoord2f(0.5, 0.75);
+		glVertex2f(-size, size / 2.0);
+		glTexCoord2f(0.5, 0.5);
+		glVertex2f(-size, -size / 2.0);
 		glTexCoord2f(1, 0.5);
-		glVertex2f(size, -size / 4.0);
+		glVertex2f(size, -size / 2.0);
 		glEnd();
 
 		glBlendFunc(GL_ONE, GL_ONE);
 		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 0));
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 0.75);
-		glVertex2f(size, size / 4.0);
-		glTexCoord2f(0, 0.75);
-		glVertex2f(-size, size / 4.0);
-		glTexCoord2f(0, 0.5);
-		glVertex2f(-size, -size / 4.0);
+		glVertex2f(size, size / 2.0);
+		glTexCoord2f(0.5, 0.75);
+		glVertex2f(-size, size / 2.0);
+		glTexCoord2f(0.5, 0.5);
+		glVertex2f(-size, -size / 2.0);
 		glTexCoord2f(1, 0.5);
-		glVertex2f(size, -size / 4.0);
+		glVertex2f(size, -size / 2.0);
 		glEnd();
 
 		glPopMatrix();
 	}
-	// 왼쪽 버튼
-	{
-		float size = 50;
-		if (MouseonBtn[0] == true)
-			size = 70;
-		glPushMatrix();
-		glTranslatef(-350, 0, 0);
 
-		glBlendFunc(GL_DST_COLOR, GL_ZERO);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 1));
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.25, 1);
-		glVertex2f(size, size);
-		glTexCoord2f(0, 1);
-		glVertex2f(-size, size);
-		glTexCoord2f(0, 0.75);
-		glVertex2f(-size, -size);
-		glTexCoord2f(0.25, 0.75);
-		glVertex2f(size, -size);
-		glEnd();
-
-		glBlendFunc(GL_ONE, GL_ONE);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 0));
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.25, 1);
-		glVertex2f(size, size);
-		glTexCoord2f(0, 1);
-		glVertex2f(-size, size);
-		glTexCoord2f(0, 0.75);
-		glVertex2f(-size, -size);
-		glTexCoord2f(0.25, 0.75);
-		glVertex2f(size, -size);
-		glEnd();
-
-		glPopMatrix();
-	}
-	// 오른쪽 버튼
-	{
-		float size = 50;
-		if (MouseonBtn[1] == true)
-			size = 70;
-		glPushMatrix();
-		glTranslatef(350, 0, 0);
-
-		glBlendFunc(GL_DST_COLOR, GL_ZERO);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 1));
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.5, 1);
-		glVertex2f(size, size);
-		glTexCoord2f(0.25, 1);
-		glVertex2f(-size, size);
-		glTexCoord2f(0.25, 0.75);
-		glVertex2f(-size, -size);
-		glTexCoord2f(0.5, 0.75);
-		glVertex2f(size, -size);
-		glEnd();
-
-		glBlendFunc(GL_ONE, GL_ONE);
-		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 0));
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.5, 1);
-		glVertex2f(size, size);
-		glTexCoord2f(0.25, 1);
-		glVertex2f(-size, size);
-		glTexCoord2f(0.25, 0.75);
-		glVertex2f(-size, -size);
-		glTexCoord2f(0.5, 0.75);
-		glVertex2f(size, -size);
-		glEnd();
-
-		glPopMatrix();
-	}
 	// 시작 버튼
 	{
 		float size = 140;
-		if (MouseonBtn[2] == true)
+		if (MouseonBtn == true)
 			size = 180;
 		glPushMatrix();
 		glTranslatef(0, -300, 0);
@@ -247,41 +174,19 @@ GLvoid ResultScene::SpecialKey_Events(int key, int x, int y) {
 void ResultScene::Mouse_Events(int button, int state, int x, int y)
 {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-		if (MouseonBtn[0] == true) {
-			m_pFramework->play_fx(1);
-			int ID = m_pFramework->get_charID() - 1;
-			if (ID < 0)
-				ID += 9;
-			m_pFramework->set_charID(ID);
-		}
-		else if (MouseonBtn[1] == true) {
-			m_pFramework->play_fx(1);
-			int ID = m_pFramework->get_charID() + 1;
-			if (ID > 8)
-				ID -= 9;
-			m_pFramework->set_charID(ID);
-		}
-		else if (MouseonBtn[2] == true) {
+		if (MouseonBtn == true) {
 			m_pFramework->play_fx(0);
-			m_pFramework->set_bgm(1);
-			m_pFramework->MessagePass(Message::GamePlay);
+			m_pFramework->set_bgm(0);
+			m_pFramework->MessagePass(Message::Title);
 		}
 	}
 }
 
 void ResultScene::PassiveMotion_Events(int x, int y)
 {
-	if (x >= 0 && x <= 100 && y >= 350 && y <= 450)
-		MouseonBtn[0] = true;
-	else MouseonBtn[0] = false;
-
-	if (x >= 700 && x <= 800 && y >= 350 && y <= 450)
-		MouseonBtn[1] = true;
-	else MouseonBtn[1] = false;
-
 	if (x >= 260 && x <= 540 && y >= 610 && y <= 750)
-		MouseonBtn[2] = true;
-	else MouseonBtn[2] = false;
+		MouseonBtn = true;
+	else MouseonBtn = false;
 }
 
 GLvoid ResultScene::Draw_Character()

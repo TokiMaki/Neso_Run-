@@ -66,7 +66,8 @@ private:
 	GLuint TitleTex[5];		//텍스처 이름
 	GLuint CharSelTex[3];
 	GLuint CharacterTex[10];
-	GLuint IngameObjTex[10];
+	GLuint IngameObjTex[12];
+	GLuint ResultTex[3];
 
 	GLubyte *pBytes;				// 데이터를 가리킬 포인터
 	BITMAPINFO *info;				// 비트맵 헤더 저장할 변수
@@ -121,6 +122,7 @@ public:
 	GLvoid set_CharSelTexture();
 	GLvoid set_CharacterTexture();
 	GLvoid set_IngameObjTexture();
+	GLvoid set_ResultTexture();
 
 	GLint get_UItextureID(CScene::SceneTag tag, int num);
 	GLint get_ChartextureID(int num);

@@ -20,7 +20,7 @@ public:
 	GLvoid Draw_Character();
 
 private:
-	bool MouseonBtn[3];
+	bool MouseonBtn;
 	float degree;
 	float scroll;
 	GLfloat identity[16];
