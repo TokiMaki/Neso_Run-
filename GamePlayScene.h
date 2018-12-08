@@ -71,11 +71,12 @@ struct Player {
 	int dir = 0;				// 왼쪽 1 오른쪽 0
 	int reserve_line = 0;		// -1 왼쪽 0 가운데 1 오른쪽
 	int line = 0;				// -1 왼쪽 0 가운데 1 오른쪽
-	Item item_timer;
+	Item item;
 	ItemState autorun = None;
 	ItemState invincible = None;
 
 	float elapse_time = 0;
+	float fever_gauge = 0;
 
 	float speed = 150 / 1000.f;
 	float jump_gravity = 0;
@@ -131,6 +132,7 @@ public:
 	GLvoid Player_Silde(float frametime);
 	GLvoid Player_Death_Paticle();
 	GLvoid Player_Death_Paticle_Update(float frametime);
+	GLvoid Player_Fever(float frametime);
 
 
 	GLvoid Shape_draw();
@@ -150,6 +152,7 @@ public:
 	bool Collision_Obstacle_Cube(Obstacle t);
 	GLvoid Collision_Coin();
 	bool Collision_Coin_Cube(Coin t);
+	GLvoid Kind4Effect(float speed, float frametime);
 
 private:
 
@@ -159,6 +162,9 @@ private:
 	float start_timer;
 	bool started;
 	float count;
+
+	bool kind4_bool;
+	float kind4_frame;
 
 	float bg_scroll;
 	float bg_degree;

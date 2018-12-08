@@ -145,12 +145,15 @@ GLvoid CGamePlayScene::vari_init() {
 	player.timer = 0;
 	player.death = false;
 	player.elapse_time = 0;
+	player.fever_gauge = 0;
 
 	death_timer = 1;
 	count = 0;
 	camera_z = 0;
 	camera_z_dir = 30 / 1000.f;
 	start_timer = 0;
+
+	kind4_bool = false;
 
 
 	bg_scroll = 0;
@@ -174,9 +177,10 @@ GLvoid CGamePlayScene::Shape_draw() {
 	gluLookAt(player.x + sin(pi / 180 * (player.camera_rotate)) * 50, 20, player.z + cos(pi / 180 * (player.camera_rotate)) * 50,
 		player.x, 20, player.z,
 		sin(camera_z / 180 * pi), cos(camera_z / 180 * pi), 0);
+	
+
 	// 탑뷰시점
 	//gluLookAt(player.x, 200, player.z, player.x, 0, player.z, 0, 0, -1);
-
 
 	glPushMatrix();
 	Draw_Player();
@@ -187,6 +191,9 @@ GLvoid CGamePlayScene::Shape_draw() {
 	Draw_Road();
 	glPopMatrix();
 
+	glDisable(GL_LIGHTING);
+	glDisable(GL_NORMALIZE);
+	glDisable(GL_LIGHT0);
 
 	glPopMatrix();
 
@@ -621,6 +628,39 @@ GLvoid CGamePlayScene::Draw_UI()
 		glEnd();
 		glPopMatrix();
 	}
+
+	// 피버
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_BLEND);
+	{
+		glPushMatrix();
+		glTranslatef(90, 220, 0);
+		float size = 30;
+		glColor4f(1, 0, 0, 1.0);
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
+		glVertex3f(player.fever_gauge, size / 2.0, -400);
+		glVertex3f(0, size / 2.0, -400);
+		glVertex3f(0, -size / 2.0, -400);
+		glVertex3f(player.fever_gauge, -size / 2.0, -400);
+		glEnd();
+
+
+		glColor4f(1, 0, 0, 1.0);
+		glBlendFunc(GL_ONE, GL_ONE);
+		glBegin(GL_QUADS);
+		glVertex3f(0, size / 2.0, -400);
+		glVertex3f(player.fever_gauge, size / 2.0, -400);
+		glVertex3f(player.fever_gauge, -size / 2.0, -400);
+		glVertex3f(0, -size / 2.0, -400);
+		glEnd();
+		glPopMatrix();
+
+		glColor4f(1, 1, 1, 1.0);
+	}
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
 
 	// 점수
 	{

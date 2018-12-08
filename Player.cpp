@@ -30,13 +30,13 @@ GLvoid CGamePlayScene::Draw_Player()
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ZERO);
 		if (player.invincible == ItemState::Act) {
-			if (player.item_timer.invincible_alpha < 1) {
+			if (player.item.invincible_alpha < 1) {
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			}
-			if (player.item_timer.invincible_alpha == 1) {
+			if (player.item.invincible_alpha == 1) {
 				glBlendFunc(GL_SRC_ALPHA, GL_ZERO);
 			}
-			glColor4f(1, 1, 1, player.item_timer.invincible_alpha);
+			glColor4f(1, 1, 1, player.item.invincible_alpha);
 		}
 		glMultMatrixf(identity);
 		glEnable(GL_TEXTURE_2D);
@@ -144,14 +144,12 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 
 		if (player.elapse_time > 10000 && player.autorun != ItemState::Act) {
 			player.elapse_time -= 10000;
-			if (player.speed <= 600 / 1000.f) {
+			if (player.speed <= 500 / 1000.f) {
 				player.speed += 20 / 1000.f;
 			}
 		}
-
-		if (player.autorun != ItemState::Act && player.invincible != ItemState::Act) {
-			Collision_Obstacle(frametime);
-		}
+		Player_Fever(frametime);
+		Collision_Obstacle(frametime);
 
 		if (player.autorun == ItemState::Act) {
 			Autorun(frametime);
@@ -294,6 +292,21 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 	}
 	else if (player.death) {
 		Player_Death_Paticle_Update(frametime);
+	}
+}
+
+GLvoid CGamePlayScene::Player_Fever(float frametime) {
+	if (player.autorun != Act) {
+		player.fever_gauge += player.speed / 30.f * frametime;
+	}
+	if (player.fever_gauge >= 150) {
+		player.fever_gauge = 150;
+	}
+	if (player.fever_gauge >= 150 && player.autorun == ItemState::None) {
+		player.autorun = Act;
+		player.item.not_autorun_speed = player.speed;
+		player.speed = 800 / 1000.f;
+		m_pFramework->set_bgm(3);
 	}
 }
 
