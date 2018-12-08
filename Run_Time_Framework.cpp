@@ -298,6 +298,9 @@ GLvoid CRun_time_Framework::Update() {
 		}
 		break;
 	case fever:
+		if (*nowpos >= 22300) {
+			FMOD_Channel_SetPosition(ch[0], 1130, FMOD_TIMEUNIT_MS);
+		}
 		break;
 	case result:
 		if (*nowpos >= 31587) {
