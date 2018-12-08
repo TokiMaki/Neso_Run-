@@ -25,8 +25,10 @@ void CGamePlayScene::Render()
 {
 	glEnable(GL_DEPTH_TEST);
 
-	Draw_background();
-	//Draw_Feverbackground();
+	if (player.autorun_state == AutorunState::None)
+		Draw_background();
+	else if (player.autorun_state == AutorunState::Autorun)
+		Draw_Feverbackground();
 	
 	Shape_draw();
 
