@@ -24,9 +24,8 @@ GLvoid CGamePlayScene::Draw_Player()
 		glScalef(1, 0.7, 1);
 	}
 
-	glMultMatrixf(identity);
 
-	glRotatef(90, 0, 1, 0);
+	glMultMatrixf(identity);
 
 
 
@@ -48,25 +47,67 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 	case -1:
 		if (player.x > -30) {
 			player.x -= player.speed / 2.f * frametime;
+			glPushMatrix();
+			{
+				glRotatef(player.speed * frametime, 0.f, 0.f, 1.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+				glMultMatrixf(identity);
+				glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+			}
+			glPopMatrix();
 		}
 		if (player.x <= -30) {
 			player.x += player.speed / 2.f * frametime;
+			glPushMatrix();
+			{
+				glRotatef(-player.speed * frametime, 0.f, 0.f, 1.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+				glMultMatrixf(identity);
+				glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+			}
+			glPopMatrix();
 		}
 		break;
 	case 0:
 		if (player.x > 0) {
 			player.x -= player.speed / 2.f * frametime;
+			glPushMatrix();
+			{
+				glRotatef(player.speed * frametime, 0.f, 0.f, 1.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+				glMultMatrixf(identity);
+				glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+			}
+			glPopMatrix();
 		}
 		if (player.x < 0) {
 			player.x += player.speed / 2.f * frametime;
+			glPushMatrix();
+			{
+				glRotatef(-player.speed * frametime, 0.f, 0.f, 1.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+				glMultMatrixf(identity);
+				glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+			}
+			glPopMatrix();
 		}
 		break;
 	case 1:
 		if (player.x < 30) {
 			player.x += player.speed / 2.f * frametime;
+			glPushMatrix();
+			{
+				glRotatef(-player.speed * frametime, 0.f, 0.f, 1.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+				glMultMatrixf(identity);
+				glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+			}
+			glPopMatrix();
 		}
 		if (player.x >= 30) {
 			player.x -= player.speed / 2.f * frametime;
+			glPushMatrix();
+			{
+				glRotatef(player.speed * frametime, 0.f, 0.f, 1.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+				glMultMatrixf(identity);
+				glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+			}
+			glPopMatrix();
 		}
 		break;
 	}
@@ -140,8 +181,15 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 				player.camera_rotate = 0;
 				count = 0;
 
-				memset(identity, 0, sizeof(identity));
-				identity[0] = identity[5] = identity[10] = identity[15] = 1;		// 행렬 초기화
+				//memset(identity, 0, sizeof(identity));
+				//identity[0] = identity[5] = identity[10] = identity[15] = 1;		// 행렬 초기화
+				glPushMatrix();
+				{
+					glRotatef(90, 0.f, 1.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+					glMultMatrixf(identity);
+					glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+				}
+				glPopMatrix();
 
 				player.input_rotate = false;
 
@@ -176,8 +224,17 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 				player.camera_rotate = 0;
 				count = 0;
 				
-				memset(identity, 0, sizeof(identity));
-				identity[0] = identity[5] = identity[10] = identity[15] = 1;		// 행렬 초기화
+				
+				//memset(identity, 0, sizeof(identity));
+				//identity[0] = identity[5] = identity[10] = identity[15] = 1;		// 행렬 초기화
+
+				glPushMatrix();
+				{
+					glRotatef(-90, 0.f, 1.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+					glMultMatrixf(identity);
+					glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+				}
+				glPopMatrix();
 
 				player.input_rotate = false;
 

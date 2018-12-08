@@ -115,12 +115,6 @@ GLvoid CRun_time_Framework::KeyboardDown(unsigned char key, int x, int y) {
 	case '-':
 		camera_view |= Camera__Y;
 		break;
-	case '1':
-		mod = 0;
-		break;
-	case '2':
-		mod = 1;
-		break;
 	case '7':
 		camera_view |= Camera_X;
 		break;

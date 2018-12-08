@@ -12,6 +12,7 @@ struct Obstacle {
 
 struct Coin {
 	int kind;
+	float x;
 	float y;
 	float z;
 };
@@ -20,6 +21,7 @@ struct Coin {
 class Road_Tree {
 private:
 	std::list <Obstacle> obstacle;
+	std::list <Coin> coin;
 public:
 	float road_length = 0;
 	Road_Tree* Lroad = nullptr;
@@ -27,6 +29,8 @@ public:
 	void ObstaclePushBack(int kind, float y, float z) { obstacle.push_back({ kind, y, z }); }
 	void ObstacleClear() { obstacle.clear(); }
 	std::list <Obstacle> GetObstacleList() const { return obstacle; }
+	void CoinPushBack(int kind, float x, float y, float z) { coin.push_back({ kind, x, y, z }); }
+	std::list <Coin> GetCoinList() const { return coin; }
 };
 
 enum State {
@@ -83,6 +87,8 @@ public:
 	GLvoid Create_Obstacle();
 	GLvoid Draw_Obstacle();
 	GLvoid ObstacleFrame(int kind, float width, float length);
+	GLvoid Create_Coin();
+	GLvoid Draw_Coin();
 
 	// Player.cpp
 	GLvoid Draw_Player();

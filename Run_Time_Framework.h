@@ -72,8 +72,6 @@ private:
 
 	float count;
 
-	int mod;
-
 	int now_character;
 
 	GLboolean GameMessage{ dummy };
