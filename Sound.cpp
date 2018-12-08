@@ -58,6 +58,9 @@ GLvoid CRun_time_Framework::load_fx()
 	FMOD_System_CreateSound(pFmod, "sound/fx/Coin06.wav", FMOD_LOOP_OFF, NULL, &FX[7]);
 	FMOD_System_CreateSound(pFmod, "sound/fx/Coin07.wav", FMOD_LOOP_OFF, NULL, &FX[8]);
 	FMOD_System_CreateSound(pFmod, "sound/fx/Jump.wav", FMOD_LOOP_OFF, NULL, &FX[9]);
+	FMOD_System_CreateSound(pFmod, "sound/fx/Miss.wav", FMOD_LOOP_OFF, NULL, &FX[10]);
+	FMOD_System_CreateSound(pFmod, "sound/fx/Move.wav", FMOD_LOOP_OFF, NULL, &FX[11]);
+	FMOD_System_CreateSound(pFmod, "sound/fx/Slide.wav", FMOD_LOOP_OFF, NULL, &FX[12]);
 	return GLvoid();
 }
 
