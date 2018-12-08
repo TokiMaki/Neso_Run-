@@ -173,7 +173,6 @@ GLvoid CGamePlayScene::Draw_Obstacle() {
 	glEnable(GL_BLEND);
 	glEnable(GL_ALPHA_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glColor4f(1, 0, 0, 0.5);
 	float temp = 0;
 	if (main_road) {
 		for (Obstacle &i : main_road->GetObstacleList()) {
@@ -269,13 +268,11 @@ GLvoid CGamePlayScene::Create_Coin_Algorism(Road_Tree* t, int z, int* line) {
 
 	switch (random_temp) {
 	case 0:
+	case 1:
 	case 2:
-	case 3:
-	case 4:
-	case 5:
 		coin_kind = 1;
 		break;
-	case 1:
+	case 3:
 		coin_kind = 2;
 		break;
 	default:
@@ -426,6 +423,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 	switch (kind) {
 	case 0:		// 우로 피할수 있는 장애물
 
+		glColor4f(1, 0, 0, 0.5);
 		glBegin(GL_QUADS);
 		glVertex3f(-width, 40, -length);
 		glVertex3f(-width, 0, -length);
@@ -467,12 +465,10 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(-width, 0, length);
 		glVertex3f(-width, 40, length);
 		glEnd();
-
-
-
 		break;
 
 	case 1:			// 좌로 피할수 있는 장애물
+		glColor4f(0, 1, 0, 0.5);
 		glBegin(GL_QUADS);
 		glVertex3f(width, 40, -length);
 		glVertex3f(width, 0, -length);
@@ -517,6 +513,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		break;
 
 	case 2:			//점프로 피할수 있는 장애물
+		glColor4f(0, 0, 1, 0.5);
 		glBegin(GL_QUADS);
 		glVertex3f(width, 10, -length);
 		glVertex3f(width, 0, -length);
@@ -561,6 +558,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		break;
 
 	case 3:			//슬라이딩으로 피할수 있는 장애물
+		glColor4f(1, 1, 0, 0.5);
 		glBegin(GL_QUADS);
 		glVertex3f(width, 50, -length);
 		glVertex3f(width, 8, -length);
