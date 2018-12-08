@@ -134,7 +134,7 @@ GLvoid CGamePlayScene::Draw_Road() {
 
 GLvoid CGamePlayScene::Create_Obstacle() {
 	std::uniform_int_distribution<> uid(4, 6);
-	std::uniform_int_distribution<> uid2(0, 3);
+	std::uniform_int_distribution<> uid2(0, 8);
 
 	float temp = 0;
 
@@ -143,7 +143,7 @@ GLvoid CGamePlayScene::Create_Obstacle() {
 			temp += uid(dre) * 50;
 			if (temp >= main_road->road_length - 100)
 				break;
-			main_road->ObstaclePushBack(uid2(dre), 0, temp);
+			main_road->ObstaclePushBack(uid2(dre) / 2, 0, temp);
 			//main_road->ObstaclePushBack(0, 0, temp);
 		}
 	}
@@ -153,7 +153,7 @@ GLvoid CGamePlayScene::Create_Obstacle() {
 			temp += uid(dre) * 50;
 			if (temp >= main_road->Lroad->road_length - 100)
 				break;
-			main_road->Lroad->ObstaclePushBack(uid2(dre), 0, temp);
+			main_road->Lroad->ObstaclePushBack(uid2(dre) / 2, 0, temp);
 			//main_road->Lroad->ObstaclePushBack(0, 0, temp);
 		}
 	}
@@ -163,7 +163,7 @@ GLvoid CGamePlayScene::Create_Obstacle() {
 			temp += uid(dre) * 50;
 			if (temp >= main_road->Rroad->road_length - 100)
 				break;
-			main_road->Rroad->ObstaclePushBack(uid2(dre), 0, temp);
+			main_road->Rroad->ObstaclePushBack(uid2(dre) / 2, 0, temp);
 			//main_road->Rroad->ObstaclePushBack(0, 0, temp);
 		}
 	}
@@ -607,6 +607,55 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glTexCoord2f(0, 0);
 		glVertex3f(width, 8, length);
 		glTexCoord2f(0, 1);
+		glVertex3f(width, 50, length);
+		glEnd();
+		break;
+
+	case 4:			//슬라이딩으로 피할수 있는 장애물
+		glColor4f(1, 0, 1, 0.5);
+		/*
+		glBegin(GL_QUADS);
+		glVertex3f(width, 50, -length);
+		glVertex3f(width, 8, -length);
+		glVertex3f(-width, 8, -length);
+		glVertex3f(-width, 50, -length);
+		glEnd();
+		*/
+
+		glBegin(GL_QUADS);
+		glVertex3f(-width, 50, -length);
+		glVertex3f(-width, 0, -length);
+		glVertex3f(-width, 0, length);
+		glVertex3f(-width, 50, length);
+		glEnd();
+
+		glBegin(GL_QUADS);
+		glVertex3f(width, 50, length);
+		glVertex3f(width, 0, length);
+		glVertex3f(width, 0, -length);
+		glVertex3f(width, 50, -length);
+		glEnd();
+
+		glBegin(GL_QUADS);
+		glVertex3f(width, 50, length);
+		glVertex3f(width, 0, -length);
+		glVertex3f(-width, 0, -length);
+		glVertex3f(-width, 50, length);
+		glEnd();
+
+		/*
+		glBegin(GL_QUADS);
+		glVertex3f(width, 8, -length);
+		glVertex3f(width, 8, length);
+		glVertex3f(-width, 8, length);
+		glVertex3f(-width, 8, -length);
+		glEnd();
+		*/
+
+		glBegin(GL_QUADS);
+		glVertex3f(-width, 50, length);
+		glVertex3f(-width, 0, length);
+		glVertex3f(width, 0, length);
 		glVertex3f(width, 50, length);
 		glEnd();
 		break;
