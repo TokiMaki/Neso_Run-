@@ -86,7 +86,7 @@ GLvoid CGamePlayScene::Create_Road() {
 }
 
 GLvoid CGamePlayScene::Create_Obstacle() {
-	std::uniform_int_distribution<> uid(150, 250);
+	std::uniform_int_distribution<> uid(200, 400);
 	std::uniform_int_distribution<> uid2(0, 3);
 
 	float temp = 0;
@@ -118,12 +118,14 @@ GLvoid CGamePlayScene::Create_Obstacle() {
 }
 
 GLvoid CGamePlayScene::Draw_Obstacle() {
-
+	glEnable(GL_BLEND);
+	glEnable(GL_ALPHA_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glColor4f(1, 0, 0, 0.5);
 	float temp = 0;
 	if (main_road) {
 		for (Obstacle &i : main_road->GetObstacleList()) {
 				glPushMatrix(); {
-					glColor3f(1, 0, 0);
 					glTranslatef(0, 50, -i.z);
 					ObstacleFrame(i.kind, 60, 2.5);
 				}
@@ -132,7 +134,6 @@ GLvoid CGamePlayScene::Draw_Obstacle() {
 		if (main_road->Lroad) {
 			for (Obstacle &i : main_road->Lroad->GetObstacleList()) {
 				glPushMatrix(); {
-					glColor3f(1, 0, 0);
 					glTranslatef(0, 0, -main_road->road_length);
 					glRotatef(90, 0, 1, 0);
 					glTranslatef(0, 50, -i.z);
@@ -144,7 +145,6 @@ GLvoid CGamePlayScene::Draw_Obstacle() {
 		if (main_road->Rroad) {
 			for (Obstacle &i : main_road->Rroad->GetObstacleList()) {
 				glPushMatrix(); {
-					glColor3f(1, 0, 0);
 					glTranslatef(0, 0, -main_road->road_length);
 					glRotatef(-90, 0, 1, 0);
 					glTranslatef(0, 50, -i.z);
@@ -154,13 +154,14 @@ GLvoid CGamePlayScene::Draw_Obstacle() {
 			}
 		}
 	}
+	glDisable(GL_BLEND);
+	glDisable(GL_ALPHA_TEST);
 	glColor3f(1, 1, 1);
 }
 
 GLvoid CGamePlayScene::Draw_Road() {
 	glPushMatrix();
 	glTranslatef(0, -55, 0);
-	Draw_Obstacle();
 	//glColor3f(0, 1, 0);
 
 	RoadFrame(LOAD_WIDTH, main_road->road_length);
@@ -200,47 +201,41 @@ GLvoid CGamePlayScene::Draw_Road() {
 		glPopMatrix();
 	}
 
+	Draw_Obstacle();
 	glPopMatrix();
 }
 
 
 GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 	switch (kind) {
-	case 0:
+	case 0:		// 좌로 피할수 있는 장애물
+
 		glBegin(GL_QUADS);
-		glVertex3f(-width, 10, -length);
+		glVertex3f(-width, 40, -length);
 		glVertex3f(-width, 0, -length);
 		glVertex3f(width / 4.f, 0, -length);
-		glVertex3f(width / 4.f, 10, -length);
+		glVertex3f(width / 4.f, 40, -length);
 		glEnd();
 
 		glBegin(GL_QUADS);
-		glVertex3f(width / 4.f, 10, -length);
+		glVertex3f(width / 4.f, 40, -length);
 		glVertex3f(width / 4.f, 0, -length);
 		glVertex3f(width / 4.f, 0, length);
-		glVertex3f(width / 4.f, 10, length);
+		glVertex3f(width / 4.f, 40, length);
 		glEnd();
 
 		glBegin(GL_QUADS);
-		glVertex3f(width / 4.f, 10, length);
-		glVertex3f(width / 4.f, 0, length);
-		glVertex3f(-width, 0, length);
-		glVertex3f(-width, 10, length);
-		glEnd();
-
-
-		glBegin(GL_QUADS);
-		glVertex3f(-width, 10, length);
+		glVertex3f(-width, 40, length);
 		glVertex3f(-width, 0, length);
 		glVertex3f(-width, 0, -length);
-		glVertex3f(-width, 10, -length);
+		glVertex3f(-width, 40, -length);
 		glEnd();
 
 		glBegin(GL_QUADS);
-		glVertex3f(-width, 5, length);
-		glVertex3f(-width, 5, -length);
-		glVertex3f(width / 4.f, 5, -length);
-		glVertex3f(width / 4.f, 5, length);
+		glVertex3f(-width, 40, length);
+		glVertex3f(-width, 40, -length);
+		glVertex3f(width / 4.f, 40, -length);
+		glVertex3f(width / 4.f, 40, length);
 		glEnd();
 
 		glBegin(GL_QUADS);
@@ -249,42 +244,45 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(width / 4.f, 0, length);
 		glVertex3f(width / 4.f, 0, -length);
 		glEnd();
+
+		glBegin(GL_QUADS);
+		glVertex3f(width / 4.f, 40, length);
+		glVertex3f(width / 4.f, 0, length);
+		glVertex3f(-width, 0, length);
+		glVertex3f(-width, 40, length);
+		glEnd();
+
+
+
 		break;
 
-	case 1:
+	case 1:			// 우로 피할수 있는 장애물
 		glBegin(GL_QUADS);
-		glVertex3f(width, 10, -length);
+		glVertex3f(width, 40, -length);
 		glVertex3f(width, 0, -length);
 		glVertex3f(-width / 4.f, 0, -length);
-		glVertex3f(-width / 4.f, 10, -length);
+		glVertex3f(-width / 4.f, 40, -length);
 		glEnd();
 
 		glBegin(GL_QUADS);
-		glVertex3f(-width / 4.f, 10, -length);
+		glVertex3f(-width / 4.f, 40, -length);
 		glVertex3f(-width / 4.f, 0, -length);
 		glVertex3f(-width / 4.f, 0, length);
-		glVertex3f(-width / 4.f, 10, length);
+		glVertex3f(-width / 4.f, 40, length);
 		glEnd();
 
 		glBegin(GL_QUADS);
-		glVertex3f(-width / 4.f, 10, length);
-		glVertex3f(-width / 4.f, 0, length);
-		glVertex3f(width, 0, length);
-		glVertex3f(width, 10, length);
-		glEnd();
-
-		glBegin(GL_QUADS);
-		glVertex3f(width, 10, length);
+		glVertex3f(width, 40, length);
 		glVertex3f(width, 0, length);
 		glVertex3f(width, 0, -length);
-		glVertex3f(width, 10, -length);
+		glVertex3f(width, 40, -length);
 		glEnd();
 
 		glBegin(GL_QUADS);
-		glVertex3f(width, 10, length);
-		glVertex3f(width, 10, -length);
-		glVertex3f(-width / 4.f, 10, -length);
-		glVertex3f(-width / 4.f, 10, length);
+		glVertex3f(width, 40, length);
+		glVertex3f(width, 40, -length);
+		glVertex3f(-width / 4.f, 40, -length);
+		glVertex3f(-width / 4.f, 40, length);
 		glEnd();
 
 		glBegin(GL_QUADS);
@@ -292,10 +290,17 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(width, 0, length);
 		glVertex3f(-width / 4.f, 0, length);
 		glVertex3f(-width / 4.f, 0, -length);
+		glEnd();
+
+		glBegin(GL_QUADS);
+		glVertex3f(-width / 4.f, 40, length);
+		glVertex3f(-width / 4.f, 0, length);
+		glVertex3f(width, 0, length);
+		glVertex3f(width, 40, length);
 		glEnd();
 		break;
 
-	case 2:
+	case 2:			//슬라이딩으로 피할수 있는 장애물
 		glBegin(GL_QUADS);
 		glVertex3f(width, 10, -length);
 		glVertex3f(width, 0, -length);
@@ -310,12 +315,6 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(-width, 10, length);
 		glEnd();
 
-		glBegin(GL_QUADS);
-		glVertex3f(-width, 10, length);
-		glVertex3f(-width, 0, length);
-		glVertex3f(width, 0, length);
-		glVertex3f(width, 10, length);
-		glEnd();
 
 		glBegin(GL_QUADS);
 		glVertex3f(width, 10, length);
@@ -337,13 +336,19 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(-width, 0, length);
 		glVertex3f(-width, 0, -length);
 		glEnd();
+		glBegin(GL_QUADS);
+		glVertex3f(-width, 10, length);
+		glVertex3f(-width, 0, length);
+		glVertex3f(width, 0, length);
+		glVertex3f(width, 10, length);
+		glEnd();
 		break;
 
-	case 3:
+	case 3:			//점프로 피할수 있는 장애물
 		glBegin(GL_QUADS);
 		glVertex3f(width, 50, -length);
-		glVertex3f(width, 6, -length);
-		glVertex3f(-width, 6, -length);
+		glVertex3f(width, 8, -length);
+		glVertex3f(-width, 8, -length);
 		glVertex3f(-width, 50, -length);
 		glEnd();
 
@@ -352,13 +357,6 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(-width, 8, -length);
 		glVertex3f(-width, 8, length);
 		glVertex3f(-width, 50, length);
-		glEnd();
-
-		glBegin(GL_QUADS);
-		glVertex3f(-width, 50, length);
-		glVertex3f(-width, 8, length);
-		glVertex3f(width, 8, length);
-		glVertex3f(width, 50, length);
 		glEnd();
 
 		glBegin(GL_QUADS);
@@ -380,6 +378,13 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(width, 8, length);
 		glVertex3f(-width, 8, length);
 		glVertex3f(-width, 8, -length);
+		glEnd();
+
+		glBegin(GL_QUADS);
+		glVertex3f(-width, 50, length);
+		glVertex3f(-width, 8, length);
+		glVertex3f(width, 8, length);
+		glVertex3f(width, 50, length);
 		glEnd();
 		break;
 	}

@@ -24,8 +24,10 @@ GLvoid CGamePlayScene::Draw_Player()
 		glScalef(1, 0.7, 1);
 	}
 
-	glRotatef(player.camera_rotate + 90, 0, 1, 0);
-	glRotatef(player.z, 0, 0, 1);
+	glMultMatrixf(identity);
+
+	glRotatef(90, 0, 1, 0);
+
 
 
 	glEnable(GL_TEXTURE_2D);
@@ -45,26 +47,26 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 	switch (player.reserve_line) {
 	case -1:
 		if (player.x > -30) {
-			player.x -= player.speed * frametime;
+			player.x -= player.speed / 2.f * frametime;
 		}
 		if (player.x <= -30) {
-			player.x += player.speed * frametime;
+			player.x += player.speed / 2.f * frametime;
 		}
 		break;
 	case 0:
 		if (player.x > 0) {
-			player.x -= player.speed * frametime;
+			player.x -= player.speed / 2.f * frametime;
 		}
 		if (player.x < 0) {
-			player.x += player.speed * frametime;
+			player.x += player.speed / 2.f * frametime;
 		}
 		break;
 	case 1:
 		if (player.x < 30) {
-			player.x += player.speed * frametime;
+			player.x += player.speed / 2.f * frametime;
 		}
 		if (player.x >= 30) {
-			player.x -= player.speed * frametime;
+			player.x -= player.speed / 2.f * frametime;
 		}
 		break;
 	}
@@ -86,34 +88,61 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 		if (main_road->road_length + player.z < 0) {
 			printf("%f\n", main_road->road_length + player.z);
 		}
+
+		if (player.state == State::Idle) {
+			player.roll -= player.speed * 2 * frametime;
+			glPushMatrix();
+			{
+				glRotatef(-player.speed * 2 * frametime, 1.f, 0.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+				glMultMatrixf(identity);
+				glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+			}
+			glPopMatrix();
+		}
+
 		Player_Line_Updater(frametime);
 		Player_Jump(frametime);
 		Player_Silde(frametime);
 	}
-	/*
-	else if (main_road->road_length + player.z > (player.line * 30) && player.dir == 0) {
+	else if (main_road->road_length + player.z > 30) {
 		player.z -= player.speed * frametime;
+
+		if (player.state == State::Idle) {
+			player.roll -= player.speed * 2 * frametime;
+			glPushMatrix();
+			{
+				glRotatef(-player.speed * 2 * frametime, 1.f, 0.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+				glMultMatrixf(identity);
+				glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+			}
+			glPopMatrix();
+		}
+
 		Player_Line_Updater(frametime);
 		Player_Jump(frametime);
 		Player_Silde(frametime);
 	}
-	else if (main_road->road_length + player.z > -(player.line * 30) && player.dir == 1) {
-		player.z -= player.speed * frametime;
-		Player_Line_Updater(frametime);
-		Player_Jump(frametime);
-		Player_Silde(frametime);
-	}
-	*/
 
 	else {
 		if (player.dir == 0) {
 			if (count > -90) {
 				count -= ROTATE_PER_SEC * frametime;
 				player.camera_rotate -= ROTATE_PER_SEC * frametime;
+				glPushMatrix();
+				{
+					glRotatef(-ROTATE_PER_SEC * frametime, 0.f, 1.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+					glMultMatrixf(identity);
+					glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+				}
+				glPopMatrix();
 			}
 			else if (count <= -90) {
 				player.camera_rotate = 0;
 				count = 0;
+
+				memset(identity, 0, sizeof(identity));
+				identity[0] = identity[5] = identity[10] = identity[15] = 1;		// 행렬 초기화
+
 				player.input_rotate = false;
 
 				player.x = (main_road->road_length + player.z);
@@ -135,10 +164,21 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 			if (count < 90) {
 				count += ROTATE_PER_SEC * frametime;
 				player.camera_rotate += ROTATE_PER_SEC * frametime;
+				glPushMatrix();
+				{
+					glRotatef(ROTATE_PER_SEC * frametime, 0.f, 1.f, 0.f);		// 저렇게 만들면 프레임에 따라 속도가 변하지않음
+					glMultMatrixf(identity);
+					glGetFloatv(GL_MODELVIEW_MATRIX, identity);
+				}
+				glPopMatrix();
 			}
 			else if (count >= 90) {
 				player.camera_rotate = 0;
 				count = 0;
+				
+				memset(identity, 0, sizeof(identity));
+				identity[0] = identity[5] = identity[10] = identity[15] = 1;		// 행렬 초기화
+
 				player.input_rotate = false;
 
 				player.x = -(main_road->road_length + player.z);
@@ -226,7 +266,7 @@ GLvoid CGamePlayScene::Player_Jump(float frametime) {
 			player.y -= player.jump_gravity * frametime;
 			player.jump_gravity += gravity / (50.f * (1 / gravity)) * frametime;
 			if (player.jump_gravity > gravity / 2.f) {
-				player.state = State::Jump;
+				player.state = State::Idle;
 			}
 			if (player.y <= 0) {
 				player.y = 0;
