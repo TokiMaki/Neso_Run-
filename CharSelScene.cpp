@@ -224,17 +224,22 @@ GLvoid CharSelScene::Update(float frametime) {
 GLvoid CharSelScene::SpecialKey_Events(int key, int x, int y) {
 	switch (key) {
 	case GLUT_KEY_LEFT:
-
+		m_pFramework->play_voice(m_pFramework->get_charID(), 0);
 		break;
-
 	case GLUT_KEY_RIGHT:
-
+		m_pFramework->play_voice(m_pFramework->get_charID(), 1);
 		break;
-
 	case GLUT_KEY_UP:
+		m_pFramework->play_voice(m_pFramework->get_charID(), 2);
 		break;
-
 	case GLUT_KEY_DOWN:
+		m_pFramework->play_voice(m_pFramework->get_charID(), 3);
+		break;
+	case GLUT_KEY_SHIFT_R:
+		m_pFramework->play_voice(m_pFramework->get_charID(), 4);
+		break;
+	case GLUT_KEY_F12:
+		m_pFramework->play_voice(m_pFramework->get_charID(), 5);
 		break;
 	}
 }

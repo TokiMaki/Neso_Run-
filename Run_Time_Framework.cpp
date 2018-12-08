@@ -222,6 +222,7 @@ GLvoid CRun_time_Framework::Init() {
 	length = new unsigned int;
 
 	FMOD_System_PlaySound(pFmod, BGM[0], NULL, false, &ch[0]);
+	FMOD_Channel_SetVolume(ch[0], 0.3);
 	FMOD_Sound_GetLength(BGM[0], length, FMOD_TIMEUNIT_MS);
 	NowPlaying = PlayBGM::home;
 
@@ -281,6 +282,7 @@ GLvoid CRun_time_Framework::Update() {
 		if (*nowpos >= 42820) {
 			FMOD_Channel_Stop(ch[0]);
 			FMOD_System_PlaySound(pFmod, BGM[2], NULL, false, &ch[0]);
+			FMOD_Channel_SetVolume(ch[0], 0.3);
 			FMOD_Sound_GetLength(BGM[2], length, FMOD_TIMEUNIT_MS);
 			NowPlaying = PlayBGM::loop;
 		}
