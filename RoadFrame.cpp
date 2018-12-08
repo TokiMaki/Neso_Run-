@@ -271,11 +271,13 @@ GLvoid CGamePlayScene::Create_Coin_Algorism(Road_Tree* t, int z, int* line) {
 	case 0:
 		coin_kind = 1;
 		break;
+	case 1:
+		coin_kind = 2;
+		break;
 	default:
 		coin_kind = 0;
 		break;
 	}
-	coin_kind = 1;
 
 	for (Obstacle &i : t->GetObstacleList()) {
 		if (z + 50 == int(i.z)) {
@@ -350,7 +352,6 @@ GLvoid CGamePlayScene::Create_Coin_Algorism(Road_Tree* t, int z, int* line) {
 	}
 }
 
-
 GLvoid CGamePlayScene::Draw_Coin() {
 	for (Coin &i : main_road->GetCoinList()) {
 		glPushMatrix(); {
@@ -360,6 +361,9 @@ GLvoid CGamePlayScene::Draw_Coin() {
 				break;
 			case 1:
 				glColor4f(0, 1, 0, 1);
+				break;
+			case 2:
+				glColor4f(1, 0, 0, 1);
 				break;
 			}
 			glTranslatef(i.x, i.y + 55, -i.z);
@@ -376,6 +380,9 @@ GLvoid CGamePlayScene::Draw_Coin() {
 					break;
 				case 1:
 					glColor4f(0, 1, 0, 1);
+					break;
+				case 2:
+					glColor4f(1, 0, 0, 1);
 					break;
 				}
 					glTranslatef(0, 0, -main_road->road_length);
@@ -395,6 +402,9 @@ GLvoid CGamePlayScene::Draw_Coin() {
 					break;
 				case 1:
 					glColor4f(0, 1, 0, 1);
+					break;
+				case 2:
+					glColor4f(1, 0, 0, 1);
 					break;
 				}
 				glTranslatef(0, 0, -main_road->road_length);

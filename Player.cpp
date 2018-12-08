@@ -16,7 +16,7 @@ GLvoid CGamePlayScene::Draw_Player()
 {
 	glPushMatrix();
 
-	glColor3f(1, 1, 1);
+	glColor4f(1, 1, 1, 1);
 	glTranslatef(player.x, player.y, player.z);
 
 	GLUquadricObj *sphere = gluNewQuadric();
@@ -27,6 +27,17 @@ GLvoid CGamePlayScene::Draw_Player()
 	}
 
 	if (!player.death) {
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ZERO);
+		if (player.invincible == ItemState::Act) {
+			if (player.item_timer.invincible_alpha < 1) {
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			}
+			if (player.item_timer.invincible_alpha == 1) {
+				glBlendFunc(GL_SRC_ALPHA, GL_ZERO);
+			}
+			glColor4f(1, 1, 1, player.item_timer.invincible_alpha);
+		}
 		glMultMatrixf(identity);
 		glEnable(GL_TEXTURE_2D);
 		gluQuadricDrawStyle(sphere, GLU_FILL);
@@ -37,10 +48,12 @@ GLvoid CGamePlayScene::Draw_Player()
 		glEndList();
 		gluDeleteQuadric(sphere);
 		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
 	}
 	if (player.death) {
 		Player_Death_Paticle();
 	}
+	glColor4f(1, 1, 1, 1);
 
 	glPopMatrix();
 }
@@ -128,12 +141,16 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 GLvoid CGamePlayScene::Player_Update(float frametime) {
 	if (!player.death) {
 
-		if (player.autorun_state != ItemState::Act) {
+		if (player.autorun != ItemState::Act && player.invincible != ItemState::Act) {
 			Collision_Obstacle(frametime);
 		}
 
-		if (player.autorun_state == ItemState::Act) {
+		if (player.autorun == ItemState::Act) {
 			Autorun(frametime);
+		}
+
+		if (player.invincible == ItemState::Act) {
+			invincible(frametime);
 		}
 
 		Collision_Coin();
@@ -390,7 +407,7 @@ GLvoid CGamePlayScene::Player_Death_Paticle() {
 }
 
 GLvoid CGamePlayScene::Player_Death_Paticle_Update(float frametime) {
-	if (death_timer <= 50) {
+	if (death_timer <= 25) {
 		death_timer += 1 / 100.f * frametime;
 	}
 	else if (death_timer > 25) {

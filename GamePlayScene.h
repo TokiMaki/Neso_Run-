@@ -46,7 +46,10 @@ public:
 
 struct Item {
 	int autorun_timer = 0;
-	float not_autorun_speed;
+	int invincible_timer = 0;
+
+	float not_autorun_speed = 0;
+	float invincible_alpha = 0.5;
 };
 
 enum ActState {
@@ -69,7 +72,8 @@ struct Player {
 	int reserve_line = 0;		// -1 哭率 0 啊款单 1 坷弗率
 	int line = 0;				// -1 哭率 0 啊款单 1 坷弗率
 	Item item_timer;
-	ItemState autorun_state = None;
+	ItemState autorun = None;
+	ItemState invincible = None;
 
 	float speed = 150 / 1000.f;
 	float jump_gravity = 0;
@@ -133,6 +137,7 @@ public:
 
 	// Item.cpp
 	GLvoid Autorun(float frametime);
+	GLvoid invincible(float frametime);
 
 	bool Isin_Rect(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2);
 

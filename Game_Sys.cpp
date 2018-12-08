@@ -90,14 +90,18 @@ GLvoid CGamePlayScene::Collision_Coin() {			// 아이템 & 코인 충돌체크
 	for (Coin &i : main_road->GetCoinList()) {
 		if (Collision_Coin_Cube(i)) {
 			if (i.kind == 1) {
-				if (player.autorun_state == ItemState::None) {
+				if (player.autorun == ItemState::None) {
 					player.item_timer.not_autorun_speed = player.speed;
 					player.speed = 800 / 1000.f;
 					m_pFramework->set_bgm(3);
 					
 				}
-				player.autorun_state = ItemState::Act;
+				player.autorun = ItemState::Act;
 				player.item_timer.autorun_timer = 0;
+			}
+			if (i.kind == 2) {
+				player.invincible = ItemState::Act;
+				player.item_timer.invincible_timer = 0;
 			}
 			score++;
 			main_road->CoinRemove(i);
