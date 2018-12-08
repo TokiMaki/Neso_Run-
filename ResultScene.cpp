@@ -11,6 +11,7 @@ ResultScene::ResultScene(SceneTag tag, CRun_time_Framework * pFramework)
 	MouseonBtn = false;
 	degree = 0;
 	scroll = 0;
+	score = 123456789;
 }
 
 ResultScene::~ResultScene()
@@ -92,6 +93,252 @@ void ResultScene::Render()
 
 		glPopMatrix();
 	}
+	// 스코어
+	{
+		float size = 125;
+
+		glPushMatrix();
+		glTranslatef(0, 100, 0);
+
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 1));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
+		glVertex2f(size, size / 2.0);
+		glTexCoord2f(0.5, 1);
+		glVertex2f(-size, size / 2.0);
+		glTexCoord2f(0.5, 0.75);
+		glVertex2f(-size, -size / 2.0);
+		glTexCoord2f(1, 0.75);
+		glVertex2f(size, -size / 2.0);
+		glEnd();
+
+		glBlendFunc(GL_ONE, GL_ONE);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 0));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
+		glVertex2f(size, size / 2.0);
+		glTexCoord2f(0.5, 1);
+		glVertex2f(-size, size / 2.0);
+		glTexCoord2f(0.5, 0.75);
+		glVertex2f(-size, -size / 2.0);
+		glTexCoord2f(1, 0.75);
+		glVertex2f(size, -size / 2.0);
+		glEnd();
+
+		glPopMatrix();
+	}
+	// 점수
+	{
+		float size = 50;
+		int print_score = score;
+		// 십만개부턴 난 몰라요
+		if (print_score > 99999)
+			print_score = 99999;
+
+		// 일의자리
+		{
+			int num = print_score % 10;
+			glPushMatrix();
+
+			if (print_score > 9999)
+				glTranslatef(145, 0, 0);
+			else if (print_score > 999)
+				glTranslatef(105, 0, 0);
+			else if (print_score > 99)
+				glTranslatef(70, 0, 0);
+			else if (print_score > 9)
+				glTranslatef(35, 0, 0);
+			else
+				glTranslatef(0, 0, 0);
+
+			glBlendFunc(GL_DST_COLOR, GL_ZERO);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 1));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glBlendFunc(GL_ONE, GL_ONE);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 0));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glPopMatrix();
+		}
+		// 십의 자리
+		if (print_score > 9)
+		{
+			int num = (print_score / 10) % 10;
+			glPushMatrix();
+
+			if (print_score > 9999)
+				glTranslatef(75, 0, 0);
+			else if (print_score > 999)
+				glTranslatef(35, 0, 0);
+			else if (print_score > 99)
+				glTranslatef(0, 0, 0);
+			else
+				glTranslatef(-35, 0, 0);
+
+			glBlendFunc(GL_DST_COLOR, GL_ZERO);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 1));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glBlendFunc(GL_ONE, GL_ONE);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 0));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glPopMatrix();
+		}
+		// 백의 자리
+		if (print_score > 99)
+		{
+			int num = (print_score / 100) % 100;
+			glPushMatrix();
+			if (print_score > 9999)
+				glTranslatef(0, 0, 0);
+			else if (print_score > 999)
+				glTranslatef(-35, 0, 0);
+			else
+				glTranslatef(-70, 0, 0);
+
+			glBlendFunc(GL_DST_COLOR, GL_ZERO);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 1));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glBlendFunc(GL_ONE, GL_ONE);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 0));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glPopMatrix();
+		}
+		// 천의 자리
+		if (print_score > 999)
+		{
+			int num = (print_score / 1000) % 1000;
+			glPushMatrix();
+
+			if (print_score > 9999)
+				glTranslatef(-75, 0, 0);
+			else
+				glTranslatef(-105, 0, 0);
+
+			glBlendFunc(GL_DST_COLOR, GL_ZERO);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 1));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glBlendFunc(GL_ONE, GL_ONE);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 0));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glPopMatrix();
+		}
+		// 만의 자리
+		if (print_score > 9999)
+		{
+			int num = (print_score / 10000) % 10000;
+			glPushMatrix();
+
+			glTranslatef(-145, 0, 0);
+
+			glBlendFunc(GL_DST_COLOR, GL_ZERO);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 1));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glBlendFunc(GL_ONE, GL_ONE);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 0));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glPopMatrix();
+		}
+	}
 
 	// 시작 버튼
 	{
@@ -104,26 +351,26 @@ void ResultScene::Render()
 		glBlendFunc(GL_DST_COLOR, GL_ZERO);
 		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 1));
 		glBegin(GL_QUADS);
-		glTexCoord2f(1, 0.5);
+		glTexCoord2f(0.5, 0.5);
 		glVertex2f(size, size / 2.0);
 		glTexCoord2f(0, 0.5);
 		glVertex2f(-size, size / 2.0);
-		glTexCoord2f(0, 0);
+		glTexCoord2f(0, 0.25);
 		glVertex2f(-size, -size / 2.0);
-		glTexCoord2f(1, 0);
+		glTexCoord2f(0.5, 0.25);
 		glVertex2f(size, -size / 2.0);
 		glEnd();
 
 		glBlendFunc(GL_ONE, GL_ONE);
 		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_UItextureID(m_Tag, 0));
 		glBegin(GL_QUADS);
-		glTexCoord2f(1, 0.5);
+		glTexCoord2f(0.5, 0.5);
 		glVertex2f(size, size / 2.0);
 		glTexCoord2f(0, 0.5);
 		glVertex2f(-size, size / 2.0);
-		glTexCoord2f(0, 0);
+		glTexCoord2f(0, 0.25);
 		glVertex2f(-size, -size / 2.0);
-		glTexCoord2f(1, 0);
+		glTexCoord2f(0.5, 0.25);
 		glVertex2f(size, -size / 2.0);
 		glEnd();
 
@@ -133,7 +380,7 @@ void ResultScene::Render()
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
 
-	Draw_Character();
+	//Draw_Character();
 
 	glDisable(GL_TEXTURE_2D);
 
