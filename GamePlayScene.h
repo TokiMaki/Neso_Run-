@@ -152,6 +152,8 @@ private:
 	float bg_degree;
 	float fever_highlight;
 
+	int score;
+
 	float death_timer;
 	float camera_z;
 	float camera_z_dir;

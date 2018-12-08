@@ -123,6 +123,7 @@ GLvoid CGamePlayScene::vari_init() {
 
 	main_road = nullptr;
 
+	score = 0;
 
 	player.x = 0;
 	player.y = 0;
@@ -607,7 +608,7 @@ GLvoid CGamePlayScene::Draw_UI()
 	// 점수
 	{
 		float size = 10;
-		int print_score = 12345;
+		int print_score = score;
 		// 십만개부턴 난 몰라요
 		if (print_score > 99999)
 			print_score = 99999;
