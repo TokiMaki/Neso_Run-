@@ -99,10 +99,6 @@ GLvoid CGamePlayScene::Collision_Coin() {			// 아이템 & 코인 충돌체크
 				player.autorun = ItemState::Act;
 				player.item_timer.autorun_timer = 0;
 			}
-			if (i.kind == 2) {
-				player.invincible = ItemState::Act;
-				player.item_timer.invincible_timer = 0;
-			}
 			score++;
 			main_road->CoinRemove(i);
 		}

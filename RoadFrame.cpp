@@ -279,6 +279,9 @@ GLvoid CGamePlayScene::Create_Coin_Algorism(Road_Tree* t, int z, int* line) {
 		break;
 	}
 
+
+
+
 	for (Obstacle &i : t->GetObstacleList()) {
 		if (z + 50 == int(i.z)) {
 			switch (i.kind) {
