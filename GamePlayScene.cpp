@@ -23,10 +23,6 @@ void CGamePlayScene::BuildObjects()
 
 void CGamePlayScene::Render()
 {
-	//Pixmap
-	//glPixelZoom(1.0, 1.0);
-	//glDrawPixels(800, 800, GL_BGR_EXT, GL_UNSIGNED_BYTE, m_pFramework->get_Pixmap());
-	
 	glEnable(GL_DEPTH_TEST);
 
 	Draw_background();
@@ -35,7 +31,6 @@ void CGamePlayScene::Render()
 	shape_draw();
 
 	glDisable(GL_DEPTH_TEST);
-
 }
 
 GLvoid CGamePlayScene::Update(float frametime) {
