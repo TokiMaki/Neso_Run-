@@ -131,7 +131,7 @@ void ResultScene::Render()
 	// 점수
 	{
 		float size = 50;
-		int print_score = score;
+		int print_score = m_pFramework->return_score();
 		// 십만개부턴 난 몰라요
 		if (print_score > 99999)
 			print_score = 99999;

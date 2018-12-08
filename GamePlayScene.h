@@ -126,6 +126,7 @@ public:
 	GLvoid Player_Death_Paticle();
 	GLvoid Player_Death_Paticle_Update(float frametime);
 
+
 	GLvoid Shape_draw();
 	GLvoid Draw_background();
 	GLvoid Draw_Feverbackground();

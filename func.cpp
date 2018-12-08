@@ -889,4 +889,12 @@ GLint CRun_time_Framework::get_charID() {
 	return now_character;
 }
 
+GLvoid CRun_time_Framework::send_score(int s)
+{
+	score = s;
+}
 
+int CRun_time_Framework::return_score()
+{
+	return score;
+}
