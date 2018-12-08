@@ -4,19 +4,21 @@
 #include "GamePlayScene.h"
 #include "TitleScene.h"
 #include "CharSelScene.h"
+#include "ResultScene.h"
 
 
 CRun_time_Framework* CRun_time_Framework::myself = nullptr;
 
 CRun_time_Framework::CRun_time_Framework() {
 	BuildScene();
-	ChangeScene(CScene::SceneTag::Title);
+	ChangeScene(CScene::SceneTag::Result);
 }
 
 void CRun_time_Framework::BuildScene()
 {
 	arrScene[CScene::SceneTag::Title] = new TitleScene(CScene::SceneTag::Title, this);
 	arrScene[CScene::SceneTag::CharSel] = new CharSelScene(CScene::SceneTag::CharSel, this);
+	arrScene[CScene::SceneTag::Result] = new ResultScene(CScene::SceneTag::Result, this);
 	//arrScene[CScene::SceneTag::GamePlay] = new CGamePlayScene(CScene::SceneTag::GamePlay, this);
 }
 
@@ -241,6 +243,7 @@ GLvoid CRun_time_Framework::Init() {
 	set_CharSelTexture();
 	set_CharacterTexture();
 	set_IngameObjTexture();
+	set_ResultTexture();
 }
 
 GLvoid CRun_time_Framework::Update() {
@@ -249,6 +252,10 @@ GLvoid CRun_time_Framework::Update() {
 
 	switch (GameMessage)
 	{
+	case Title:
+		GameMessage = dummy;
+		ChangeScene(CScene::Title);
+		break;
 	case Charsel:
 		GameMessage = dummy;
 		ChangeScene(CScene::CharSel);
@@ -257,6 +264,10 @@ GLvoid CRun_time_Framework::Update() {
 		GameMessage = dummy;
 		arrScene[CScene::SceneTag::GamePlay] = new CGamePlayScene(CScene::SceneTag::GamePlay, this);
 		ChangeScene(CScene::GamePlay);
+		break;
+	case GameOver:
+		GameMessage = dummy;
+		ChangeScene(CScene::Result);
 		break;
 	case Exit:
 		glutLeaveMainLoop();
