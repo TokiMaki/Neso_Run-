@@ -57,7 +57,7 @@ private:
 	GLuint TitleTex[5];		//텍스처 이름
 	GLuint CharSelTex[3];
 	GLuint CharacterTex[10];
-	GLuint IngameObjTex[2];
+	GLuint IngameObjTex[7];
 
 	GLubyte *pBytes;				// 데이터를 가리킬 포인터
 	BITMAPINFO *info;				// 비트맵 헤더 저장할 변수

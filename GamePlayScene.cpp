@@ -24,17 +24,13 @@ void CGamePlayScene::BuildObjects()
 void CGamePlayScene::Render()
 {
 	//Pixmap
-	glPixelZoom(1.0, 1.0);
-	glDrawPixels(800, 800, GL_BGR_EXT, GL_UNSIGNED_BYTE, m_pFramework->get_Pixmap());
+	//glPixelZoom(1.0, 1.0);
+	//glDrawPixels(800, 800, GL_BGR_EXT, GL_UNSIGNED_BYTE, m_pFramework->get_Pixmap());
 	
 	glEnable(GL_DEPTH_TEST);
 
-	glBegin(GL_QUADS);
-	glVertex3f(400, 400, -500);
-	glVertex3f(400, -400, -500);
-	glVertex3f(-400, -400, -500);
-	glVertex3f(-400, 400, -500);
-	glEnd();
+	Draw_background();
+	
 	
 	shape_draw();
 
@@ -44,6 +40,10 @@ void CGamePlayScene::Render()
 
 GLvoid CGamePlayScene::Update(float frametime) {
 	Player_Update(frametime);
+	bg_scroll += 0.00001*frametime;
+	bg_degree += 0.05*frametime;
+	if (bg_degree > 360)
+		bg_degree -= 360;
 }
 
 GLvoid CGamePlayScene::SpecialKey_Events(int key, int x, int y) {

@@ -89,6 +89,7 @@ public:
 	GLvoid Player_Silde(float frametime);
 
 	GLvoid shape_draw();
+	GLvoid Draw_background();
 
 	bool Isin_Rect(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2);
 	bool NextRoadcheck(int dir);
@@ -99,6 +100,8 @@ private:
 	Player player;
 	float count;
 
+	float bg_scroll;
+	float bg_degree;
 
 	GLfloat identity[16];
 };

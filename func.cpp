@@ -124,6 +124,9 @@ GLvoid CGamePlayScene::vari_init() {
 	main_road = nullptr;
 	count = 0;
 
+	bg_scroll = 0;
+	bg_degree = 0;
+
 	Create_Road();
 }
 
@@ -153,6 +156,191 @@ GLvoid CGamePlayScene::shape_draw() {
 
 	glPopMatrix();
 
+}
+
+GLvoid CGamePlayScene::Draw_background()
+{
+	glEnable(GL_TEXTURE_2D);
+	glDisable(GL_DEPTH_TEST);
+
+	// 하늘
+	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(4));
+	glBegin(GL_QUADS);
+	glTexCoord2f(1 + bg_scroll, 1);
+	glVertex3f(400, 400, -500);
+	glTexCoord2f(1 + bg_scroll, 0);
+	glVertex3f(400, -400, -500);
+	glTexCoord2f(0 + bg_scroll, 0);
+	glVertex3f(-400, -400, -500);
+	glTexCoord2f(0 + bg_scroll, 1);
+	glVertex3f(-400, 400, -500);
+	glEnd();
+
+	glEnable(GL_BLEND);
+	// 뒤에 돌아가는 바람개비
+	{
+		float size = 50;
+		glPushMatrix();
+		glTranslatef(-240, 70, 0);
+
+		glPushMatrix();
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(6));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 0.5);
+		glVertex3f(size, size, -500);
+		glTexCoord2f(1, 0);
+		glVertex3f(size, -size, -500);
+		glTexCoord2f(0.5, 0);
+		glVertex3f(-size, -size, -500);
+		glTexCoord2f(0.5, 0.5);
+		glVertex3f(-size, size, -500);
+		glEnd();
+
+		glBlendFunc(GL_ONE, GL_ONE);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(5));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 0.5);
+		glVertex3f(size, size, -500);
+		glTexCoord2f(1, 0);
+		glVertex3f(size, -size, -500);
+		glTexCoord2f(0.5, 0);
+		glVertex3f(-size, -size, -500);
+		glTexCoord2f(0.5, 0.5);
+		glVertex3f(-size, size, -500);
+		glEnd();
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslatef(0, 25, 0);
+		glRotatef(bg_degree, 0, 0, 1);
+
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(6));
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.5, 0.5);
+		glVertex3f(size, size, -500);
+		glTexCoord2f(0.5, 0);
+		glVertex3f(size, -size, -500);
+		glTexCoord2f(0, 0);
+		glVertex3f(-size, -size, -500);
+		glTexCoord2f(0, 0.5);
+		glVertex3f(-size, size, -500);
+		glEnd();
+
+		glBlendFunc(GL_ONE, GL_ONE);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(5));
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.5, 0.5);
+		glVertex3f(size, size, -500);
+		glTexCoord2f(0.5, 0);
+		glVertex3f(size, -size, -500);
+		glTexCoord2f(0, 0);
+		glVertex3f(-size, -size, -500);
+		glTexCoord2f(0, 0.5);
+		glVertex3f(-size, size, -500);
+		glEnd();
+		glPopMatrix();
+
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslatef(240, 70, 0);
+
+		glPushMatrix();
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(6));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 0.5);
+		glVertex3f(size, size, -500);
+		glTexCoord2f(1, 0);
+		glVertex3f(size, -size, -500);
+		glTexCoord2f(0.5, 0);
+		glVertex3f(-size, -size, -500);
+		glTexCoord2f(0.5, 0.5);
+		glVertex3f(-size, size, -500);
+		glEnd();
+
+		glBlendFunc(GL_ONE, GL_ONE);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(5));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 0.5);
+		glVertex3f(size, size, -500);
+		glTexCoord2f(1, 0);
+		glVertex3f(size, -size, -500);
+		glTexCoord2f(0.5, 0);
+		glVertex3f(-size, -size, -500);
+		glTexCoord2f(0.5, 0.5);
+		glVertex3f(-size, size, -500);
+		glEnd();
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslatef(0, 25, 0);
+		glRotatef(-bg_degree, 0, 0, 1);
+
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(6));
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.5, 0.5);
+		glVertex3f(size, size, -500);
+		glTexCoord2f(0.5, 0);
+		glVertex3f(size, -size, -500);
+		glTexCoord2f(0, 0);
+		glVertex3f(-size, -size, -500);
+		glTexCoord2f(0, 0.5);
+		glVertex3f(-size, size, -500);
+		glEnd();
+
+		glBlendFunc(GL_ONE, GL_ONE);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(5));
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.5, 0.5);
+		glVertex3f(size, size, -500);
+		glTexCoord2f(0.5, 0);
+		glVertex3f(size, -size, -500);
+		glTexCoord2f(0, 0);
+		glVertex3f(-size, -size, -500);
+		glTexCoord2f(0, 0.5);
+		glVertex3f(-size, size, -500);
+		glEnd();
+		glPopMatrix();
+
+		glPopMatrix();
+	}
+
+	// 기초 배경
+	{
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(3));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
+		glVertex3f(400, 400, -500);
+		glTexCoord2f(1, 0);
+		glVertex3f(400, -400, -500);
+		glTexCoord2f(0, 0);
+		glVertex3f(-400, -400, -500);
+		glTexCoord2f(0, 1);
+		glVertex3f(-400, 400, -500);
+		glEnd();
+
+		glBlendFunc(GL_ONE, GL_ONE);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(2));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
+		glVertex3f(400, 400, -500);
+		glTexCoord2f(1, 0);
+		glVertex3f(400, -400, -500);
+		glTexCoord2f(0, 0);
+		glVertex3f(-400, -400, -500);
+		glTexCoord2f(0, 1);
+		glVertex3f(-400, 400, -500);
+		glEnd();
+	}
+
+	glDisable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_TEXTURE_2D);
 }
 
 bool CGamePlayScene::Isin_Rect(int x1, int y1, int x2, int y2, int w1, int h1, int w2, int h2)
