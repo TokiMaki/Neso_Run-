@@ -145,6 +145,8 @@ GLvoid CGamePlayScene::vari_init() {
 
 	death_timer = 1;
 	count = 0;
+	camera_z = 0;
+	camera_z_dir = 30 / 1000.f;
 
 
 	bg_scroll = 0;
@@ -165,7 +167,9 @@ GLvoid CGamePlayScene::Shape_draw() {
 	}
 	*/
 	// 원래시점
-	gluLookAt(player.x + sin(pi / 180 * (player.camera_rotate)) * 50, 20, player.z + cos(pi / 180 * (player.camera_rotate)) * 50, player.x, 20, player.z, 0, 1, 0);
+	gluLookAt(player.x + sin(pi / 180 * (player.camera_rotate)) * 50, 20, player.z + cos(pi / 180 * (player.camera_rotate)) * 50,
+		player.x, 20, player.z,
+		sin(camera_z / 180 * pi), cos(camera_z / 180 * pi), 0);
 	// 탑뷰시점
 	//gluLookAt(player.x, 200, player.z, player.x, 0, player.z, 0, 0, -1);
 
@@ -555,11 +559,6 @@ GLvoid CGamePlayScene::Draw_Feverbackground()
 
 	glDisable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
-}
-
-GLvoid CGamePlayScene::Draw_UI()
-{
-	return GLvoid();
 }
 
 bool CGamePlayScene::Isin_Rect(int x1, int y1, int x2, int y2, int w1, int h1, int w2, int h2)

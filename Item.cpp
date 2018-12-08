@@ -17,9 +17,17 @@ GLvoid CGamePlayScene::Autorun(float frametime) {
 		player.dir = 0;
 	}
 
-	if (player.item_timer.autorun_timer > 10000) {
+	camera_z += camera_z_dir * frametime;
+	if (camera_z > 20) {
+		camera_z_dir *= -1;
+	}
+	if (camera_z < -20) {
+		camera_z_dir *= -1;
+	}
+
+	if (player.item_timer.autorun_timer > 5000) {
 		player.autorun_state = AutorunState::None;
-		m_pFramework->set_bgm(2);
+		camera_z = 0;
 	}
 
 }

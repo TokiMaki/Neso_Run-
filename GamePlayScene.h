@@ -128,7 +128,6 @@ public:
 	GLvoid Shape_draw();
 	GLvoid Draw_background();
 	GLvoid Draw_Feverbackground();
-	GLvoid Draw_UI();
 
 	// Item.cpp
 	GLvoid Autorun(float frametime);
@@ -153,6 +152,8 @@ private:
 	float fever_highlight;
 
 	float death_timer;
+	float camera_z;
+	float camera_z_dir;
 
 	GLfloat identity[16];
 };
