@@ -28,7 +28,7 @@ void CGamePlayScene::Render()
 	Draw_background();
 	
 	
-	shape_draw();
+	Shape_draw();
 
 	glDisable(GL_DEPTH_TEST);
 }

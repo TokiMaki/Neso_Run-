@@ -123,7 +123,7 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 }
 
 GLvoid CGamePlayScene::Player_Update(float frametime) {
-
+	Collision_Obstacle();
 	if (!player.input_rotate) {
 		player.z -= player.speed * frametime;
 		if (main_road->road_length + player.z < 0) {

@@ -144,6 +144,7 @@ GLvoid CGamePlayScene::Create_Obstacle() {
 			if (temp >= main_road->road_length - 100)
 				break;
 			main_road->ObstaclePushBack(uid2(dre), 0, temp);
+			//main_road->ObstaclePushBack(0, 0, temp);
 		}
 	}
 	if (main_road->Lroad && main_road->Lroad->GetObstacleList().empty()) {
@@ -153,6 +154,7 @@ GLvoid CGamePlayScene::Create_Obstacle() {
 			if (temp >= main_road->Lroad->road_length - 100)
 				break;
 			main_road->Lroad->ObstaclePushBack(uid2(dre), 0, temp);
+			//main_road->Lroad->ObstaclePushBack(0, 0, temp);
 		}
 	}
 	if (main_road->Rroad && main_road->Rroad->GetObstacleList().empty()) {
@@ -162,6 +164,7 @@ GLvoid CGamePlayScene::Create_Obstacle() {
 			if (temp >= main_road->Rroad->road_length - 100)
 				break;
 			main_road->Rroad->ObstaclePushBack(uid2(dre), 0, temp);
+			//main_road->Rroad->ObstaclePushBack(0, 0, temp);
 		}
 	}
 }
@@ -176,7 +179,7 @@ GLvoid CGamePlayScene::Draw_Obstacle() {
 		for (Obstacle &i : main_road->GetObstacleList()) {
 			glPushMatrix(); {
 				glTranslatef(0, 50, -i.z);
-				ObstacleFrame(i.kind, 60, 2.5);
+				ObstacleFrame(i.kind, LOAD_WIDTH, 2.5);
 			}
 			glPopMatrix();
 		}
@@ -186,7 +189,7 @@ GLvoid CGamePlayScene::Draw_Obstacle() {
 					glTranslatef(0, 0, -main_road->road_length);
 					glRotatef(90, 0, 1, 0);
 					glTranslatef(0, 50, -i.z);
-					ObstacleFrame(i.kind, 60, 2.5);
+					ObstacleFrame(i.kind, LOAD_WIDTH, 2.5);
 				}
 				glPopMatrix();
 			}
@@ -197,7 +200,7 @@ GLvoid CGamePlayScene::Draw_Obstacle() {
 					glTranslatef(0, 0, -main_road->road_length);
 					glRotatef(-90, 0, 1, 0);
 					glTranslatef(0, 50, -i.z);
-					ObstacleFrame(i.kind, 60, 2.5);
+					ObstacleFrame(i.kind, LOAD_WIDTH, 2.5);
 				}
 				glPopMatrix();
 			}

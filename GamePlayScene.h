@@ -98,11 +98,15 @@ public:
 	GLvoid Player_Jump(float frametime);
 	GLvoid Player_Silde(float frametime);
 
-	GLvoid shape_draw();
+	GLvoid Shape_draw();
 	GLvoid Draw_background();
 
 	bool Isin_Rect(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2);
+
+	// Game_sys.cpp
 	bool NextRoadcheck(int dir);
+	GLvoid Collision_Obstacle();
+	bool Collision_Obstacle_Cube(Obstacle t);
 
 private:
 
