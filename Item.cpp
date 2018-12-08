@@ -28,9 +28,11 @@ GLvoid CGamePlayScene::Autorun(float frametime) {
 	if (player.item_timer.autorun_timer > 5000) {
 		m_pFramework->set_bgm(2);
 		player.autorun = ItemState::None;
+
 		player.speed = player.item_timer.not_autorun_speed;
 		player.invincible = ItemState::Act;
 		player.item_timer.invincible_timer = 6000;
+
 		camera_z = 0;
 	}
 

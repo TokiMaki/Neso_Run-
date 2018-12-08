@@ -68,12 +68,13 @@ struct Player {
 	float y = 0;
 	float z = 0;
 
-	int dir = 0;				// ¿ŞÂÊ 1 ¿À¸¥ÂÊ 0
-	int reserve_line = 0;		// -1 ¿ŞÂÊ 0 °¡¿îµ¥ 1 ¿À¸¥ÂÊ
-	int line = 0;				// -1 ¿ŞÂÊ 0 °¡¿îµ¥ 1 ¿À¸¥ÂÊ
+	int dir = 0;				// ì™¼ìª½ 1 ì˜¤ë¥¸ìª½ 0
+	int reserve_line = 0;		// -1 ì™¼ìª½ 0 ê°€ìš´ë° 1 ì˜¤ë¥¸ìª½
+	int line = 0;				// -1 ì™¼ìª½ 0 ê°€ìš´ë° 1 ì˜¤ë¥¸ìª½
 	Item item_timer;
 	ItemState autorun = None;
 	ItemState invincible = None;
+
 
 	float speed = 150 / 1000.f;
 	float jump_gravity = 0;
@@ -105,12 +106,12 @@ public:
 	void Mouse_Events(int button, int state, int x, int y) override;
 	void PassiveMotion_Events(int x, int y) override;
 
-	// ¸¸µç ÇÔ¼ö
+	// ë§Œë“  í•¨ìˆ˜
 	GLvoid vari_init();
 	bool Start_Timer(float frametime);
 
 	// RoadFrame.cpp
-	GLvoid RoadFrame(float width, float length);		// width´Â ¼öÄ¡°¡ 2¹è·Î µé¾î°¨ ex) 60 ³ÖÀ¸¸é 120ÀÇ ³ĞÀÌ ÇÔ¼ö¾È¿¡ Push_PopMatrix() °¡ ºÙ¾îÀÖÁö ¾ÊÀ½
+	GLvoid RoadFrame(float width, float length);		// widthëŠ” ìˆ˜ì¹˜ê°€ 2ë°°ë¡œ ë“¤ì–´ê° ex) 60 ë„£ìœ¼ë©´ 120ì˜ ë„“ì´ í•¨ìˆ˜ì•ˆì— Push_PopMatrix() ê°€ ë¶™ì–´ìˆì§€ ì•ŠìŒ
 	GLvoid Draw_Road();
 	GLvoid Create_Road();
 	GLvoid Create_Obstacle();
@@ -129,6 +130,7 @@ public:
 	GLvoid Player_Silde(float frametime);
 	GLvoid Player_Death_Paticle();
 	GLvoid Player_Death_Paticle_Update(float frametime);
+
 
 	GLvoid Shape_draw();
 	GLvoid Draw_background();

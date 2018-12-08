@@ -66,7 +66,31 @@ GLvoid CRun_time_Framework::load_fx()
 
 GLvoid CRun_time_Framework::play_fx(int id)
 {
-	FMOD_System_PlaySound(pFmod, FX[id], NULL, false, &ch[1]);
+	switch (id) {
+	case 0:
+	case 1:
+		FMOD_Channel_Stop(ch[1]);
+		FMOD_System_PlaySound(pFmod, FX[id], NULL, false, &ch[1]);
+		break;
+	case 2:
+	case 3:
+	case 4:
+	case 5:
+	case 6:
+	case 7:
+	case 8:
+		FMOD_Channel_Stop(ch[3]);
+		FMOD_System_PlaySound(pFmod, FX[id], NULL, false, &ch[3]);
+		break;
+	case 9:
+	case 10:
+	case 11:
+	case 12:
+		FMOD_Channel_Stop(ch[4]);
+		FMOD_System_PlaySound(pFmod, FX[id], NULL, false, &ch[4]);
+		break;
+
+	}
 	return GLvoid();
 }
 
@@ -75,7 +99,6 @@ GLvoid CRun_time_Framework::load_voice()
 	FMOD_RESULT k;
 	// ġī
 	{
-
 		FMOD_System_CreateSound(pFmod, "sound/voice/chika/CvGameStart.wav", FMOD_LOOP_OFF, NULL, &VOICE[chika][0]);
 		FMOD_System_CreateSound(pFmod, "sound/voice/chika/CvGoldA.wav", FMOD_LOOP_OFF, NULL, &VOICE[chika][1]);
 		FMOD_System_CreateSound(pFmod, "sound/voice/chika/CvGoldB.wav", FMOD_LOOP_OFF, NULL, &VOICE[chika][2]);
@@ -161,6 +184,8 @@ GLvoid CRun_time_Framework::load_voice()
 
 GLvoid CRun_time_Framework::play_voice(int charid, int voiceid)
 {
+	FMOD_Channel_Stop(ch[2]);
 	FMOD_System_PlaySound(pFmod, VOICE[charid][voiceid], NULL, false, &ch[2]);
 	return GLvoid();
 }
+

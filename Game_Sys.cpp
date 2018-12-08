@@ -99,7 +99,21 @@ GLvoid CGamePlayScene::Collision_Coin() {			// 아이템 & 코인 충돌체크
 				player.autorun = ItemState::Act;
 				player.item_timer.autorun_timer = 0;
 			}
+
+			m_pFramework->play_fx(2 + score % 7);
 			score++;
+
+			if (score == 100)
+				m_pFramework->play_voice(m_pFramework->get_charID(), 1);
+			else if (score == 300)
+				m_pFramework->play_voice(m_pFramework->get_charID(), 2);
+			else if (score == 500)
+				m_pFramework->play_voice(m_pFramework->get_charID(), 3);
+			else if (score == 1000)
+				m_pFramework->play_voice(m_pFramework->get_charID(), 4);
+			else if (score % 500 == 0)
+				m_pFramework->play_voice(m_pFramework->get_charID(), 5);
+
 			main_road->CoinRemove(i);
 		}
 	}

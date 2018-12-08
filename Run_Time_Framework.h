@@ -75,6 +75,7 @@ private:
 	float count;
 
 	int now_character;
+	int score;
 
 	GLboolean GameMessage{ dummy };
 	GLboolean NowPlaying{ none };
@@ -138,6 +139,9 @@ public:
 	GLvoid play_fx(int id);
 	GLvoid load_voice();
 	GLvoid play_voice(int charid, int voiceid);
+
+	GLvoid send_score(int score);
+	int return_score();
 
 private:
 	Idle m_fpidle{ nullptr };

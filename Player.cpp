@@ -65,7 +65,7 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 			player.x -= player.speed / 2.f * frametime;
 			glPushMatrix();
 			{
-				glRotatef(player.speed * frametime, 0.f, 0.f, 1.f);		// Àú·¸°Ô ¸¸µé¸é ÇÁ·¹ÀÓ¿¡ µû¶ó ¼Óµµ°¡ º¯ÇÏÁö¾ÊÀ½
+				glRotatef(player.speed * frametime, 0.f, 0.f, 1.f);		// ì €ë ‡ê²Œ ë§Œë“¤ë©´ í”„ë ˆì„ì— ë”°ë¼ ì†ë„ê°€ ë³€í•˜ì§€ì•ŠìŒ
 				glMultMatrixf(identity);
 				glGetFloatv(GL_MODELVIEW_MATRIX, identity);
 			}
@@ -75,7 +75,7 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 			player.x += player.speed / 2.f * frametime;
 			glPushMatrix();
 			{
-				glRotatef(-player.speed * frametime, 0.f, 0.f, 1.f);		// Àú·¸°Ô ¸¸µé¸é ÇÁ·¹ÀÓ¿¡ µû¶ó ¼Óµµ°¡ º¯ÇÏÁö¾ÊÀ½
+				glRotatef(-player.speed * frametime, 0.f, 0.f, 1.f);		// ì €ë ‡ê²Œ ë§Œë“¤ë©´ í”„ë ˆì„ì— ë”°ë¼ ì†ë„ê°€ ë³€í•˜ì§€ì•ŠìŒ
 				glMultMatrixf(identity);
 				glGetFloatv(GL_MODELVIEW_MATRIX, identity);
 			}
@@ -87,7 +87,7 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 			player.x -= player.speed / 2.f * frametime;
 			glPushMatrix();
 			{
-				glRotatef(player.speed * frametime, 0.f, 0.f, 1.f);		// Àú·¸°Ô ¸¸µé¸é ÇÁ·¹ÀÓ¿¡ µû¶ó ¼Óµµ°¡ º¯ÇÏÁö¾ÊÀ½
+				glRotatef(player.speed * frametime, 0.f, 0.f, 1.f);		// ì €ë ‡ê²Œ ë§Œë“¤ë©´ í”„ë ˆì„ì— ë”°ë¼ ì†ë„ê°€ ë³€í•˜ì§€ì•ŠìŒ
 				glMultMatrixf(identity);
 				glGetFloatv(GL_MODELVIEW_MATRIX, identity);
 			}
@@ -97,7 +97,7 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 			player.x += player.speed / 2.f * frametime;
 			glPushMatrix();
 			{
-				glRotatef(-player.speed * frametime, 0.f, 0.f, 1.f);		// Àú·¸°Ô ¸¸µé¸é ÇÁ·¹ÀÓ¿¡ µû¶ó ¼Óµµ°¡ º¯ÇÏÁö¾ÊÀ½
+				glRotatef(-player.speed * frametime, 0.f, 0.f, 1.f);		// ì €ë ‡ê²Œ ë§Œë“¤ë©´ í”„ë ˆì„ì— ë”°ë¼ ì†ë„ê°€ ë³€í•˜ì§€ì•ŠìŒ
 				glMultMatrixf(identity);
 				glGetFloatv(GL_MODELVIEW_MATRIX, identity);
 			}
@@ -109,7 +109,7 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 			player.x += player.speed / 2.f * frametime;
 			glPushMatrix();
 			{
-				glRotatef(-player.speed * frametime, 0.f, 0.f, 1.f);		// Àú·¸°Ô ¸¸µé¸é ÇÁ·¹ÀÓ¿¡ µû¶ó ¼Óµµ°¡ º¯ÇÏÁö¾ÊÀ½
+				glRotatef(-player.speed * frametime, 0.f, 0.f, 1.f);		// ì €ë ‡ê²Œ ë§Œë“¤ë©´ í”„ë ˆì„ì— ë”°ë¼ ì†ë„ê°€ ë³€í•˜ì§€ì•ŠìŒ
 				glMultMatrixf(identity);
 				glGetFloatv(GL_MODELVIEW_MATRIX, identity);
 			}
@@ -119,7 +119,7 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 			player.x -= player.speed / 2.f * frametime;
 			glPushMatrix();
 			{
-				glRotatef(player.speed * frametime, 0.f, 0.f, 1.f);		// Àú·¸°Ô ¸¸µé¸é ÇÁ·¹ÀÓ¿¡ µû¶ó ¼Óµµ°¡ º¯ÇÏÁö¾ÊÀ½
+				glRotatef(player.speed * frametime, 0.f, 0.f, 1.f);		// ì €ë ‡ê²Œ ë§Œë“¤ë©´ í”„ë ˆì„ì— ë”°ë¼ ì†ë„ê°€ ë³€í•˜ì§€ì•ŠìŒ
 				glMultMatrixf(identity);
 				glGetFloatv(GL_MODELVIEW_MATRIX, identity);
 			}
@@ -140,6 +140,7 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 
 GLvoid CGamePlayScene::Player_Update(float frametime) {
 	if (!player.death) {
+
 
 		if (player.autorun != ItemState::Act && player.invincible != ItemState::Act) {
 			Collision_Obstacle(frametime);
@@ -164,7 +165,7 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 				player.roll -= player.speed * 2 * frametime;
 				glPushMatrix();
 				{
-					glRotatef(-player.speed * 2 * frametime, 1.f, 0.f, 0.f);		// Àú·¸°Ô ¸¸µé¸é ÇÁ·¹ÀÓ¿¡ µû¶ó ¼Óµµ°¡ º¯ÇÏÁö¾ÊÀ½
+					glRotatef(-player.speed * 2 * frametime, 1.f, 0.f, 0.f);		// ì €ë ‡ê²Œ ë§Œë“¤ë©´ í”„ë ˆì„ì— ë”°ë¼ ì†ë„ê°€ ë³€í•˜ì§€ì•ŠìŒ
 					glMultMatrixf(identity);
 					glGetFloatv(GL_MODELVIEW_MATRIX, identity);
 				}
@@ -182,7 +183,7 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 				player.roll -= player.speed * 2 * frametime;
 				glPushMatrix();
 				{
-					glRotatef(-player.speed * 2 * frametime, 1.f, 0.f, 0.f);		// Àú·¸°Ô ¸¸µé¸é ÇÁ·¹ÀÓ¿¡ µû¶ó ¼Óµµ°¡ º¯ÇÏÁö¾ÊÀ½
+					glRotatef(-player.speed * 2 * frametime, 1.f, 0.f, 0.f);		// ì €ë ‡ê²Œ ë§Œë“¤ë©´ í”„ë ˆì„ì— ë”°ë¼ ì†ë„ê°€ ë³€í•˜ì§€ì•ŠìŒ
 					glMultMatrixf(identity);
 					glGetFloatv(GL_MODELVIEW_MATRIX, identity);
 				}
@@ -201,7 +202,7 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 					player.camera_rotate -= ROTATE_PER_SEC * frametime;
 					glPushMatrix();
 					{
-						glRotatef(-ROTATE_PER_SEC * frametime, 0.f, 1.f, 0.f);		// Àú·¸°Ô ¸¸µé¸é ÇÁ·¹ÀÓ¿¡ µû¶ó ¼Óµµ°¡ º¯ÇÏÁö¾ÊÀ½
+						glRotatef(-ROTATE_PER_SEC * frametime, 0.f, 1.f, 0.f);		// ì €ë ‡ê²Œ ë§Œë“¤ë©´ í”„ë ˆì„ì— ë”°ë¼ ì†ë„ê°€ ë³€í•˜ì§€ì•ŠìŒ
 						glMultMatrixf(identity);
 						glGetFloatv(GL_MODELVIEW_MATRIX, identity);
 					}
@@ -212,10 +213,10 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 					count = 0;
 
 					//memset(identity, 0, sizeof(identity));
-					//identity[0] = identity[5] = identity[10] = identity[15] = 1;		// Çà·Ä ÃÊ±âÈ­
+					//identity[0] = identity[5] = identity[10] = identity[15] = 1;		// í–‰ë ¬ ì´ˆê¸°í™”
 					glPushMatrix();
 					{
-						glRotatef(90, 0.f, 1.f, 0.f);		// Àú·¸°Ô ¸¸µé¸é ÇÁ·¹ÀÓ¿¡ µû¶ó ¼Óµµ°¡ º¯ÇÏÁö¾ÊÀ½
+						glRotatef(90, 0.f, 1.f, 0.f);		// ì €ë ‡ê²Œ ë§Œë“¤ë©´ í”„ë ˆì„ì— ë”°ë¼ ì†ë„ê°€ ë³€í•˜ì§€ì•ŠìŒ
 						glMultMatrixf(identity);
 						glGetFloatv(GL_MODELVIEW_MATRIX, identity);
 					}
@@ -244,7 +245,7 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 					player.camera_rotate += ROTATE_PER_SEC * frametime;
 					glPushMatrix();
 					{
-						glRotatef(ROTATE_PER_SEC * frametime, 0.f, 1.f, 0.f);		// Àú·¸°Ô ¸¸µé¸é ÇÁ·¹ÀÓ¿¡ µû¶ó ¼Óµµ°¡ º¯ÇÏÁö¾ÊÀ½
+						glRotatef(ROTATE_PER_SEC * frametime, 0.f, 1.f, 0.f);		// ì €ë ‡ê²Œ ë§Œë“¤ë©´ í”„ë ˆì„ì— ë”°ë¼ ì†ë„ê°€ ë³€í•˜ì§€ì•ŠìŒ
 						glMultMatrixf(identity);
 						glGetFloatv(GL_MODELVIEW_MATRIX, identity);
 					}
@@ -256,11 +257,11 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 
 
 					//memset(identity, 0, sizeof(identity));
-					//identity[0] = identity[5] = identity[10] = identity[15] = 1;		// Çà·Ä ÃÊ±âÈ­
+					//identity[0] = identity[5] = identity[10] = identity[15] = 1;		// í–‰ë ¬ ì´ˆê¸°í™”
 
 					glPushMatrix();
 					{
-						glRotatef(-90, 0.f, 1.f, 0.f);		// Àú·¸°Ô ¸¸µé¸é ÇÁ·¹ÀÓ¿¡ µû¶ó ¼Óµµ°¡ º¯ÇÏÁö¾ÊÀ½
+						glRotatef(-90, 0.f, 1.f, 0.f);		// ì €ë ‡ê²Œ ë§Œë“¤ë©´ í”„ë ˆì„ì— ë”°ë¼ ì†ë„ê°€ ë³€í•˜ì§€ì•ŠìŒ
 						glMultMatrixf(identity);
 						glGetFloatv(GL_MODELVIEW_MATRIX, identity);
 					}
@@ -412,6 +413,7 @@ GLvoid CGamePlayScene::Player_Death_Paticle_Update(float frametime) {
 	}
 	else if (death_timer > 25) {
 		m_pFramework->set_bgm(4);
+		m_pFramework->send_score(score);
 		m_pFramework->MessagePass(Message::GameOver);
 	}
 }
