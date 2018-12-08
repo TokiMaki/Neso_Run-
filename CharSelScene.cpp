@@ -255,6 +255,7 @@ void CharSelScene::Mouse_Events(int button, int state, int x, int y)
 			m_pFramework->set_charID(ID);
 		}
 		else if (MouseonBtn[2] == true) {
+			m_pFramework->set_bgm(1);
 			m_pFramework->MessagePass(Message::GamePlay);
 		}
 	}

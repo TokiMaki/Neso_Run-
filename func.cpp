@@ -360,3 +360,32 @@ GLvoid CRun_time_Framework::set_charID(int id) {
 GLint CRun_time_Framework::get_charID() {
 	return now_character;
 }
+
+GLvoid CRun_time_Framework::init_sound()
+{
+	FMOD_System_Create(&pFmod);
+	FMOD_System_Init(pFmod, 10, FMOD_INIT_NORMAL, NULL);
+
+	load_bgm();
+}
+
+GLvoid CRun_time_Framework::load_bgm()
+{
+	FMOD_System_CreateSound(pFmod, "sound/bgm/BgmHome.wav", FMOD_DEFAULT, NULL, &BGM[0]);
+	FMOD_System_CreateSound(pFmod, "sound/bgm/BgmPuzzleNormal.wav", FMOD_DEFAULT, NULL, &BGM[1]);
+	FMOD_System_CreateSound(pFmod, "sound/bgm/BgmPuzzleLoop.wav", FMOD_DEFAULT, NULL, &BGM[2]);
+	FMOD_System_CreateSound(pFmod, "sound/bgm/BgmPuzzleShowtime.wav", FMOD_DEFAULT, NULL, &BGM[3]);
+	FMOD_System_CreateSound(pFmod, "sound/bgm/BgmResult.wav", FMOD_DEFAULT, NULL, &BGM[4]);
+	return GLvoid();
+}
+
+GLvoid CRun_time_Framework::set_bgm(int id)
+{
+	FMOD_Channel_Stop(ch[0]);
+	FMOD_System_PlaySound(pFmod, BGM[id], NULL, false, &ch[0]);
+	switch (id) {
+	case 1:
+		NowPlaying = PlayBGM::normal;
+		break;
+	}
+}
