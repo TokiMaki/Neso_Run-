@@ -561,6 +561,269 @@ GLvoid CGamePlayScene::Draw_Feverbackground()
 	glEnable(GL_DEPTH_TEST);
 }
 
+GLvoid CGamePlayScene::Draw_UI()
+{
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+
+
+	// 스코어
+	{
+		glPushMatrix();
+		glTranslatef(0, 220, 0);
+		float size = 60;
+		glColor4f(1, 1, 1, 1.0);
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(11));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
+		glVertex3f(size, size / 2.0, -400);
+		glTexCoord2f(0.5, 1);
+		glVertex3f(-size, size / 2.0, -400);
+		glTexCoord2f(0.5, 0.75);
+		glVertex3f(-size, -size / 2.0, -400);
+		glTexCoord2f(1, 0.75);
+		glVertex3f(size, -size / 2.0, -400);
+		glEnd();
+
+
+		glColor4f(1, 1, 1, 1.0);
+		glBlendFunc(GL_ONE, GL_ONE);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(10));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
+		glVertex3f(size, size / 2.0, -400);
+		glTexCoord2f(0.5, 1);
+		glVertex3f(-size, size / 2.0, -400);
+		glTexCoord2f(0.5, 0.75);
+		glVertex3f(-size, -size / 2.0, -400);
+		glTexCoord2f(1, 0.75);
+		glVertex3f(size, -size / 2.0, -400);
+		glEnd();
+		glPopMatrix();
+	}
+
+	// 점수
+	{
+		float size = 10;
+		int print_score = 12345;
+		// 십만개부턴 난 몰라요
+		if (print_score > 99999)
+			print_score = 99999;
+		glPushMatrix();
+		glTranslatef(0, 190, -400);
+		// 일의자리
+		{
+			int num = print_score % 10;
+			glPushMatrix();
+
+			if (print_score > 9999)
+				glTranslatef(30, 0, 0);
+			else if (print_score > 999)
+				glTranslatef(23, 0, 0);
+			else if (print_score > 99)
+				glTranslatef(15, 0, 0);
+			else if (print_score > 9)
+				glTranslatef(7.5, 0, 0);
+			else
+				glTranslatef(0, 0, 0);
+
+			glBlendFunc(GL_DST_COLOR, GL_ZERO);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(11));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glBlendFunc(GL_ONE, GL_ONE);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(10));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glPopMatrix();
+		}
+		// 십의 자리
+		if (print_score > 9)
+		{
+			int num = (print_score / 10) % 10;
+			glPushMatrix();
+
+			if (print_score > 9999)
+				glTranslatef(15, 0, 0);
+			else if (print_score > 999)
+				glTranslatef(7.5, 0, 0);
+			else if (print_score > 99)
+				glTranslatef(0, 0, 0);
+			else
+				glTranslatef(-7.5, 0, 0);
+
+			glBlendFunc(GL_DST_COLOR, GL_ZERO);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(11));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glBlendFunc(GL_ONE, GL_ONE);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(10));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glPopMatrix();
+		}
+		// 백의 자리
+		if (print_score > 99)
+		{
+			int num = (print_score / 100) % 100;
+			glPushMatrix();
+			if (print_score > 9999)
+				glTranslatef(0, 0, 0);
+			else if (print_score > 999)
+				glTranslatef(-7.5, 0, 0);
+			else
+				glTranslatef(-15, 0, 0);
+
+			glBlendFunc(GL_DST_COLOR, GL_ZERO);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(11));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glBlendFunc(GL_ONE, GL_ONE);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(10));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glPopMatrix();
+		}
+		// 천의 자리
+		if (print_score > 999)
+		{
+			int num = (print_score / 1000) % 1000;
+			glPushMatrix();
+
+			if (print_score > 9999)
+				glTranslatef(-15, 0, 0);
+			else
+				glTranslatef(-23, 0, 0);
+
+			glBlendFunc(GL_DST_COLOR, GL_ZERO);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(11));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glBlendFunc(GL_ONE, GL_ONE);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(10));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glPopMatrix();
+		}
+		// 만의 자리
+		if (print_score > 9999)
+		{
+			int num = (print_score / 10000) % 10000;
+			glPushMatrix();
+
+			glTranslatef(-30, 0, 0);
+
+			glBlendFunc(GL_DST_COLOR, GL_ZERO);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(11));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size * 1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glBlendFunc(GL_ONE, GL_ONE);
+			glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(10));
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.1 + 0.1*num, 0.125);
+			glVertex2f(size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0.125);
+			glVertex2f(-size, size*1.25);
+			glTexCoord2f(0 + 0.1*num, 0);
+			glVertex2f(-size, -size * 1.25);
+			glTexCoord2f(0.1 + 0.1*num, 0);
+			glVertex2f(size, -size * 1.25);
+			glEnd();
+
+			glPopMatrix();
+		}
+		glPopMatrix();
+	}
+
+	
+	glDisable(GL_BLEND);
+	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_DEPTH_TEST);
+}
+
 bool CGamePlayScene::Isin_Rect(int x1, int y1, int x2, int y2, int w1, int h1, int w2, int h2)
 {
 	if (x1 < w2 && y1 < h2 && x2 > w1 && y2 > h1)

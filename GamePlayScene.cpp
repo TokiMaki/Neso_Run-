@@ -30,6 +30,7 @@ void CGamePlayScene::Render()
 		Draw_Feverbackground();
 	
 	Shape_draw();
+	Draw_UI();
 
 	glDisable(GL_DEPTH_TEST);
 }

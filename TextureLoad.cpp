@@ -280,7 +280,7 @@ GLvoid CRun_time_Framework::set_CharacterTexture()
 GLvoid CRun_time_Framework::set_IngameObjTexture()
 {
 	// n개의 이미지 텍스처 매핑을 한다.
-	glGenTextures(10, IngameObjTex);
+	glGenTextures(12, IngameObjTex);
 
 	//텍스처와 객체를 결합한다. --- (1) 
 	glBindTexture(GL_TEXTURE_2D, IngameObjTex[0]);
