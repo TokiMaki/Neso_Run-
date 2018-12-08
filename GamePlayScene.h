@@ -107,6 +107,7 @@ private:
 
 	float bg_scroll;
 	float bg_degree;
+	float fever_highlight;
 
 	GLfloat identity[16];
 };

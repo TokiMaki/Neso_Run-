@@ -25,8 +25,8 @@ void CGamePlayScene::Render()
 {
 	glEnable(GL_DEPTH_TEST);
 
-	//Draw_background();
-	Draw_Feverbackground();
+	Draw_background();
+	//Draw_Feverbackground();
 	
 	shape_draw();
 
@@ -39,6 +39,9 @@ GLvoid CGamePlayScene::Update(float frametime) {
 	bg_degree += 0.05*frametime;
 	if (bg_degree > 360)
 		bg_degree -= 360;
+	fever_highlight += 0.025*frametime;
+	if (fever_highlight > 50)
+		fever_highlight -= 50;
 }
 
 GLvoid CGamePlayScene::SpecialKey_Events(int key, int x, int y) {
