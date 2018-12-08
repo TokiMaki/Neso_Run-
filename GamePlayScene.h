@@ -44,10 +44,20 @@ public:
 
 };
 
-enum State {
+struct Item {
+	int autorun_timer = 0;
+	float not_autorun_speed;
+};
+
+enum ActState {
 	Idle,
 	Jump,
 	Slide
+};
+
+enum AutorunState {
+	None,
+	Autorun
 };
 
 struct Player {
@@ -58,6 +68,8 @@ struct Player {
 	int dir = 0;				// 哭率 1 坷弗率 0
 	int reserve_line = 0;		// -1 哭率 0 啊款单 1 坷弗率
 	int line = 0;				// -1 哭率 0 啊款单 1 坷弗率
+	Item item_timer;
+	AutorunState autorun_state = None;
 
 	float speed = 150 / 1000.f;
 	float jump_gravity = 0;
@@ -65,8 +77,8 @@ struct Player {
 	bool input_rotate = false;
 	float camera_rotate = 0;
 	float roll = 0;
-	State reserve_state = Idle;
-	State state = Idle;
+	ActState reserve_state = Idle;
+	ActState state = Idle;
 	float timer = 0;
 
 	bool death = false;
@@ -118,7 +130,7 @@ public:
 	GLvoid Draw_Feverbackground();
 
 	// Item.cpp
-	GLvoid Autorun();
+	GLvoid Autorun(float frametime);
 
 	bool Isin_Rect(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2);
 

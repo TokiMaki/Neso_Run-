@@ -74,7 +74,7 @@ bool CGamePlayScene::Collision_Obstacle_Cube(Obstacle t) {
 		}
 		break;
 	case 3:
-		if (player.state != State::Slide && 
+		if (player.state != ActState::Slide && 
 			-player.z - 5 < t.z + 2.5 &&
 			-player.z + 5 > t.z - 2.5) {
 			printf("3 충돌함");
@@ -89,6 +89,14 @@ bool CGamePlayScene::Collision_Obstacle_Cube(Obstacle t) {
 GLvoid CGamePlayScene::Collision_Coin() {			// 장애물 충돌체크
 	for (Coin &i : main_road->GetCoinList()) {
 		if (Collision_Coin_Cube(i)) {
+			if (i.kind == 1) {
+				if (player.autorun_state == AutorunState::None) {
+					player.item_timer.not_autorun_speed = player.speed;
+					player.speed = 800 / 1000.f;
+				}
+				player.autorun_state = AutorunState::Autorun;
+				player.item_timer.autorun_timer = 0;
+			}
 			main_road->CoinRemove(i);
 		}
 	}

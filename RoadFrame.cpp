@@ -219,6 +219,7 @@ GLvoid CGamePlayScene::Create_Coin() {
 	int present_line = 0;
 	Coin t;
 
+	/*
 	if (main_road->GetCoinList().empty()) {
 		if (main_road->Lroad) {
 			if (main_road->Lroad->GetCoinList().empty()) 
@@ -228,8 +229,9 @@ GLvoid CGamePlayScene::Create_Coin() {
 			if (main_road->Rroad->GetCoinList().empty())
 			printf("오른\n");
 		}
-		printf("시발\n");
+		printf("메인 코인리스트가 없네?\n");
 	}
+	*/
 
 	if (main_road && main_road->GetCoinList().empty()) {
 		while (true) {
@@ -261,7 +263,18 @@ GLvoid CGamePlayScene::Create_Coin() {
 
 GLvoid CGamePlayScene::Create_Coin_Algorism(Road_Tree* t, int z, int* line) {
 	std::uniform_int_distribution<> uid(-1, 1);
-	int random_temp;
+	std::uniform_int_distribution<> item(0, 100);
+	int random_temp = item(dre);
+	int coin_kind;
+
+	switch (random_temp) {
+	case 0:
+		coin_kind = 1;
+		break;
+	default:
+		coin_kind = 0;
+		break;
+	}
 
 	for (Obstacle &i : t->GetObstacleList()) {
 		if (z + 50 == int(i.z)) {
@@ -269,21 +282,25 @@ GLvoid CGamePlayScene::Create_Coin_Algorism(Road_Tree* t, int z, int* line) {
 			case 0:
 				if (*line < 1)
 					*line += 1;
-				t->CoinPushBack(0, *line * 30, 0, z);
+				//t->CoinPushBack(0, *line * 30, 0, z);
+				t->CoinPushBack(coin_kind, *line * 30, 0, z);
 				return;
 				break;
 			case 1:
 				if (*line > -1)
 					*line -= 1;
-				t->CoinPushBack(0, *line * 30, 0, z);
+				//t->CoinPushBack(0, *line * 30, 0, z);
+				t->CoinPushBack(coin_kind, *line * 30, 0, z);
 				return;
 				break;
 			case 2:
-				t->CoinPushBack(0, *line * 30, 0, z);
+				//t->CoinPushBack(0, *line * 30, 0, z);
+				t->CoinPushBack(coin_kind, *line * 30, 0, z);
 				return;
 				break;
 			case 3:
-				t->CoinPushBack(0, *line * 30, 0, z);
+				//t->CoinPushBack(0, *line * 30, 0, z);
+				t->CoinPushBack(coin_kind, *line * 30, 0, z);
 				return;
 				break;
 
@@ -293,27 +310,28 @@ GLvoid CGamePlayScene::Create_Coin_Algorism(Road_Tree* t, int z, int* line) {
 			switch (i.kind) {
 			case 0:
 				*line = 1;
-				t->CoinPushBack(0, *line * 30, 0, z);
+				t->CoinPushBack(coin_kind, *line * 30, 0, z);
 				return;
 				break;
 			case 1:
 				*line = -1;
-				t->CoinPushBack(0, *line * 30, 0, z);
+				t->CoinPushBack(coin_kind, *line * 30, 0, z);
 				return;
 				break;
 			case 2:
-				t->CoinPushBack(0, *line * 30, 30, z);
+				t->CoinPushBack(coin_kind, *line * 30, 30, z);
 				return;
 				break;
 			case 3:
-				t->CoinPushBack(0, *line * 30, 0, z);
+				t->CoinPushBack(coin_kind, *line * 30, 0, z);
 				return;
 				break;
 			}
 		}
 	}
 	if (t->GetCoinList().empty()) {
-		t->CoinPushBack(0, *line * 30, 0, z);
+		//t->CoinPushBack(0, *line * 30, 0, z);
+		t->CoinPushBack(coin_kind, *line * 30, 0, z);
 		random_temp = uid(dre);
 		if (*line + random_temp >= -1 && *line + random_temp <= 1) {
 			*line += random_temp;
@@ -321,7 +339,8 @@ GLvoid CGamePlayScene::Create_Coin_Algorism(Road_Tree* t, int z, int* line) {
 		return;
 	}
 	else if (!t->GetCoinList().empty() && t->GetCoinList().back().z != z) {
-		t->CoinPushBack(0, *line * 30, 0, z);
+		//t->CoinPushBack(0, *line * 30, 0, z);
+		t->CoinPushBack(coin_kind, *line * 30, 0, z);
 		random_temp = uid(dre);
 		if (*line + random_temp >= -1 && *line + random_temp <= 1) {
 			*line += random_temp;
@@ -334,7 +353,14 @@ GLvoid CGamePlayScene::Create_Coin_Algorism(Road_Tree* t, int z, int* line) {
 GLvoid CGamePlayScene::Draw_Coin() {
 	for (Coin &i : main_road->GetCoinList()) {
 		glPushMatrix(); {
-			glColor4f(0, 0, 1, 1);
+			switch (i.kind) {
+			case 0:
+				glColor4f(0, 0, 1, 1);
+				break;
+			case 1:
+				glColor4f(0, 1, 0, 1);
+				break;
+			}
 			glTranslatef(i.x, i.y + 55, -i.z);
 			glutSolidCube(5);
 		}
@@ -343,7 +369,14 @@ GLvoid CGamePlayScene::Draw_Coin() {
 	if (main_road->Lroad) {
 		for (Coin &i : main_road->Lroad->GetCoinList()) {
 			glPushMatrix(); {
-				glColor4f(0, 0, 1, 1);
+				switch (i.kind) {
+				case 0:
+					glColor4f(0, 0, 1, 1);
+					break;
+				case 1:
+					glColor4f(0, 1, 0, 1);
+					break;
+				}
 					glTranslatef(0, 0, -main_road->road_length);
 					glRotatef(90, 0, 1, 0);
 					glTranslatef(i.x, i.y + 55, -i.z);
@@ -355,7 +388,14 @@ GLvoid CGamePlayScene::Draw_Coin() {
 	if (main_road->Rroad) {
 		for (Coin &i : main_road->Rroad->GetCoinList()) {
 			glPushMatrix(); {
-				glColor4f(0, 0, 1, 1);
+				switch (i.kind) {
+				case 0:
+					glColor4f(0, 0, 1, 1);
+					break;
+				case 1:
+					glColor4f(0, 1, 0, 1);
+					break;
+				}
 				glTranslatef(0, 0, -main_road->road_length);
 				glRotatef(-90, 0, 1, 0);
 				glTranslatef(i.x, i.y + 55, -i.z);

@@ -21,7 +21,7 @@ GLvoid CGamePlayScene::Draw_Player()
 
 	GLUquadricObj *sphere = gluNewQuadric();
 
-	if (player.state == State::Slide) {
+	if (player.state == ActState::Slide) {
 		glTranslatef(0, -5 * 0.3, 0);
 		glScalef(1, 0.7, 1);
 	}
@@ -127,7 +127,15 @@ GLvoid CGamePlayScene::Player_Line_Updater(float frametime) {
 
 GLvoid CGamePlayScene::Player_Update(float frametime) {
 	if (!player.death) {
-		Collision_Obstacle(frametime);
+
+		if (player.autorun_state != AutorunState::Autorun) {
+			Collision_Obstacle(frametime);
+		}
+
+		if (player.autorun_state == AutorunState::Autorun) {
+			Autorun(frametime);
+		}
+
 		Collision_Coin();
 		if (!player.input_rotate) {
 			player.z -= player.speed * frametime;
@@ -135,7 +143,7 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 				printf("%f\n", main_road->road_length + player.z);
 			}
 
-			if (player.state == State::Idle) {
+			if (player.state == ActState::Idle) {
 				player.roll -= player.speed * 2 * frametime;
 				glPushMatrix();
 				{
@@ -153,7 +161,7 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 		else if (main_road->road_length + player.z > 30) {
 			player.z -= player.speed * frametime;
 
-			if (player.state == State::Idle) {
+			if (player.state == ActState::Idle) {
 				player.roll -= player.speed * 2 * frametime;
 				glPushMatrix();
 				{
@@ -293,17 +301,17 @@ GLvoid CGamePlayScene::Player_KeyDown_Updater(int key) {
 		break;
 
 	case GLUT_KEY_UP:
-		if ((player.reserve_state == State::Slide || player.reserve_state == State::Idle) && player.y <= 0) {
+		if ((player.reserve_state == ActState::Slide || player.reserve_state == ActState::Idle) && player.y <= 0) {
 			//printf("%f", player.jump_gravity);
-			player.jump_gravity = 100 / 1000.f;
-			player.reserve_state = State::Jump;
+			player.jump_gravity = ((player.speed) / 4.f * 3.f);
+			player.reserve_state = ActState::Jump;
 		}
 		break;
 
 	case GLUT_KEY_DOWN:
-		if ((player.reserve_state == State::Slide || player.reserve_state == State::Idle) && player.y <= 0) {
+		if ((player.reserve_state == ActState::Slide || player.reserve_state == ActState::Idle) && player.y <= 0) {
 			//printf("Slide");
-			player.reserve_state = State::Slide;
+			player.reserve_state = ActState::Slide;
 		}
 		break;
 	}
@@ -312,28 +320,28 @@ GLvoid CGamePlayScene::Player_KeyDown_Updater(int key) {
 GLvoid CGamePlayScene::Player_Jump(float frametime) {
 	float gravity = ((player.speed) / 4.f * 3.f);
 
-	if (player.reserve_state == State::Jump) {
+	if (player.reserve_state == ActState::Jump) {
 
 
 		if (player.y < 100) {
 			player.y += player.jump_gravity * frametime;
 			player.jump_gravity -= gravity / (50.f * (1 / gravity)) * frametime;
 			if (player.jump_gravity < gravity / 2.f) {
-				player.state = State::Jump;
+				player.state = ActState::Jump;
 			}
 		}
 
 		if (player.y >= 100 || player.jump_gravity < 0) {
-			player.reserve_state = State::Idle;
+			player.reserve_state = ActState::Idle;
 		}
 
 	}
-	if (player.reserve_state == State::Idle) {
+	if (player.reserve_state == ActState::Idle) {
 		if (player.y > 0) {
 			player.y -= player.jump_gravity * frametime;
 			player.jump_gravity += gravity / (50.f * (1 / gravity)) * frametime;
 			if (player.jump_gravity > gravity / 2.f) {
-				player.state = State::Idle;
+				player.state = ActState::Idle;
 			}
 			if (player.y <= 0) {
 				player.y = 0;
@@ -346,19 +354,19 @@ GLvoid CGamePlayScene::Player_Jump(float frametime) {
 
 GLvoid CGamePlayScene::Player_Silde(float frametime) {
 
-	if (player.reserve_state == State::Slide) {
+	if (player.reserve_state == ActState::Slide) {
 		if (player.timer < 500.f) {
 			player.state = Slide;
 			player.timer += frametime;
 		}
 		if (player.timer >= 500.f) {
-			player.reserve_state = State::Idle;
-			player.state = State::Idle;
+			player.reserve_state = ActState::Idle;
+			player.state = ActState::Idle;
 			player.timer = 0;
 		}
 	}
 
-	if (player.reserve_state == State::Idle) {
+	if (player.reserve_state == ActState::Idle) {
 		player.timer = 0;
 	}
 }
