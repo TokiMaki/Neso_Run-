@@ -6,9 +6,6 @@ CGamePlayScene::CGamePlayScene(SceneTag tag, CRun_time_Framework * pFramework)
 {
 	m_Tag = tag;
 	m_pFramework = pFramework;
-
-	dre.seed(rd());
-	vari_init();
 }
 
 CGamePlayScene::~CGamePlayScene()
@@ -19,6 +16,8 @@ CGamePlayScene::~CGamePlayScene()
 
 void CGamePlayScene::BuildObjects()
 {
+	dre.seed(rd());
+	vari_init();
 }
 
 void CGamePlayScene::Render()

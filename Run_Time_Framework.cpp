@@ -11,7 +11,7 @@ CRun_time_Framework* CRun_time_Framework::myself = nullptr;
 
 CRun_time_Framework::CRun_time_Framework() {
 	BuildScene();
-	ChangeScene(CScene::SceneTag::Result);
+	ChangeScene(CScene::SceneTag::Title);
 }
 
 void CRun_time_Framework::BuildScene()
@@ -19,7 +19,7 @@ void CRun_time_Framework::BuildScene()
 	arrScene[CScene::SceneTag::Title] = new TitleScene(CScene::SceneTag::Title, this);
 	arrScene[CScene::SceneTag::CharSel] = new CharSelScene(CScene::SceneTag::CharSel, this);
 	arrScene[CScene::SceneTag::Result] = new ResultScene(CScene::SceneTag::Result, this);
-	//arrScene[CScene::SceneTag::GamePlay] = new CGamePlayScene(CScene::SceneTag::GamePlay, this);
+	arrScene[CScene::SceneTag::GamePlay] = new CGamePlayScene(CScene::SceneTag::GamePlay, this);
 }
 
 void CRun_time_Framework::ChangeScene(CScene::SceneTag tag)
@@ -254,7 +254,6 @@ GLvoid CRun_time_Framework::Update() {
 	{
 	case Title:
 		GameMessage = dummy;
-		//delete arrScene[CScene::SceneTag::GamePlay];
 		ChangeScene(CScene::Title);
 		break;
 	case Charsel:
@@ -263,7 +262,7 @@ GLvoid CRun_time_Framework::Update() {
 		break;
 	case GamePlay:
 		GameMessage = dummy;
-		arrScene[CScene::SceneTag::GamePlay] = new CGamePlayScene(CScene::SceneTag::GamePlay, this);
+		arrScene[CScene::SceneTag::GamePlay]->BuildObjects();
 		ChangeScene(CScene::GamePlay);
 		break;
 	case GameOver:
