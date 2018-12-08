@@ -100,6 +100,7 @@ public:
 
 	GLvoid Shape_draw();
 	GLvoid Draw_background();
+	GLvoid Draw_Feverbackground();
 
 	bool Isin_Rect(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2);
 
@@ -116,6 +117,7 @@ private:
 
 	float bg_scroll;
 	float bg_degree;
+	float fever_highlight;
 
 	GLfloat identity[16];
 };
