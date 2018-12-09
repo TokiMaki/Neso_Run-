@@ -7,7 +7,7 @@ CharSelScene::CharSelScene(SceneTag tag, CRun_time_Framework * pFramework)
 	m_Tag = tag;
 	m_pFramework = pFramework;
 
-	m_pFramework->set_charID(Character::mari);
+	m_pFramework->set_charID(Character::chika);
 	MouseonBtn[0] = false;
 	MouseonBtn[1] = false;
 	MouseonBtn[2] = false;
@@ -223,24 +223,6 @@ GLvoid CharSelScene::Update(float frametime) {
 
 GLvoid CharSelScene::SpecialKey_Events(int key, int x, int y) {
 	switch (key) {
-	case GLUT_KEY_LEFT:
-		m_pFramework->play_voice(m_pFramework->get_charID(), 0);
-		break;
-	case GLUT_KEY_RIGHT:
-		m_pFramework->play_voice(m_pFramework->get_charID(), 1);
-		break;
-	case GLUT_KEY_UP:
-		m_pFramework->play_voice(m_pFramework->get_charID(), 2);
-		break;
-	case GLUT_KEY_DOWN:
-		m_pFramework->play_voice(m_pFramework->get_charID(), 3);
-		break;
-	case GLUT_KEY_SHIFT_R:
-		m_pFramework->play_voice(m_pFramework->get_charID(), 4);
-		break;
-	case GLUT_KEY_F12:
-		m_pFramework->play_voice(m_pFramework->get_charID(), 5);
-		break;
 	}
 }
 

@@ -45,7 +45,7 @@ GLvoid CRun_time_Framework::Reshape(int w, int h) {
 	glViewport(0, 0, m_nWidth, m_nHeight);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(60.0f, m_nWidth / m_nHeight, 1.0, 1000.0);
+	gluPerspective(60.0f, m_nWidth / m_nHeight, 1.0, 1200.0);
 
 	Vector3D vRotate = m_pCamera->GetCameraRotate();
 	Vector3D vEye = m_pCamera->GetCameraPos();

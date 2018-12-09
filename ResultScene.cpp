@@ -7,7 +7,6 @@ ResultScene::ResultScene(SceneTag tag, CRun_time_Framework * pFramework)
 	m_Tag = tag;
 	m_pFramework = pFramework;
 
-	m_pFramework->set_charID(Character::mari);
 	MouseonBtn = false;
 	degree = 0;
 	scroll = 0;

@@ -16,7 +16,12 @@ GLvoid CGamePlayScene::Draw_Player()
 {
 	glPushMatrix();
 
-	glColor4f(1, 1, 1, 1);
+	if (player.autorun == ItemState::None) {
+		glColor4f(1, 1, 1, 1);
+	}
+	else if (player.autorun == ItemState::Act) {
+		glColor4f(0, 1, 1, 1);
+	}
 	glTranslatef(player.x, player.y, player.z);
 
 	GLUquadricObj *sphere = gluNewQuadric();

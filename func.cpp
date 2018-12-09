@@ -915,6 +915,41 @@ GLvoid CGamePlayScene::Draw_UI()
 		glEnd();
 		glPopMatrix();
 	}
+	//조작 안내
+	if (start_timer < 3000) {
+		glPushMatrix();
+		glTranslatef(0, 100, 0);
+		float size = 120;
+		glColor4f(1, 1, 1, 1.0);
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(11));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 0.375);
+		glVertex3f(size, size / 2.0, -400);
+		glTexCoord2f(0.5, 0.375);
+		glVertex3f(-size, size / 2.0, -400);
+		glTexCoord2f(0.5, 0.125);
+		glVertex3f(-size, -size / 2.0, -400);
+		glTexCoord2f(1, 0.125);
+		glVertex3f(size, -size / 2.0, -400);
+		glEnd();
+
+
+		glColor4f(1, 1, 1, 1.0);
+		glBlendFunc(GL_ONE, GL_ONE);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(10));
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 0.375);
+		glVertex3f(size, size / 2.0, -400);
+		glTexCoord2f(0.5, 0.375);
+		glVertex3f(-size, size / 2.0, -400);
+		glTexCoord2f(0.5, 0.125);
+		glVertex3f(-size, -size / 2.0, -400);
+		glTexCoord2f(1, 0.125);
+		glVertex3f(size, -size / 2.0, -400);
+		glEnd();
+		glPopMatrix();
+	}
 
 	// 게임오버 메세지
 	if (death_timer >= 2) {
