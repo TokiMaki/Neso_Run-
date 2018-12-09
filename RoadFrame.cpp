@@ -357,6 +357,7 @@ GLvoid CGamePlayScene::Create_Coin_Algorism(Road_Tree* t, int z, int* line) {
 GLvoid CGamePlayScene::Draw_Coin() {
 	for (Coin &i : main_road->GetCoinList()) {
 		glPushMatrix(); {
+			set_Coin_material(i.kind);
 			switch (i.kind) {
 			case 0:
 				glColor4f(0, 0, 1, 1);
@@ -376,6 +377,7 @@ GLvoid CGamePlayScene::Draw_Coin() {
 	if (main_road->Lroad) {
 		for (Coin &i : main_road->Lroad->GetCoinList()) {
 			glPushMatrix(); {
+				set_Coin_material(i.kind);
 				switch (i.kind) {
 				case 0:
 					glColor4f(0, 0, 1, 1);
@@ -398,6 +400,7 @@ GLvoid CGamePlayScene::Draw_Coin() {
 	if (main_road->Rroad) {
 		for (Coin &i : main_road->Rroad->GetCoinList()) {
 			glPushMatrix(); {
+				set_Coin_material(i.kind);
 				switch (i.kind) {
 				case 0:
 					glColor4f(0, 0, 1, 1);
@@ -417,7 +420,73 @@ GLvoid CGamePlayScene::Draw_Coin() {
 			glPopMatrix();
 		}
 	}
+	set_default_material();
 	glColor4f(1, 1, 1, 1);
+}
+
+GLvoid CGamePlayScene::set_Coin_material(int kind)
+{
+	switch (kind) {
+	case 0:
+	{
+		float mat_ambient[] = { 0.24725f, 0.1995f, 0.0745f, 1.0f };
+		float mat_diffuse[] = { 0.75164f, 0.60648f, 0.22648f, 1.0f };
+		float mat_specular[] = { 0.628281f, 0.555802f, 0.366065f, 1.0f };
+		float shine = 51.2f;
+
+		glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+		glMaterialf(GL_FRONT, GL_SHININESS, shine * 128.0);
+	}
+	break;
+	case 1:
+	{
+		float mat_ambient[] = { 0.0215f, 0.1745f, 0.0215f, 0.55f };
+		float mat_diffuse[] = { 0.07568f, 0.61424f, 0.07568f, 0.55f };
+		float mat_specular[] = { 0.633f, 0.727811f, 0.633f, 0.55f };
+		float shine = 76.8f;
+
+		glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+		glMaterialf(GL_FRONT, GL_SHININESS, shine * 128.0);
+	}
+		glColor4f(0, 1, 0, 1);
+		break;
+	case 2:
+	{
+		float mat_ambient[] = { 0.1745f, 0.01175f, 0.01175f, 0.55f };
+		float mat_diffuse[] = { 0.61424f, 0.04136f, 0.04136f, 0.55f };
+		float mat_specular[] = { 0.727811f, 0.626959f, 0.626959f, 0.55f };
+		float shine = 76.8f;
+
+		glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+		glMaterialf(GL_FRONT, GL_SHININESS, shine * 128.0);
+	}
+		glColor4f(1, 0, 0, 1);
+		break;
+	}
+
+}
+
+
+
+GLvoid CGamePlayScene::set_default_material()
+{
+	float mat_ambient[] = { 0.2f,0.2f,0.2f,1.0f };
+	float mat_diffuse[] = { 0.8f,0.8f,0.8f,1.0f };
+	float mat_specular[] = { 0.0f,0.0f,0.0f,1.0f };
+	float shine = 0.0f;
+
+	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialf(GL_FRONT, GL_SHININESS, shine * 128.0);
+
+	return GLvoid();
 }
 
 GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
@@ -426,6 +495,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(12));
 	switch (kind) {
 	case 0:		// 우로 피할수 있는 장애물
+		glNormal3f(1, 0, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex3f(width / 4.f, 40, -length);
@@ -437,6 +507,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(width / 4.f, 40, length);
 		glEnd();
 
+		glNormal3f(-1, 0, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex3f(-width, 40, length);
@@ -448,6 +519,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(-width, 40, -length);
 		glEnd();
 
+		glNormal3f(0, 1, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex3f(-width, 40, length);
@@ -459,6 +531,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(width / 4.f, 40, length);
 		glEnd();
 
+		glNormal3f(0, 0, 1);
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex3f(width / 4.f, 40, length);
@@ -469,12 +542,10 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glTexCoord2f(0, 1);
 		glVertex3f(-width, 40, length);
 		glEnd();
-
-
-
 		break;
 
 	case 1:			// 좌로 피할수 있는 장애물
+		glNormal3f(-1, 0, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex3f(-width / 4.f, 40, -length);
@@ -486,6 +557,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(-width / 4.f, 40, length);
 		glEnd();
 
+		glNormal3f(1, 0, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex3f(width, 40, length);
@@ -497,6 +569,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(width, 40, -length);
 		glEnd();
 
+		glNormal3f(0, 1, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex3f(width, 40, length);
@@ -508,6 +581,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(-width / 4.f, 40, length);
 		glEnd();
 
+		glNormal3f(0, 0, 1);
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex3f(-width / 4.f, 40, length);
@@ -521,6 +595,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		break;
 
 	case 2:			//점프로 피할수 있는 장애물
+		glNormal3f(-1, 0, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex3f(-width, 10, -length);
@@ -532,6 +607,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(-width, 10, length);
 		glEnd();
 
+		glNormal3f(1, 0, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex3f(width, 10, length);
@@ -543,6 +619,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(width, 10, -length);
 		glEnd();
 
+		glNormal3f(0, 1, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex3f(width, 10, length);
@@ -554,6 +631,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(-width, 10, length);
 		glEnd();
 
+		glNormal3f(0, 0, 1);
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex3f(-width, 10, length);
@@ -567,6 +645,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		break;
 
 	case 3:			//슬라이딩으로 피할수 있는 장애물
+		glNormal3f(-1, 0, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex3f(-width, 50, -length);
@@ -578,6 +657,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(-width, 50, length);
 		glEnd();
 
+		glNormal3f(1, 0, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex3f(width, 50, length);
@@ -589,6 +669,8 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glVertex3f(width, 50, -length);
 		glEnd();
 
+		/*
+		glNormal3f(0, 1, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex3f(width, 50, length);
@@ -599,7 +681,8 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		glTexCoord2f(0, 1);
 		glVertex3f(-width, 50, length);
 		glEnd();
-
+		*/
+		glNormal3f(0, 0, 1);
 		glBegin(GL_QUADS);
 		glTexCoord2f(1, 1);
 		glVertex3f(-width, 50, length);
@@ -613,70 +696,77 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 		break;
 
 	case 4:			//슬라이딩으로 피할수 있는 장애물
-		glColor4f(1, 0, 1, 0.5);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(13));
+		glDisable(GL_LIGHTING);
+
+		if (player.autorun == ItemState::None) {
+			glColor4f(1, 1, 1, 0.3);
+		}
+		else if (player.autorun == ItemState::Act) {
+			glColor4f(0, 1, 1, 0.3);
+		}
+
+		glNormal3f(-1, 0, 0);
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
+		glVertex3f(-width, 50, -length);
+		glTexCoord2f(1, 0);
+		glVertex3f(-width, 0, -length);
+		glTexCoord2f(0, 0);
+		glVertex3f(-width, 0, length);
+		glTexCoord2f(0, 1);
+		glVertex3f(-width, 50, length);
+		glEnd();
+
+		glNormal3f(1, 0, 0);
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 1);
+		glVertex3f(width, 50, length);
+		glTexCoord2f(1, 0);
+		glVertex3f(width, 0, length);
+		glTexCoord2f(0, 0);
+		glVertex3f(width, 0, -length);
+		glTexCoord2f(0, 1);
+		glVertex3f(width, 50, -length);
+		glEnd();
+
 		/*
 		glBegin(GL_QUADS);
-		glVertex3f(width, 50, -length);
-		glVertex3f(width, 8, -length);
-		glVertex3f(-width, 8, -length);
-		glVertex3f(-width, 50, -length);
+		glVertex3f(width, 50, length);
+		glVertex3f(width, 0, -length);
+		glVertex3f(-width, 0, -length);
+		glVertex3f(-width, 50, length);
 		glEnd();
 		*/
 
+		glNormal3f(0, 0, 1);
 		glBegin(GL_QUADS);
-		glVertex3f(-width, 50, -length);
-		glVertex3f(-width, 0, -length);
+		glTexCoord2f(1, 1);
+		glVertex3f(-width, 50, length);
+		glTexCoord2f(1, 0);
 		glVertex3f(-width, 0, length);
-		glVertex3f(-width, 50, length);
-		glEnd();
-
-		glBegin(GL_QUADS);
-		glVertex3f(width, 50, length);
+		glTexCoord2f(0, 0);
 		glVertex3f(width, 0, length);
-		glVertex3f(width, 0, -length);
-		glVertex3f(width, 50, -length);
-		glEnd();
-
-		glBegin(GL_QUADS);
-		glVertex3f(width, 50, length);
-		glVertex3f(width, 0, -length);
-		glVertex3f(-width, 0, -length);
-		glVertex3f(-width, 50, length);
-		glEnd();
-
-		/*
-		glBegin(GL_QUADS);
-		glVertex3f(width, 8, -length);
-		glVertex3f(width, 8, length);
-		glVertex3f(-width, 8, length);
-		glVertex3f(-width, 8, -length);
-		glEnd();
-		*/
-
-		glBegin(GL_QUADS);
-		glVertex3f(-width, 50, length);
-		glVertex3f(-width, 0, length);
-		glVertex3f(width, 0, length);
+		glTexCoord2f(0, 1);
 		glVertex3f(width, 50, length);
 		glEnd();
+
+		glEnable(GL_LIGHTING);
 		break;
 	}
+	set_default_material();
 	glDisable(GL_TEXTURE_2D);
 }
 
 GLvoid CGamePlayScene::RoadFrame(float width, float length) {
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(1));
+	
+	GLfloat emission[] = { 143 / 255.f,195 / 255.f,31 / 255.f,1 };
+	GLfloat default_emission[] = { 0,0,0,1 };
+	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, emission);
 
-	/*
-	glBegin(GL_QUADS);
-	glVertex3f(-width, 50, 0);
-	glVertex3f(-width, 0, 0);
-	glVertex3f(width, 0, 0);
-	glVertex3f(width, 50, 0);
-	glEnd();
-	*/
-
+	glNormal3f(1, 0, 0);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0, 0);
 	glVertex3f(width, 50, 0);
@@ -688,15 +778,7 @@ GLvoid CGamePlayScene::RoadFrame(float width, float length) {
 	glVertex3f(width, 50, -length + width);
 	glEnd();
 
-	/*
-	glBegin(GL_QUADS);
-	glVertex3f(width, 50, -length);
-	glVertex3f(width, 0, -length);
-	glVertex3f(-width, 0, -length);
-	glVertex3f(-width, 50, -length);
-	glEnd();
-	*/
-
+	glNormal3f(-1, 0, 0);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0, 0);
 	glVertex3f(-width, 50, -length + width);
@@ -708,6 +790,7 @@ GLvoid CGamePlayScene::RoadFrame(float width, float length) {
 	glVertex3f(-width, 50, 0);
 	glEnd();
 
+	glNormal3f(0, 1, 0);
 	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(0));
 	glBegin(GL_QUADS);
 	glTexCoord2f(0, 0);
@@ -720,14 +803,6 @@ GLvoid CGamePlayScene::RoadFrame(float width, float length) {
 	glVertex3f(width, 50, -length + width);
 	glEnd();
 
-	/*
-	glBegin(GL_QUADS);
-	glVertex3f(-width, 0, 0);
-	glVertex3f(-width, 0, -length);
-	glVertex3f(width, 0, -length);
-	glVertex3f(width, 0, 0);
-	glEnd();
-	*/
-
+	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, default_emission);
 	glDisable(GL_TEXTURE_2D);
 }

@@ -28,8 +28,36 @@ void CGamePlayScene::Render()
 		Draw_background();
 	else if (player.autorun == ItemState::Act)
 		Draw_Feverbackground();
+
+	glEnable(GL_LIGHTING);
+
+	GLfloat a[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat d[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat pos[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	GLfloat WhiteLight[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat Downvector[] = { 0,-sqrt(2),-sqrt(2) };
+
+	if (player.autorun == ItemState::None) {
+		a[0] = 1;
+		d[0] = 1;
+	}
+	else if (player.autorun == ItemState::Act) {
+		a[0] = 0;
+		d[0] = 0;
+	}
+
+	glLightfv(GL_LIGHT0, GL_AMBIENT, a);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, d);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, WhiteLight);
+	glLightfv(GL_LIGHT0, GL_POSITION, pos);
+	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Downvector);
+	glEnable(GL_LIGHT0);
+
+	//glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
 	
 	Shape_draw();
+
+	glDisable(GL_LIGHTING);
 	Draw_UI();
 
 	glDisable(GL_DEPTH_TEST);

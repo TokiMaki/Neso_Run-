@@ -280,7 +280,7 @@ GLvoid CRun_time_Framework::set_CharacterTexture()
 GLvoid CRun_time_Framework::set_IngameObjTexture()
 {
 	// n개의 이미지 텍스처 매핑을 한다.
-	glGenTextures(13, IngameObjTex);
+	glGenTextures(14, IngameObjTex);
 
 	//텍스처와 객체를 결합한다. --- (1) 
 	glBindTexture(GL_TEXTURE_2D, IngameObjTex[0]);
@@ -402,6 +402,15 @@ GLvoid CRun_time_Framework::set_IngameObjTexture()
 
 	glBindTexture(GL_TEXTURE_2D, IngameObjTex[12]);
 	pBytes = LoadDIBitmap("texture/object/brick.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+	glBindTexture(GL_TEXTURE_2D, IngameObjTex[13]);
+	pBytes = LoadDIBitmap("texture/object/spin.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, info->bmiHeader.biWidth, info->bmiHeader.biHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

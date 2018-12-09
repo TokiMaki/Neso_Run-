@@ -184,7 +184,9 @@ GLvoid CGamePlayScene::Shape_draw() {
 	//gluLookAt(player.x, 200, player.z, player.x, 0, player.z, 0, 0, -1);
 
 	glPushMatrix();
+	glDisable(GL_LIGHTING);
 	Draw_Player();
+	glEnable(GL_LIGHTING);
 	glPopMatrix();
 
 	glPushMatrix();
@@ -631,37 +633,39 @@ GLvoid CGamePlayScene::Draw_UI()
 	}
 
 	// 피버
-	glDisable(GL_TEXTURE_2D);
-	glDisable(GL_BLEND);
 	{
 		glPushMatrix();
 		glTranslatef(90, 220, 0);
 		float size = 30;
-		glColor4f(1, 0, 0, 1.0);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(11));
 		glBlendFunc(GL_DST_COLOR, GL_ZERO);
 		glBegin(GL_QUADS);
-		glTexCoord2f(1, 1);
+		glTexCoord2f(0.5 + player.fever_gauge / 300.0, 0.5);
 		glVertex3f(player.fever_gauge, size / 2.0, -400);
+		glTexCoord2f(0.5, 0.5);
 		glVertex3f(0, size / 2.0, -400);
+		glTexCoord2f(0.5, 0.375);
 		glVertex3f(0, -size / 2.0, -400);
+		glTexCoord2f(0.5 + player.fever_gauge / 300.0, 0.375);
 		glVertex3f(player.fever_gauge, -size / 2.0, -400);
 		glEnd();
 
-
-		glColor4f(1, 0, 0, 1.0);
+		glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(10));
 		glBlendFunc(GL_ONE, GL_ONE);
 		glBegin(GL_QUADS);
-		glVertex3f(0, size / 2.0, -400);
+		glTexCoord2f(0.5 + player.fever_gauge / 300.0, 0.5);
 		glVertex3f(player.fever_gauge, size / 2.0, -400);
-		glVertex3f(player.fever_gauge, -size / 2.0, -400);
+		glTexCoord2f(0.5, 0.5);
+		glVertex3f(0, size / 2.0, -400);
+		glTexCoord2f(0.5, 0.375);
 		glVertex3f(0, -size / 2.0, -400);
+		glTexCoord2f(0.5 + player.fever_gauge / 300.0, 0.375);
+		glVertex3f(player.fever_gauge, -size / 2.0, -400);
 		glEnd();
 		glPopMatrix();
 
 		glColor4f(1, 1, 1, 1.0);
 	}
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_BLEND);
 
 	// 점수
 	{

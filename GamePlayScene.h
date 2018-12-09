@@ -122,6 +122,8 @@ public:
 	GLvoid Create_Coin();
 	GLvoid Create_Coin_Algorism(Road_Tree* t, int z, int* line);
 	GLvoid Draw_Coin();
+	GLvoid set_Coin_material(int kind);
+	GLvoid set_default_material();
 
 	// Player.cpp
 	GLvoid Draw_Player();
