@@ -176,11 +176,13 @@ GLvoid CGamePlayScene::Draw_Obstacle() {
 	float temp = 0;
 	if (main_road) {
 		for (Obstacle &i : main_road->GetObstacleList()) {
-			glPushMatrix(); {
-				glTranslatef(0, 50, -i.z);
-				ObstacleFrame(i.kind, LOAD_WIDTH, 2.5);
+			if (-(player.z + 25) < i.z) {
+				glPushMatrix(); {
+					glTranslatef(0, 50, -i.z);
+					ObstacleFrame(i.kind, LOAD_WIDTH, 2.5);
+				}
+				glPopMatrix();
 			}
-			glPopMatrix();
 		}
 		if (main_road->Lroad) {
 			for (Obstacle &i : main_road->Lroad->GetObstacleList()) {
