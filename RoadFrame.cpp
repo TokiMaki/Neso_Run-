@@ -143,8 +143,8 @@ GLvoid CGamePlayScene::Create_Obstacle() {
 			temp += uid(dre) * 50;
 			if (temp >= main_road->road_length - 100)
 				break;
-			main_road->ObstaclePushBack(uid2(dre) / 2, 0, temp);
-			//main_road->ObstaclePushBack(0, 0, temp);
+			//main_road->ObstaclePushBack(uid2(dre) / 2, 0, temp);
+			main_road->ObstaclePushFront(uid2(dre) / 2, 0, temp);
 		}
 	}
 	if (main_road->Lroad && main_road->Lroad->GetObstacleList().empty()) {
@@ -153,8 +153,8 @@ GLvoid CGamePlayScene::Create_Obstacle() {
 			temp += uid(dre) * 50;
 			if (temp >= main_road->Lroad->road_length - 100)
 				break;
-			main_road->Lroad->ObstaclePushBack(uid2(dre) / 2, 0, temp);
-			//main_road->Lroad->ObstaclePushBack(0, 0, temp);
+			//main_road->Lroad->ObstaclePushBack(uid2(dre) / 2, 0, temp);
+			main_road->Lroad->ObstaclePushFront(uid2(dre) / 2, 0, temp);
 		}
 	}
 	if (main_road->Rroad && main_road->Rroad->GetObstacleList().empty()) {
@@ -163,8 +163,8 @@ GLvoid CGamePlayScene::Create_Obstacle() {
 			temp += uid(dre) * 50;
 			if (temp >= main_road->Rroad->road_length - 100)
 				break;
-			main_road->Rroad->ObstaclePushBack(uid2(dre) / 2, 0, temp);
-			//main_road->Rroad->ObstaclePushBack(0, 0, temp);
+			//main_road->Rroad->ObstaclePushBack(uid2(dre) / 2, 0, temp);
+			main_road->Rroad->ObstaclePushFront(uid2(dre) / 2, 0, temp);
 		}
 	}
 }
