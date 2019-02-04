@@ -379,8 +379,6 @@ void ResultScene::Render()
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
 
-	//Draw_Character();
-
 	glDisable(GL_TEXTURE_2D);
 
 
@@ -396,24 +394,6 @@ GLvoid ResultScene::Update(float frametime) {
 
 GLvoid ResultScene::SpecialKey_Events(int key, int x, int y) {
 	switch (key) {
-	case GLUT_KEY_LEFT:
-		m_pFramework->play_voice(m_pFramework->get_charID(), 0);
-		break;
-	case GLUT_KEY_RIGHT:
-		m_pFramework->play_voice(m_pFramework->get_charID(), 1);
-		break;
-	case GLUT_KEY_UP:
-		m_pFramework->play_voice(m_pFramework->get_charID(), 2);
-		break;
-	case GLUT_KEY_DOWN:
-		m_pFramework->play_voice(m_pFramework->get_charID(), 3);
-		break;
-	case GLUT_KEY_SHIFT_R:
-		m_pFramework->play_voice(m_pFramework->get_charID(), 4);
-		break;
-	case GLUT_KEY_F12:
-		m_pFramework->play_voice(m_pFramework->get_charID(), 5);
-		break;
 	}
 }
 
@@ -433,22 +413,4 @@ void ResultScene::PassiveMotion_Events(int x, int y)
 	if (x >= 260 && x <= 540 && y >= 610 && y <= 750)
 		MouseonBtn = true;
 	else MouseonBtn = false;
-}
-
-GLvoid ResultScene::Draw_Character()
-{
-	glPushMatrix();
-
-	GLUquadricObj *sphere = gluNewQuadric();
-
-	gluQuadricDrawStyle(sphere, GLU_FILL);
-	gluQuadricTexture(sphere, GL_TRUE);
-
-	glRotatef(degree, 0, 1, 0);
-	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_ChartextureID(m_pFramework->get_charID()));
-	gluSphere(sphere, 100, 20, 20);
-	glEndList();
-	gluDeleteQuadric(sphere);
-
-	glPopMatrix();
 }
