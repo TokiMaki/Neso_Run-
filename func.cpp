@@ -184,13 +184,12 @@ GLvoid CGamePlayScene::Shape_draw() {
 	//gluLookAt(player.x, 200, player.z, player.x, 0, player.z, 0, 0, -1);
 
 	glPushMatrix();
-	glDisable(GL_LIGHTING);
+	//glDisable(GL_LIGHTING);
 	Draw_Player();
-	glEnable(GL_LIGHTING);
+	//glEnable(GL_LIGHTING);
 	glPopMatrix();
 
 	glPushMatrix();
-
 	Draw_Road();
 	glPopMatrix();
 

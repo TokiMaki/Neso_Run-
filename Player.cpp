@@ -56,7 +56,9 @@ GLvoid CGamePlayScene::Draw_Player()
 		glDisable(GL_BLEND);
 	}
 	if (player.death) {
-		Player_Death_Paticle();
+		glDisable(GL_LIGHTING);
+		Player_Death_Paticle();	// 죽었을때 효과
+		glEnable(GL_LIGHTING);
 	}
 	glColor4f(1, 1, 1, 1);
 
@@ -421,7 +423,7 @@ GLvoid CGamePlayScene::Player_Silde(float frametime) {
 GLvoid CGamePlayScene::Player_Death_Paticle() {
 	glPushMatrix(); {
 		glScalef(death_timer, death_timer, death_timer);
-		glColor3f(0, 1, 0);
+		glColor4f(0, 1, 0, 1);
 		for (float i = 0; i < 20; ++i) {
 			for (float j = 0; j < 5; ++j) {
 				glPushMatrix(); {
