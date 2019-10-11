@@ -59,8 +59,8 @@ private:
 	float camera_y = 0;
 	float camera_z = 0;
 	Camera camera;
-	GLfloat Prevtime = 0;
-	GLfloat current_time;
+	GLdouble Prevtime = 0;
+	GLdouble current_time;
 	GLint current_frame = 0;
 
 	GLuint TitleTex[5];		//텍스처 이름

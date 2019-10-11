@@ -311,7 +311,7 @@ GLvoid CRun_time_Framework::Update() {
 		break;
 	}
 
-	if (FRAMETIME > 1000.0 / FPS_TIME) {
+	if ((double)FRAMETIME > 1000.0 / FPS_TIME) {
 		m_pCurrScene->Update(FRAMETIME);
 
 		Prevtime = current_time;
