@@ -213,14 +213,14 @@ GLvoid CRun_time_Framework::Init() {
 	m_pCamera = new C_Camera();
 	m_pCamera->CameraReset();
 
-	init_sound();
-	nowpos = new unsigned int;
-	length = new unsigned int;
+	init_sound(); // 사운드 리소스 로드
+	nowpos = new unsigned int;	// 현재 사운드 위치를 저장하는 변수
+	length = new unsigned int;	// 현재 사운드 총 길이를 저장하는 변수
 
+	// 초기 BGM init
 	FMOD_System_PlaySound(pFmod, BGM[0], NULL, false, &ch[0]);
 	FMOD_Channel_SetVolume(ch[0], 0.3);
 	FMOD_Sound_GetLength(BGM[0], length, FMOD_TIMEUNIT_MS);
-	NowPlaying = PlayBGM::home;
 
 	srand(time(nullptr));
 	myself = this;
@@ -228,7 +228,7 @@ GLvoid CRun_time_Framework::Init() {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH); // 디스플레이 모드 설정
 	glutInitWindowPosition(100, 100); // 윈도우의 위치지정
 	glutInitWindowSize(800, 800); // 윈도우의 크기 지정
-	glutCreateWindow("25"); // 윈도우 생성 (윈도우 이름)
+	glutCreateWindow("NESO RUN"); // 윈도우 생성 (윈도우 이름)
 
 	glutDisplayFunc(m_fpRender); // 출력 함수의 지정
 	glutReshapeFunc(m_fpReshape);
@@ -239,11 +239,14 @@ GLvoid CRun_time_Framework::Init() {
 	glutPassiveMotionFunc(m_fpMouseMove);
 	glutIdleFunc(m_fpidle);
 
+	// 텍스쳐 로드
 	set_TitleTexture();
 	set_CharSelTexture();
 	set_CharacterTexture();
 	set_IngameObjTexture();
 	set_ResultTexture();
+
+	NowPlaying = PlayBGM::home; // 메인 bgm 재생
 }
 
 GLvoid CRun_time_Framework::Update() {
