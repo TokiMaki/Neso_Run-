@@ -173,7 +173,7 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 		if (!player.input_rotate) {
 			player.z -= player.speed * frametime;
 			if (main_road->road_length + player.z < 0) {
-				printf("%f\n", main_road->road_length + player.z);
+				//printf("%f\n", main_road->road_length + player.z);
 			}
 
 			if (player.state == ActState::Idle) {
@@ -240,7 +240,7 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 					player.input_rotate = false;
 
 					player.x = (main_road->road_length + player.z);
-					printf("%f\n", main_road->road_length + player.z);
+					//printf("%f\n", main_road->road_length + player.z);
 					player.reserve_line = 1;
 					if (main_road->road_length + player.z < 20) {
 						player.reserve_line = 0;
@@ -285,7 +285,7 @@ GLvoid CGamePlayScene::Player_Update(float frametime) {
 					player.input_rotate = false;
 
 					player.x = -(main_road->road_length + player.z);
-					printf("%f\n", main_road->road_length + player.z);
+					//printf("%f\n", main_road->road_length + player.z);
 					player.reserve_line = -1;
 
 					if (main_road->road_length + player.z < 20) {
@@ -345,7 +345,7 @@ GLvoid CGamePlayScene::Player_KeyDown_Updater(int key) {
 	case GLUT_KEY_LEFT:
 		//printf("left\n");
 		if (NextRoadcheck(1)) {
-			printf("left in\n");
+			//printf("left in\n");
 			player.input_rotate = true;
 			player.dir = 1;
 		}
@@ -358,7 +358,7 @@ GLvoid CGamePlayScene::Player_KeyDown_Updater(int key) {
 	case GLUT_KEY_RIGHT:
 		//printf("right\n");
 		if (NextRoadcheck(0)) {
-			printf("right in\n");
+			//printf("right in\n");
 			player.input_rotate = true;
 			player.dir = 0;
 		}

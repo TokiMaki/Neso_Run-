@@ -6,13 +6,13 @@ GLvoid CGamePlayScene::Autorun(float frametime) {
 	player.fever_gauge -= 150 / 5000.f * frametime;
 
 	if (NextRoadcheck(1)) {
-		printf("right in\n");
+		//printf("right in\n");
 		player.input_rotate = true;
 		player.dir = 1;
 	}
 
 	if (NextRoadcheck(0)) {
-		printf("left in\n");
+		//printf("left in\n");
 		player.input_rotate = true;
 		player.dir = 0;
 	}

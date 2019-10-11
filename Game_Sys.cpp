@@ -101,7 +101,7 @@ bool CGamePlayScene::Collision_Obstacle_Cube(Obstacle t) {
 			player.y + 5 > 0 &&
 			-player.z - 5 < t.z + 2.5 &&
 			-player.z + 5 > t.z - 2.5) {
-			printf("0 충돌함");
+			//printf("0 충돌함");
 			return true;
 		}
 		break;
@@ -112,7 +112,7 @@ bool CGamePlayScene::Collision_Obstacle_Cube(Obstacle t) {
 			player.y + 5 > 0 &&
 			-player.z - 5 < t.z + 2.5 &&
 			-player.z + 5 > t.z - 2.5) {
-			printf("1 충돌함");
+			//printf("1 충돌함");
 			return true;
 		}
 		break;
@@ -123,7 +123,7 @@ bool CGamePlayScene::Collision_Obstacle_Cube(Obstacle t) {
 			player.y + 5 > 0 &&
 			-player.z - 5 < t.z + 2.5 &&
 			-player.z + 5 > t.z - 2.5) {
-			printf("2 충돌함");
+			//printf("2 충돌함");
 			return true;
 		}
 		break;
@@ -131,7 +131,7 @@ bool CGamePlayScene::Collision_Obstacle_Cube(Obstacle t) {
 		if (player.state != ActState::Slide && 
 			-player.z - 5 < t.z + 2.5 &&
 			-player.z + 5 > t.z - 2.5) {
-			printf("3 충돌함");
+			//printf("3 충돌함");
 			return true;
 		}
 		break;
@@ -142,7 +142,7 @@ bool CGamePlayScene::Collision_Obstacle_Cube(Obstacle t) {
 			player.y + 5 > 0 &&
 			-player.z - 5 < t.z + 10 &&
 			-player.z + 5 > t.z - 10) {
-			printf("4 충돌함");
+			//printf("4 충돌함");
 			return true;
 		}
 		break;
@@ -189,7 +189,7 @@ bool CGamePlayScene::Collision_Coin_Cube(Coin t) {
 		player.y + 5 > t.y - 5 &&
 		-player.z - 5 < t.z + 5 &&
 		-player.z + 5 > t.z - 5) {
-		printf("코인 충돌함");
+		//printf("코인 충돌함");
 		return true;
 	}
 	return false;
