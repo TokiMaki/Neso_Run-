@@ -36,6 +36,7 @@ GLvoid CGamePlayScene::Draw_Player()
 		glBlendFunc(GL_SRC_ALPHA, GL_ZERO);
 		if (player.invincible == ItemState::Act) {
 			if (player.item.invincible_alpha < 1) {
+				glDisable(GL_LIGHTING);
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			}
 			if (player.item.invincible_alpha == 1) {
@@ -54,6 +55,7 @@ GLvoid CGamePlayScene::Draw_Player()
 		gluDeleteQuadric(sphere);
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
+		glEnable(GL_LIGHTING);
 	}
 	if (player.death) {
 		glDisable(GL_LIGHTING);
