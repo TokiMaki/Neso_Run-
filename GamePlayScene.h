@@ -142,6 +142,7 @@ public:
 	GLvoid Draw_background();
 	GLvoid Draw_Feverbackground();
 	GLvoid Draw_UI();
+	GLvoid Draw_Shadow();
 
 	// Item.cpp
 	GLvoid Autorun(float frametime);

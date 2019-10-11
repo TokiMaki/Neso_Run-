@@ -54,6 +54,7 @@ GLvoid CGamePlayScene::Draw_Player()
 		glEndList();
 		gluDeleteQuadric(sphere);
 		glDisable(GL_TEXTURE_2D);
+
 		glDisable(GL_BLEND);
 		glEnable(GL_LIGHTING);
 	}
@@ -320,6 +321,22 @@ GLvoid CGamePlayScene::Player_Fever(float frametime) {
 		player.item.not_autorun_speed = player.speed;
 		player.speed = 800 / 1000.f;
 		m_pFramework->set_bgm(3);
+	}
+}
+
+GLvoid CGamePlayScene::Draw_Shadow()
+{
+	if (!player.death) {
+		glBegin(GL_POLYGON);
+		for (int i = 0; i < 359; ++i) {
+			glVertex3f((5 - (player.y / 5.0)) * cos(i / 180.0 * pi) + player.x,
+				-4,
+				(5 - (player.y / 5.0)) * sin(i / 180.0 * pi) + player.z);
+			glVertex3f((5 - (player.y / 5.0)) * cos((i + 1) / 180.0 * pi) + player.x,
+				-4,
+				(5 - (player.y / 5.0)) * sin((i + 1) / 180.0 * pi) + player.z);
+		}
+		glEnd();
 	}
 }
 

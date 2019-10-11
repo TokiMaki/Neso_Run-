@@ -187,6 +187,7 @@ GLvoid CGamePlayScene::Shape_draw() {
 	//glDisable(GL_LIGHTING);
 	Draw_Player();
 	//glEnable(GL_LIGHTING);
+	Draw_Shadow();
 	glPopMatrix();
 
 	glPushMatrix();
