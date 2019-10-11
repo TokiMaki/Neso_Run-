@@ -35,8 +35,8 @@ void CharSelScene::Render()
 	// 텍스처 매핑 활성화 
 	glEnable(GL_TEXTURE_2D);
 
-
 	glDisable(GL_DEPTH_TEST);
+
 	// 백그라운드
 	{
 		glPushMatrix();
@@ -209,7 +209,7 @@ void CharSelScene::Render()
 	Draw_Character();
 
 	glDisable(GL_TEXTURE_2D);
-
+	
 
 	glPopMatrix();
 }
@@ -270,6 +270,21 @@ GLvoid CharSelScene::Draw_Character()
 {
 	glPushMatrix();
 
+	glEnable(GL_LIGHTING);
+
+	GLfloat a[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat d[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat pos[4] = { 0, 70, 400, 1.0f };
+	GLfloat WhiteLight[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat Downvector[] = { 0,-1, 0 };
+
+	glLightfv(GL_LIGHT0, GL_AMBIENT, a);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, d);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, WhiteLight);
+	glLightfv(GL_LIGHT0, GL_POSITION, pos);
+	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, Downvector);
+	glEnable(GL_LIGHT0);
+
 	GLUquadricObj *sphere = gluNewQuadric();
 
 	gluQuadricDrawStyle(sphere, GLU_FILL);
@@ -280,6 +295,8 @@ GLvoid CharSelScene::Draw_Character()
 	gluSphere(sphere, 100, 20, 20);
 	glEndList();
 	gluDeleteQuadric(sphere);
+
+	glDisable(GL_LIGHTING);
 
 	glPopMatrix();
 }
