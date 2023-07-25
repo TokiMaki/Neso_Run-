@@ -7,82 +7,72 @@
 
 GLvoid CGamePlayScene::Create_Road() {
 	Road_Tree* temp;
-
 	std::uniform_int_distribution<> uid(MIN_ROAD, MAX_ROAD);
 	std::uniform_int_distribution<> random_road_kind(0, 2);
-
 	int road_random_temp = 0;
-
-	temp = new(Road_Tree);
-		
+	// 현재의 길이 맨 처음 만들어지는 길인지 체크
 	if (main_road) {
 		if (player.dir == 1 && main_road->Lroad != nullptr) {
 			temp = main_road->Lroad;
 			temp->Lroad = nullptr;
 			temp->Rroad = nullptr;
 		}
-			
+
 		if (player.dir == 0 && main_road->Rroad != nullptr) {
 			temp = main_road->Rroad;
 			temp->Lroad = nullptr;
 			temp->Rroad = nullptr;
 		}
 	}
-
 	else {
+		temp = new(Road_Tree);
 		temp->road_length = uid(dre);
 	}
-		road_random_temp = random_road_kind(dre);
+	road_random_temp = random_road_kind(dre);
 
-		if (road_random_temp == 0) {
+	if (road_random_temp == 0) {
 
-			temp->Lroad = new(Road_Tree);
-			temp->Lroad->road_length = uid(dre);
-			temp->Lroad->ObstacleClear();
+		temp->Lroad = new(Road_Tree);
+		temp->Lroad->road_length = uid(dre);
+		temp->Lroad->ObstacleClear();
 
-			temp->Rroad = nullptr;
+		temp->Rroad = nullptr;
+	}
 
+	if (road_random_temp == 1) {
+
+		temp->Lroad = nullptr;
+
+		temp->Rroad = new(Road_Tree);
+		temp->Rroad->road_length = uid(dre);
+		temp->Rroad->ObstacleClear();
+	}
+
+	if (road_random_temp == 2) {
+
+		temp->Lroad = new(Road_Tree);
+		temp->Lroad->road_length = uid(dre);
+		temp->Lroad->ObstacleClear();
+
+		temp->Rroad = new(Road_Tree);
+		temp->Rroad->road_length = uid(dre);
+		temp->Rroad->ObstacleClear();
+	}
+	// 지나간 길은 더이상 필요없으니 메모리를 해제
+	if (main_road) {
+		if (temp != main_road->Lroad) {
+			delete(main_road->Lroad);
 		}
-
-		if (road_random_temp == 1) {
-
-			temp->Lroad = nullptr;
-
-			temp->Rroad = new(Road_Tree);
-			temp->Rroad->road_length = uid(dre);
-			temp->Rroad->ObstacleClear();
-
-
+		if (temp != main_road->Rroad) {
+			delete(main_road->Rroad);
 		}
+		delete(main_road);
+	}
 
-		if (road_random_temp == 2) {
+	main_road = temp;
 
-			temp->Lroad = new(Road_Tree);
-			temp->Lroad->road_length = uid(dre);
-			temp->Lroad->ObstacleClear();
-
-			temp->Rroad = new(Road_Tree);
-			temp->Rroad->road_length = uid(dre);
-			temp->Rroad->ObstacleClear();
-
-		}
-		if (main_road) {
-
-			if (temp != main_road->Lroad) {
-				delete(main_road->Lroad);
-			}
-
-			if (temp != main_road->Rroad) {
-				delete(main_road->Rroad);
-			}
-
-			delete(main_road);
-		}
-
-		main_road = temp;
-
-		Create_Obstacle();
-		Create_Coin();
+	Create_Obstacle();
+	Create_Coin();
 }
 
 GLvoid CGamePlayScene::Draw_Road() {
@@ -175,7 +165,7 @@ GLvoid CGamePlayScene::Draw_Obstacle() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	float temp = 0;
 	if (main_road) {
-		for (Obstacle &i : main_road->GetObstacleList()) {
+		for (Obstacle& i : main_road->GetObstacleList()) {
 			if (-(player.z + 25) < i.z) {
 				glPushMatrix(); {
 					glTranslatef(0, 50, -i.z);
@@ -185,7 +175,7 @@ GLvoid CGamePlayScene::Draw_Obstacle() {
 			}
 		}
 		if (main_road->Lroad) {
-			for (Obstacle &i : main_road->Lroad->GetObstacleList()) {
+			for (Obstacle& i : main_road->Lroad->GetObstacleList()) {
 				glPushMatrix(); {
 					glTranslatef(0, 0, -main_road->road_length);
 					glRotatef(90, 0, 1, 0);
@@ -196,7 +186,7 @@ GLvoid CGamePlayScene::Draw_Obstacle() {
 			}
 		}
 		if (main_road->Rroad) {
-			for (Obstacle &i : main_road->Rroad->GetObstacleList()) {
+			for (Obstacle& i : main_road->Rroad->GetObstacleList()) {
 				glPushMatrix(); {
 					glTranslatef(0, 0, -main_road->road_length);
 					glRotatef(-90, 0, 1, 0);
@@ -223,7 +213,7 @@ GLvoid CGamePlayScene::Create_Coin() {
 	/*
 	if (main_road->GetCoinList().empty()) {
 		if (main_road->Lroad) {
-			if (main_road->Lroad->GetCoinList().empty()) 
+			if (main_road->Lroad->GetCoinList().empty())
 			printf("왼\n");
 		}
 		if (main_road->Rroad) {
@@ -283,7 +273,7 @@ GLvoid CGamePlayScene::Create_Coin_Algorism(Road_Tree* t, int z, int* line) {
 		break;
 	}
 
-	for (Obstacle &i : t->GetObstacleList()) {
+	for (Obstacle& i : t->GetObstacleList()) {
 		if (z + 50 == int(i.z)) {
 			switch (i.kind) {
 			case 0:
@@ -357,7 +347,7 @@ GLvoid CGamePlayScene::Create_Coin_Algorism(Road_Tree* t, int z, int* line) {
 }
 
 GLvoid CGamePlayScene::Draw_Coin() {
-	for (Coin &i : main_road->GetCoinList()) {
+	for (Coin& i : main_road->GetCoinList()) {
 		glPushMatrix(); {
 			set_Coin_material(i.kind);
 			switch (i.kind) {
@@ -377,7 +367,7 @@ GLvoid CGamePlayScene::Draw_Coin() {
 		glPopMatrix();
 	}
 	if (main_road->Lroad) {
-		for (Coin &i : main_road->Lroad->GetCoinList()) {
+		for (Coin& i : main_road->Lroad->GetCoinList()) {
 			glPushMatrix(); {
 				set_Coin_material(i.kind);
 				switch (i.kind) {
@@ -391,16 +381,16 @@ GLvoid CGamePlayScene::Draw_Coin() {
 					glColor4f(1, 0, 0, 1);
 					break;
 				}
-					glTranslatef(0, 0, -main_road->road_length);
-					glRotatef(90, 0, 1, 0);
-					glTranslatef(i.x, i.y + 55, -i.z);
-					glutSolidCube(5);
+				glTranslatef(0, 0, -main_road->road_length);
+				glRotatef(90, 0, 1, 0);
+				glTranslatef(i.x, i.y + 55, -i.z);
+				glutSolidCube(5);
 			}
 			glPopMatrix();
 		}
 	}
 	if (main_road->Rroad) {
-		for (Coin &i : main_road->Rroad->GetCoinList()) {
+		for (Coin& i : main_road->Rroad->GetCoinList()) {
 			glPushMatrix(); {
 				set_Coin_material(i.kind);
 				switch (i.kind) {
@@ -454,8 +444,8 @@ GLvoid CGamePlayScene::set_Coin_material(int kind)
 		glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 		glMaterialf(GL_FRONT, GL_SHININESS, shine * 128.0);
 	}
-		glColor4f(0, 1, 0, 1);
-		break;
+	glColor4f(0, 1, 0, 1);
+	break;
 	case 2:
 	{
 		float mat_ambient[] = { 0.1745f, 0.01175f, 0.01175f, 0.55f };
@@ -468,8 +458,8 @@ GLvoid CGamePlayScene::set_Coin_material(int kind)
 		glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 		glMaterialf(GL_FRONT, GL_SHININESS, shine * 128.0);
 	}
-		glColor4f(1, 0, 0, 1);
-		break;
+	glColor4f(1, 0, 0, 1);
+	break;
 	}
 
 }
@@ -763,7 +753,7 @@ GLvoid CGamePlayScene::ObstacleFrame(int kind, float width, float length) {
 GLvoid CGamePlayScene::RoadFrame(float width, float length) {
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, m_pFramework->get_IngameObjID(1));
-	
+
 	GLfloat emission[] = { 143 / 255.f,195 / 255.f,31 / 255.f,1 };
 	GLfloat default_emission[] = { 0,0,0,1 };
 	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, emission);
